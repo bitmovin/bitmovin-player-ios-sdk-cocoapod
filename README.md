@@ -14,9 +14,9 @@ Add `pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios
 ### Project Setup
 +   Add your Bitmovin player license key to the `Info.plist` file as `BitmovinPlayerLicenseKey`.
 
-    Your player license key can be found when logging in into `https://app.bitmovin.com/` and navigating to `Player -> Overview`.
+    Your player license key can be found when logging in into [https://dashboard.bitmovin.com](https://dashboard.bitmovin.com)  and navigating to `Player -> Licenses`.
 
-+   Add the Bundle identifier of the iOS application which is using the SDK as an allowed domain to the Bitmovin licensing backend. This can be done under `Player -> Overview` when logging in into `https://app.bitmovin.com/` with your account.
++   Add the Bundle identifier of the iOS application which is using the SDK as an allowed domain to the Bitmovin licensing backend. This can also be done under `Player -> Licenses` when logging in into [https://dashboard.bitmovin.com](https://dashboard.bitmovin.com) with your account.
 
     When you do not do this, you'll get a license error when starting the application which contains the player.
 
