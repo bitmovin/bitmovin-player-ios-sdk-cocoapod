@@ -21,7 +21,7 @@ NS_SWIFT_NAME(CastPayload)
 @property (nonatomic, readonly, strong) NSString *type;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithDeviceName:(NSString *)deviceName
                        currentTime:(NSTimeInterval)currentTime
                          timestamp:(NSTimeInterval)timestamp NS_DESIGNATED_INITIALIZER;

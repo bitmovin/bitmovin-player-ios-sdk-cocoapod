@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BitmovinPlayer/BMPConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,13 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
  * Base class for all DRM configurations.
  */
 NS_SWIFT_NAME(DRMConfiguration)
-@interface BMPDRMConfiguration : NSObject
-@property (nonatomic, strong) NSURL *licenseUrl;
+@interface BMPDRMConfiguration : BMPConfiguration
+@property (nonatomic, strong, nullable) NSURL *licenseUrl;
 @property (nonatomic, strong) NSUUID *uuid;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithLicenseUrl:(NSURL *)licenseUrl uuid:(NSUUID *)uuid NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithLicenseUrl:(nullable NSURL *)licenseUrl uuid:(NSUUID *)uuid NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithUUID:(NSUUID *)uuid;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(StyleConfiguration)
 @interface BMPStyleConfiguration : BMPConfiguration
 @property (nonatomic, getter=isUiEnabled) BOOL uiEnabled;
+@property (nonatomic, copy) NSURL *playerUiCss;
+@property (nonatomic, copy) NSURL *playerUiJs;
 @end
 
 NS_ASSUME_NONNULL_END

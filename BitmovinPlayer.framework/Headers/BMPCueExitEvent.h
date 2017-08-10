@@ -7,15 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPJsonable.h>
+#import <BitmovinPlayer/BMPCueEvent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Base class for all configuration classes.
- */
-NS_SWIFT_NAME(Configuration)
-@interface BMPConfiguration : NSObject <BMPJsonable>
+NS_SWIFT_NAME(CueExitEvent)
+@interface BMPCueExitEvent : BMPCueEvent
 @end
 
 NS_ASSUME_NONNULL_END

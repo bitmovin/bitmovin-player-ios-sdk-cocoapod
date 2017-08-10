@@ -39,5 +39,19 @@
 #import <BitmovinPlayer/BMPFullscreenDisabledEvent.h>
 #import <BitmovinPlayer/BMPFullscreenEnterEvent.h>
 #import <BitmovinPlayer/BMPFullscreenExitEvent.h>
+#import <BitmovinPlayer/BMPTimeShiftEvent.h>
+#import <BitmovinPlayer/BMPTimeShiftedEvent.h>
+#import <BitmovinPlayer/BMPDvrWindowExceededEvent.h>
+#import <BitmovinPlayer/BMPStallStartedEvent.h>
+#import <BitmovinPlayer/BMPStallEndedEvent.h>
+#import <BitmovinPlayer/BMPCueEnterEvent.h>
+#import <BitmovinPlayer/BMPCueExitEvent.h>
+#import <BitmovinPlayer/BMPCueEvent.h>
+#import <BitmovinPlayer/BMPSubtitleAddedEvent.h>
+#import <BitmovinPlayer/BMPSubtitleRemovedEvent.h>
+#import <BitmovinPlayer/BMPSubtitleChangedEvent.h>
+#import <BitmovinPlayer/BMPSourceWillUnloadEvent.h>
+#import <BitmovinPlayer/BMPMutedEvent.h>
+#import <BitmovinPlayer/BMPUnmutedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

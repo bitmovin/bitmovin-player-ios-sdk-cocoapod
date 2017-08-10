@@ -19,7 +19,7 @@ NS_SWIFT_NAME(PausedEvent)
 @property (nonatomic, readonly) NSTimeInterval time;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithTime:(NSTimeInterval)time NS_DESIGNATED_INITIALIZER;
 @end
 

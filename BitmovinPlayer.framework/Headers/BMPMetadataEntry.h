@@ -7,15 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPJsonable.h>
+#import <BitmovinPlayer/BMPMetadataType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Base class for all configuration classes.
- */
-NS_SWIFT_NAME(Configuration)
-@interface BMPConfiguration : NSObject <BMPJsonable>
+NS_SWIFT_NAME(MetadataEntry)
+@protocol BMPMetadataEntry <NSObject>
+@property (nonatomic, readonly) BMPMetadataType metadataType;
 @end
 
 NS_ASSUME_NONNULL_END

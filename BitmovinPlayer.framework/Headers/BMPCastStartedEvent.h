@@ -19,7 +19,7 @@ NS_SWIFT_NAME(CastStartedEvent)
 @property (nonatomic, copy, readonly) NSString *deviceName;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithDeviceName:(NSString *)deviceName NS_DESIGNATED_INITIALIZER;
 @end
 

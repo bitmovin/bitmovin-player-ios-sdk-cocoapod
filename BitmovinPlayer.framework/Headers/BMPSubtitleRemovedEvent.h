@@ -6,20 +6,19 @@
 // and conditions of the applicable license agreement.
 //
 
+#import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPSubtitleTrack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * See BMPPlayerListener.h for more information on this event.
- */
-NS_SWIFT_NAME(TimeChangedEvent)
-@interface BMPTimeChangedEvent : BMPPlayerEvent
-@property (nonatomic, readonly) NSTimeInterval currentTime;
+NS_SWIFT_NAME(SubtitleRemovedEvent)
+@interface BMPSubtitleRemovedEvent : BMPPlayerEvent
+@property (nonatomic, strong, readonly) BMPSubtitleTrack *subtitleTrack;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithCurrentTime:(NSTimeInterval)currentTime NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSubtitleTrack:(BMPSubtitleTrack *)subtitleTrack NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

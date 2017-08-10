@@ -45,8 +45,9 @@ NS_SWIFT_NAME(FairplayConfiguration)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithLicenseUrl:(NSURL *)licenseUrl uuid:(NSUUID *)uuid NS_UNAVAILABLE;
-- (instancetype)initWithLicenseUrl:(NSURL *)licenseUrl certificateURL:(NSURL *)certificateUrl NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithLicenseUrl:(nullable NSURL *)licenseUrl uuid:(NSUUID *)uuid NS_UNAVAILABLE;
+- (instancetype)initWithLicenseUrl:(nullable NSURL *)licenseUrl certificateURL:(NSURL *)certificateUrl NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCertificateURL:(NSURL *)certificateUrl;
 @end
 
 NS_ASSUME_NONNULL_END

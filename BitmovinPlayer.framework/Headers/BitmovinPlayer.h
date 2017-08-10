@@ -34,3 +34,4 @@ FOUNDATION_EXPORT const unsigned char BitmovinPlayerVersionString[];
 #import <BitmovinPlayer/BMPDRMSystems.h>
 #import <BitmovinPlayer/BMPDRMConfiguration.h>
 #import <BitmovinPlayer/BMPFairplayConfiguration.h>
+#import <BitmovinPlayer/BMPPlaybackConfiguration.h>

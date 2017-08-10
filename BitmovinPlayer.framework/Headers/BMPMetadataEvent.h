@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPMetadataType.h>
+#import <BitmovinPlayer/BMPMetadata.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(MetadataEvent)
 @interface BMPMetadataEvent : BMPPlayerEvent
+@property (nonatomic, readonly) BMPMetadataType metadataType;
+@property (nonatomic, readonly) BMPMetadata *metadata;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)new NS_UNAVAILABLE;
+- (instancetype)initWithMetadata:(BMPMetadata *)metadata type:(BMPMetadataType)type NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(UserInterfaceListener)
 @protocol BMPUserInterfaceListener <NSObject>
+@optional
 /**
  * Is called when the player enters fullscreen mode.
  *

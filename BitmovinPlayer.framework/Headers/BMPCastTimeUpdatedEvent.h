@@ -20,7 +20,7 @@ NS_SWIFT_NAME(CastTimeUpdatedEvent)
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithCurrentTime:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration NS_DESIGNATED_INITIALIZER;
 @end
 

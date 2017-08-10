@@ -6,20 +6,18 @@
 // and conditions of the applicable license agreement.
 //
 
-#import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <Foundation/Foundation.h>
+#import <BitmovinPlayer/BMPMetadataEntry.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * See BMPPlayerListener.h for more information on this event.
- */
-NS_SWIFT_NAME(TimeChangedEvent)
-@interface BMPTimeChangedEvent : BMPPlayerEvent
-@property (nonatomic, readonly) NSTimeInterval currentTime;
+NS_SWIFT_NAME(Metadata)
+@interface BMPMetadata : NSObject
+@property (nonatomic, readonly, copy) NSArray<id<BMPMetadataEntry>> *entries;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithCurrentTime:(NSTimeInterval)currentTime NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithEntries:(NSArray<id<BMPMetadataEntry>> *)entries NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

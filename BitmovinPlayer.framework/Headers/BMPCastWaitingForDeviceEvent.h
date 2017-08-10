@@ -20,7 +20,7 @@ NS_SWIFT_NAME(CastWaitingForDeviceEvent)
 @property (nonatomic, strong, readonly) BMPCastPayload *castPayload;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithDeviceName:(NSString *)deviceName currentTime:(NSTimeInterval)currentTime NS_DESIGNATED_INITIALIZER;
 @end
 

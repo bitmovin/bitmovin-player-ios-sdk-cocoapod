@@ -20,7 +20,7 @@ NS_SWIFT_NAME(SourceLoadedEvent)
 @property (nonatomic, strong, readonly) BMPSourceItem *sourceItem;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithSourceItem:(BMPSourceItem *)sourceItem NS_DESIGNATED_INITIALIZER;
 @end
 

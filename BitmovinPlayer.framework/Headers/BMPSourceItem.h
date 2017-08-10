@@ -12,6 +12,7 @@
 #import <BitmovinPlayer/BMPProgressiveSource.h>
 #import <BitmovinPlayer/BMPAdaptiveSource.h>
 #import <BitmovinPlayer/BMPDRMConfiguration.h>
+#import <BitmovinPlayer/BMPJsonable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Represents a source item which can be played back in a player instance.
  */
 NS_SWIFT_NAME(SourceItem)
-@interface BMPSourceItem : NSObject
+@interface BMPSourceItem : NSObject <BMPJsonable>
 @property (nonatomic, nullable, strong) NSString *itemTitle;
 @property (nonatomic, nullable, strong) NSString *itemDescription;
 @property (nonatomic, readonly) enum BMPMediaSourceType type;
@@ -31,7 +32,7 @@ NS_SWIFT_NAME(SourceItem)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithUrl:(NSURL *)url error:(NSError **)error;
+- (instancetype)initWithUrl:(NSURL *)url;
 - (instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource;
 - (instancetype)initWithProgressiveSource:(BMPProgressiveSource *)progressiveSource;
 - (instancetype)initWithProgressiveSources:(NSArray<BMPProgressiveSource *> *)progressiveSources;

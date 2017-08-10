@@ -6,6 +6,7 @@
 // and conditions of the applicable license agreement.
 //
 
+#import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvent.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -13,13 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * See BMPPlayerListener.h for more information on this event.
  */
-NS_SWIFT_NAME(TimeChangedEvent)
-@interface BMPTimeChangedEvent : BMPPlayerEvent
-@property (nonatomic, readonly) NSTimeInterval currentTime;
-
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithCurrentTime:(NSTimeInterval)currentTime NS_DESIGNATED_INITIALIZER;
+NS_SWIFT_NAME(UnmutedEvent)
+@interface BMPUnmutedEvent : BMPPlayerEvent
 @end
 
 NS_ASSUME_NONNULL_END

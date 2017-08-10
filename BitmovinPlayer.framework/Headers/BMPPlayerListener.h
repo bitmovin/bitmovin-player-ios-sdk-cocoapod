@@ -72,6 +72,41 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onSeeked:(BMPSeekedEvent *)event;
 
 /**
+ * Is called periodically during time shifting. Only applies to live streams, please refer to onSeek for VoD streams.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onTimeShift:(BMPTimeShiftEvent *)event;
+
+/**
+ * Is called when time shifting has been finished and data is available to continue playback. Only applies to live streams, please refer to onSeeked for VoD streams.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onTimeShifted:(BMPTimeShiftedEvent *)event;
+
+/**
+ * Is called when the player is paused or in buffering state and the timeShift offset has exceeded the available timeShift window.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onDvrWindowExceeded:(BMPDvrWindowExceededEvent *)event;
+
+/**
+ * Is called when the player begins to stall and to buffer due to an empty buffer.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onStallStarted:(BMPStallStartedEvent *)event;
+
+/**
+ * Is called when the player ends stalling, due to enough data in the buffer.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onStallEnded:(BMPStallEndedEvent *)event;
+
+/**
  * Is called when the current size of the video content has been changed.
  *
  * @param event An object holding specific event data.
@@ -105,6 +140,13 @@ NS_SWIFT_NAME(PlayerListener)
  * @param event An object holding specific event data.
  */
 - (void)onSourceLoaded:(BMPSourceLoadedEvent *)event;
+
+/**
+ * Is called when the current source will be unloaded.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onSourceWillUnload:(BMPSourceWillUnloadEvent *)event;
 
 /**
  * Is called when the current source has been unloaded.
@@ -198,11 +240,47 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent *)event;
 
 /**
- * Is called once after a new BMPPlayerListener was added to the event system.
- *
- * @param unseenEvents Contains all events which were already fired prior to adding the listener.
+ * Is called when a subtitle entry transitions into the active status.
  */
-- (void)onUnseen:(NSArray<BMPPlayerEvent *> *)unseenEvents;
+- (void)onCueEnter:(BMPCueEnterEvent *)event;
+
+/**
+ * Is called when an active subtitle entry transitions into the inactive status.
+ */
+- (void)onCueExit:(BMPCueExitEvent *)event;
+
+/**
+ * Is called when a new BMPSubtitleTrack is added, for example using the BMPPlayerAPI#addSubtitle: call.
+ */
+- (void)onSubtitleAdded:(BMPSubtitleAddedEvent *)event;
+
+/**
+ * Is called when an external BMPSubtitleTrack has been removed so it is possible to update the controls accordingly.
+ */
+- (void)onSubtitleRemoved:(BMPSubtitleRemovedEvent *)event;
+
+/**
+ * Is called when the active BMPSubtitleTrack is changed.
+ */
+- (void)onSubtitleChanged:(BMPSubtitleChangedEvent *)event;
+
+/**
+ * Is called when the player is muted.
+ */
+- (void)onMuted:(BMPMutedEvent *)event;
+
+/**
+ * Is called when the player is unmuted.
+ */
+- (void)onUnmuted:(BMPUnmutedEvent *)event;
+
+/**
+ * Is called for each occurring player event.
+ *
+ * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.
+ */
+- (void)onEvent:(BMPPlayerEvent *)event NS_SWIFT_NAME(onEvent(_:));
+
 @end
 
 NS_ASSUME_NONNULL_END

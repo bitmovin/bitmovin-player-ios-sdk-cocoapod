@@ -7,15 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPJsonable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Base class for all configuration classes.
- */
-NS_SWIFT_NAME(Configuration)
-@interface BMPConfiguration : NSObject <BMPJsonable>
-@end
+NS_SWIFT_NAME(TrackType)
+typedef NS_ENUM(NSInteger, BMPTrackType) {
+    BMPTrackTypeNone = 0,
+    BMPTrackTypeText,
+    BMPTrackTypeThumbnail
+};
 
 NS_ASSUME_NONNULL_END
