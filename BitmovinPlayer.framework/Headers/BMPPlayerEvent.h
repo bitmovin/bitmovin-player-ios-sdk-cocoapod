@@ -16,10 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(PlayerEvent)
 @interface BMPPlayerEvent : NSObject
 @property (nonatomic, readonly, strong) NSString *name;
-@property (nonatomic, readonly, strong) NSDictionary *parameters;
 @property (nonatomic, readonly) NSTimeInterval timestamp;
-
-- (nullable NSString *)toJSON;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,7 +14,8 @@ NS_SWIFT_NAME(TrackType)
 typedef NS_ENUM(NSInteger, BMPTrackType) {
     BMPTrackTypeNone = 0,
     BMPTrackTypeText,
-    BMPTrackTypeThumbnail
+    BMPTrackTypeThumbnail,
+    BMPTrackTypeAudio
 };
 
 NS_ASSUME_NONNULL_END

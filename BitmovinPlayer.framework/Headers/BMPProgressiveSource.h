@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(ProgressiveSource)
 @interface BMPProgressiveSource : BMPMediaSource
-- (instancetype)initWithType:(enum BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_UNAVAILABLE;
+- (instancetype)initWithType:(BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_UNAVAILABLE;
 - (instancetype)initWithUrl:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 @end
 

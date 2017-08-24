@@ -275,6 +275,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onUnmuted:(BMPUnmutedEvent *)event;
 
 /**
+ * Is fired when the audio track is changed.
+ */
+- (void)onAudioChanged:(BMPAudioChangedEvent *)event;
+
+/**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.

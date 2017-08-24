@@ -16,12 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(MediaSource)
 @interface BMPMediaSource : NSObject
-@property (nonatomic) enum BMPMediaSourceType type;
+@property (nonatomic) BMPMediaSourceType type;
 @property (nonatomic, nonnull, strong) NSURL *url;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithType:(enum BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithType:(BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

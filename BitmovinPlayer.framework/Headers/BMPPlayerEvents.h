@@ -53,5 +53,6 @@
 #import <BitmovinPlayer/BMPSourceWillUnloadEvent.h>
 #import <BitmovinPlayer/BMPMutedEvent.h>
 #import <BitmovinPlayer/BMPUnmutedEvent.h>
+#import <BitmovinPlayer/BMPAudioChangedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

@@ -13,24 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Track)
 @interface BMPTrack : NSObject
-@property (nonatomic, nullable, strong) NSURL *url;
-@property (nonatomic, getter=isDefaultTrack) BOOL defaultTrack;
-@property (nonatomic, nullable, strong) NSString *label;
-@property (nonatomic, nullable, strong) NSString *identifier;
-@property (nonatomic) BMPTrackType type;
+@property (nonatomic, nullable, copy, readonly) NSURL *url;
+@property (nonatomic, getter=isDefaultTrack, readonly) BOOL defaultTrack;
+@property (nonatomic, copy, readonly) NSString *label;
+@property (nonatomic, copy, readonly) NSString *identifier;
+@property (nonatomic, readonly) BMPTrackType type;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-
-- (instancetype)initWithTrackType:(BMPTrackType)trackType;
-
-- (instancetype)initWithUrl:(nullable NSURL *)url
-                  trackType:(BMPTrackType)trackType;
-
 - (instancetype)initWithUrl:(nullable NSURL *)url
                   trackType:(BMPTrackType)trackType
-                      label:(nullable NSString *)label
-                 identifier:(nullable NSString *)identifier
+                      label:(NSString *)label
+                 identifier:(NSString *)identifier
              isDefaultTrack:(BOOL)isDefaultTrack NS_DESIGNATED_INITIALIZER;
 @end
 

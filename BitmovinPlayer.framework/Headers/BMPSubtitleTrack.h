@@ -14,27 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(SubtitleTrack)
 @interface BMPSubtitleTrack : BMPTrack <BMPJsonable>
-@property (nonatomic, nullable, strong) NSString *language;
-- (instancetype)initWithTrackType:(BMPTrackType)trackType NS_UNAVAILABLE;
-
+/** The IETF BCP 47 language tag associated with the subtitle track */
+@property (nonatomic, nullable, copy, readonly) NSString *language;
 - (instancetype)initWithUrl:(nullable NSURL *)url
-                  trackType:(BMPTrackType)trackType NS_UNAVAILABLE;
+                      label:(NSString *)label
+                 identifier:(NSString *)identifier
+             isDefaultTrack:(BOOL)isDefaultTrack
+                   language:(nullable NSString *)language NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithUrl:(nullable NSURL *)url
                   trackType:(BMPTrackType)trackType
-                      label:(nullable NSString *)label
-                 identifier:(nullable NSString *)identifier
+                      label:(NSString *)label
+                 identifier:(NSString *)identifier
              isDefaultTrack:(BOOL)isDefaultTrack NS_UNAVAILABLE;
 
-
-- (instancetype)init;
-- (instancetype)initWithUrl:(nullable NSURL *)url;
-
-- (instancetype)initWithUrl:(nullable NSURL *)url
-                      label:(nullable NSString *)label
-                 identifier:(nullable NSString *)identifier
-             isDefaultTrack:(BOOL)isDefaultTrack
-                   language:(nullable NSString *)language NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

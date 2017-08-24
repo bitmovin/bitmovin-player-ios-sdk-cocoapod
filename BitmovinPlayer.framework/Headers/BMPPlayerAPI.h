@@ -10,6 +10,7 @@
 #import <BitmovinPlayer/BMPPlayerConfiguration.h>
 #import <AVKit/AVKit.h>
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
+#import <BitmovinPlayer/BMPAudioTrack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,16 +50,12 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) NSTimeInterval currentTime;
 
 /**
- * Returns the player config object of the current player instance.
- *
- * @return The current PlayerConfiguration of the player instance
+ * Returns the current player configuration object of this player instance.
  */
 @property (nonatomic, nonnull, readonly) BMPPlayerConfiguration *config;
 
 /**
  * Returns the limit in seconds for time shift. Is either negative or 0. Is applicable for live streams only.
- *
- * @return The limit in seconds for time shift.
  */
 @property (nonatomic, readonly) NSTimeInterval maxTimeShift;
 
@@ -70,18 +67,24 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic) NSTimeInterval timeShift;
 
 /**
- * Returns an array containing BMPSubtitleTrack objects for all available audio tracks.
- *
- * @return The array containing BMPSubtitleTrack objects for all available audio tracks.
+ * Returns an array containing BMPSubtitleTrack objects for all available subtitle tracks.
  */
 @property (nonatomic, readonly) NSArray<BMPSubtitleTrack *> *availableSubtitles;
 
 /**
  * Returns the currently used BMPSubtitleTrack.
- *
- * @return The currently used BMPSubtitleTrack.
  */
 @property (nonatomic, readonly) BMPSubtitleTrack *subtitle;
+
+/**
+ * Returns an array containing all available audio tracks.
+ */
+@property (nonatomic, readonly) NSArray<BMPAudioTrack *> *availableAudio;
+
+/**
+ * Returns the currently used audio track.
+ */
+@property (nonatomic, readonly) BMPAudioTrack *audio;
 
 /**
  * Sets up player instance with the given configuration.
@@ -166,9 +169,16 @@ NS_SWIFT_NAME(PlayerAPI)
  * Sets the subtitle track to the ID specified by trackID. A list can be retrieved by calling BMPPlayerAPI#availableSubtitles.
  * Using nil as ID disables subtitles.
  *
- * @param subtitleTrackID The id of the BMPSubtitleTrack.
+ * @param subtitleTrackID The id of the BMPSubtitleTrack which should be set.
  */
-- (void)subtitle:(nullable NSString *)subtitleTrackID;
+- (void)setSubtitleWithIdentifier:(nullable NSString *)subtitleTrackID NS_SWIFT_NAME(setSubtitle(_:));
+
+/**
+ * Sets the audio track to the ID specified by audioTrackID. A list can be retrieved by calling BMPPlayerAPI#availableAudio.
+ *
+ * @param audioTrackID The ID of the BMPAudioTrack which should be set.
+ */
+- (void)setAudioWithIdentifier:(NSString *)audioTrackID NS_SWIFT_NAME(setAudio(_:));
 
 @end
 

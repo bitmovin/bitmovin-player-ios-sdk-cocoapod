@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(SourceConfiguration)
 @interface BMPSourceConfiguration : BMPConfiguration
-@property (nonatomic) enum BMPPlaybackType playbackType;
+@property (nonatomic) BMPPlaybackType playbackType;
 @property (nonatomic) BOOL repeatAll;
 
 /**
