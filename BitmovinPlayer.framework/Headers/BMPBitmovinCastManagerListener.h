@@ -13,6 +13,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Listener protocol which can be used to listen to events of the BMPBitmovinCastManager.
+ */
 NS_SWIFT_NAME(BitmovinCastManagerListener)
 @protocol BMPBitmovinCastManagerListener <NSObject>
 @optional

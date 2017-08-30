@@ -12,6 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * See BMPPlayerListener.h for more information on this event.
+ */
 NS_SWIFT_NAME(SubtitleRemovedEvent)
 @interface BMPSubtitleRemovedEvent : BMPPlayerEvent
 @property (nonatomic, strong, readonly) BMPSubtitleTrack *subtitleTrack;

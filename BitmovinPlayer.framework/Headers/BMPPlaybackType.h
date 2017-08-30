@@ -10,9 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Indicates in which order source items in a playlist should be played back.
+ */
 NS_SWIFT_NAME(PlaybackType)
 typedef NS_ENUM(NSInteger, BMPPlaybackType) {
+    /** Indicates sequential playback. */
     BMPPlaybackTypeSequential,
+    /** Indicates shuffled playback. */
     BMPPlaybackTypeShuffle
 };
 

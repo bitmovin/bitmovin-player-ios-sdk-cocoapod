@@ -10,9 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Provides methods to serialize objects to JSON strings.
+ */
 NS_SWIFT_NAME(Jsonable)
 @protocol BMPJsonable <NSObject>
+/**
+ * Serializes the object implementing this protocol to a JSON string
+ * @param error Contains an error if serialization failed. Is nil when serialization was successful.
+ * @return The serialized JSON string.
+ */
 - (nullable NSString *)toJsonString:(NSError **)error;
+/**
+ * Creates a dictionary containing data describing the object implementing this protocol which can be used to
+ * serialize it to a JSON string.
+ * @return A dictionary containing data describing the object implementing this protocol.
+ */
 - (NSDictionary *)toJsonData;
 @end
 

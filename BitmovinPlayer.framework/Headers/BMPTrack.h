@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Base class for all available tracks.
+ */
 NS_SWIFT_NAME(Track)
 @interface BMPTrack : NSObject
 @property (nonatomic, nullable, copy, readonly) NSURL *url;

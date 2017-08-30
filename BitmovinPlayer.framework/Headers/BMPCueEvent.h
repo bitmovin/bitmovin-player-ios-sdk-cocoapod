@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Base class for cue events like BMPCueEnterEvent and BMPCueExitEvent.
+ */
 NS_SWIFT_NAME(CueEvent)
 @interface BMPCueEvent : BMPPlayerEvent
 @property (nonatomic, readonly) NSTimeInterval startTime;

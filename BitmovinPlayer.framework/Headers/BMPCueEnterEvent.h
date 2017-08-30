@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * See BMPPlayerListener.h for more information on this event.
+ */
 NS_SWIFT_NAME(CueEnterEvent)
 @interface BMPCueEnterEvent : BMPCueEvent
 @end

@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Types of media which can be handled by the Bitmovin Player.
+ */
 NS_SWIFT_NAME(MediaSourceType)
 typedef NS_ENUM(NSInteger, BMPMediaSourceType) {
+    /** indicates a missing media source type. */
     BMPMediaSourceTypeNone,
+    /** Indicates media of type HLS. */
     BMPMediaSourceTypeHLS,
+    /** Indicates media of type Progressive MP4. */
     BMPMediaSourceTypeProgressive
 };
