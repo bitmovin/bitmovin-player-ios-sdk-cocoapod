@@ -14,7 +14,7 @@
 NS_SWIFT_NAME(MediaSourceType)
 typedef NS_ENUM(NSInteger, BMPMediaSourceType) {
     /** indicates a missing media source type. */
-    BMPMediaSourceTypeNone,
+    BMPMediaSourceTypeNone = 0,
     /** Indicates media of type HLS. */
     BMPMediaSourceTypeHLS,
     /** Indicates media of type Progressive MP4. */

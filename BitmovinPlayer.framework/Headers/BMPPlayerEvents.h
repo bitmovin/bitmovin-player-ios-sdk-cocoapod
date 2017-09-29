@@ -54,5 +54,14 @@
 #import <BitmovinPlayer/BMPMutedEvent.h>
 #import <BitmovinPlayer/BMPUnmutedEvent.h>
 #import <BitmovinPlayer/BMPAudioChangedEvent.h>
+#import <BitmovinPlayer/BMPAdClickedEvent.h>
+#import <BitmovinPlayer/BMPAdErrorEvent.h>
+#import <BitmovinPlayer/BMPAdFinishedEvent.h>
+#import <BitmovinPlayer/BMPAdManifestLoadedEvent.h>
+#import <BitmovinPlayer/BMPAdBreakFinishedEvent.h>
+#import <BitmovinPlayer/BMPAdBreakStartedEvent.h>
+#import <BitmovinPlayer/BMPAdScheduledEvent.h>
+#import <BitmovinPlayer/BMPAdSkippedEvent.h>
+#import <BitmovinPlayer/BMPAdStartedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

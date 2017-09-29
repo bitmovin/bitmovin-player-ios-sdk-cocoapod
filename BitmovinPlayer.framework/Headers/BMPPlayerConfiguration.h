@@ -12,6 +12,7 @@
 #import <BitmovinPlayer/BMPSourceItem.h>
 #import <BitmovinPlayer/BMPStyleConfiguration.h>
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
+#import <BitmovinPlayer/BMPAdvertisingConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,7 @@ NS_SWIFT_NAME(PlayerConfiguration)
 @property (nonatomic, nonnull, strong) BMPSourceConfiguration *sourceConfiguration;
 @property (nonatomic, nonnull, strong) BMPStyleConfiguration *styleConfiguration;
 @property (nonatomic, nonnull, strong) BMPPlaybackConfiguration *playbackConfiguration;
+@property (nonatomic, nonnull, strong) BMPAdvertisingConfiguration *advertisingConfiguration;
 
 /**
  * Get/Set a source item for this PlayerConfiguration. When a source item is set, also a new new SourceConfiguration

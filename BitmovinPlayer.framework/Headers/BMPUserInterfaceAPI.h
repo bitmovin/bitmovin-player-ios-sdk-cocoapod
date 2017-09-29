@@ -38,7 +38,7 @@ NS_SWIFT_NAME(UserInterfaceAPI)
  * @param url The URL to the poster image
  * @param keepPersistent Flag to set the poster image persistent so it is also displayed during playback.
  */
-- (void)setPosterImage:(NSURL *)url keepPersistent:(BOOL)keepPersistent;
+- (void)setPosterImage:(NSURL *)url keepPersistent:(BOOL)keepPersistent NS_SWIFT_NAME(setPosterImage(url:keepPersistent:));
 @end
 
 NS_ASSUME_NONNULL_END

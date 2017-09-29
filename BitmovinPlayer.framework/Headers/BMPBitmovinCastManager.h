@@ -40,17 +40,17 @@ NS_SWIFT_NAME(BitmovinCastManager)
 + (BOOL)isInitialized;
 + (void)initializeCasting;
 
-- (void)prepareWithMediaInformation:(GCKMediaInformation *)mediaInformation;
+- (void)prepareWithMediaInformation:(GCKMediaInformation *)mediaInformation NS_SWIFT_NAME(prepare(mediaInformation:));
 - (void)loadMedia;
-- (void)loadMedia:(BOOL)autoplay;
-- (void)loadMedia:(BOOL)autoplay position:(NSTimeInterval)position;
+- (void)loadMedia:(BOOL)autoplay NS_SWIFT_NAME(loadMedia(autoplay:));
+- (void)loadMedia:(BOOL)autoplay position:(NSTimeInterval)position NS_SWIFT_NAME(loadMedia(autoplay:position:));
 - (void)unload;
 - (void)showDialog;
-- (void)addListener:(id<BMPBitmovinCastManagerListener>)listener;
-- (void)removeListener:(id<BMPBitmovinCastManagerListener>)listener;
+- (void)addListener:(id<BMPBitmovinCastManagerListener>)listener NS_SWIFT_NAME(add(listener:));
+- (void)removeListener:(id<BMPBitmovinCastManagerListener>)listener NS_SWIFT_NAME(remove(listener:));
 - (void)play;
 - (void)pause;
-- (void)seek:(NSTimeInterval)time;
+- (void)seek:(NSTimeInterval)time NS_SWIFT_NAME(seek(time:));
 @end
 
 NS_ASSUME_NONNULL_END

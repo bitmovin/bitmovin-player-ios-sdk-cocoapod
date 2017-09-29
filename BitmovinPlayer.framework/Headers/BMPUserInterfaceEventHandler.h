@@ -21,14 +21,14 @@ NS_SWIFT_NAME(UserInterfaceEventHandler)
  *
  * @param listener The event listener to be added.
  */
-- (void)addUserInterfaceListener:(id<BMPUserInterfaceListener>)listener;
+- (void)addUserInterfaceListener:(id<BMPUserInterfaceListener>)listener NS_SWIFT_NAME(add(listener:));
 
 /**
  * Removes an event listener.
  *
  * @param listener The event listener to be removed.
  */
-- (void)removeUserInterfaceListener:(id<BMPUserInterfaceListener>)listener;
+- (void)removeUserInterfaceListener:(id<BMPUserInterfaceListener>)listener NS_SWIFT_NAME(remove(listener:));
 @end
 
 NS_ASSUME_NONNULL_END

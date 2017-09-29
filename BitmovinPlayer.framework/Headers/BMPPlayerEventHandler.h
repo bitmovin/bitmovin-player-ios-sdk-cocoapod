@@ -21,14 +21,14 @@ NS_SWIFT_NAME(PlayerEventHandler)
  *
  * @param listener The event listener to be added.
  */
-- (void)addPlayerListener:(id<BMPPlayerListener>)listener;
+- (void)addPlayerListener:(id<BMPPlayerListener>)listener NS_SWIFT_NAME(add(listener:));
 
 /**
  * Removes an event listener.
  *
  * @param listener The event listener to be removed.
  */
-- (void)removePlayerListener:(id<BMPPlayerListener>)listener;
+- (void)removePlayerListener:(id<BMPPlayerListener>)listener NS_SWIFT_NAME(remove(listener:));
 @end
 
 NS_ASSUME_NONNULL_END

@@ -280,6 +280,51 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onAudioChanged:(BMPAudioChangedEvent *)event;
 
 /**
+ * Is fired when the playback of an ad has been started.
+ */
+- (void)onAdStarted:(BMPAdStartedEvent *)event;
+
+/**
+ * Is fired when the playback of an ad has been finished.
+ */
+- (void)onAdFinished:(BMPAdFinishedEvent *)event;
+
+/**
+ * Is fired when the playback of an ad break has been started
+ */
+- (void)onAdBreakStarted:(BMPAdBreakStartedEvent *)event;
+
+/**
+ * Is fired when the playback of an ad break has been finished.
+ */
+- (void)onAdBreakFinished:(BMPAdBreakFinishedEvent *)event;
+
+/**
+ * Is fired when an ad manifest was successfully downloaded and parsed and the ad has been added onto the queue.
+ */
+- (void)onAdScheduled:(BMPAdScheduledEvent *)event;
+
+/**
+ * Is fired when an ad has been skipped.
+ */
+- (void)onAdSkipped:(BMPAdSkippedEvent *)event;
+
+/**
+ * Is fired when the user clicks on the ad.
+ */
+- (void)onAdClicked:(BMPAdClickedEvent *)event;
+
+/**
+ * Is fired when ad playback fails.
+ */
+- (void)onAdError:(BMPAdErrorEvent *)event;
+
+/**
+ * Is fired when the ad manifest has been successfully loaded.
+ */
+- (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event;
+
+/**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.

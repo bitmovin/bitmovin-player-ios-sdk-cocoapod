@@ -20,6 +20,7 @@ NS_SWIFT_NAME(SourceConfiguration)
 @interface BMPSourceConfiguration : BMPConfiguration
 @property (nonatomic) BMPPlaybackType playbackType;
 @property (nonatomic) BOOL repeatAll;
+@property (nonatomic, strong, nullable, readonly) BMPSourceItem *firstSourceItem;
 
 /**
  * @brief Adds a new source item based on the provided url string.
@@ -40,8 +41,7 @@ NS_SWIFT_NAME(SourceConfiguration)
  *
  * @param sourceItem The new SourceItem to be added.
  */
-- (void)addSourceItem:(BMPSourceItem *)sourceItem;
-- (nullable BMPSourceItem *)firstSourceItem;
+- (void)addSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(addSourceItem(item:));
 @end
 
 NS_ASSUME_NONNULL_END

@@ -87,18 +87,28 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) BMPAudioTrack *audio;
 
 /**
+ * Returns true while an ad is played back or content playback has been paused for ad playback, false otherwise.
+ */
+@property (nonatomic, readonly, getter=isAd) BOOL ad;
+
+/**
+ * Returns true when media is played externally using AirPlay.
+ */
+@property (nonatomic, readonly, getter=isAirPlayActive) BOOL airPlayActive;
+
+/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player
  */
-- (void)setup:(BMPPlayerConfiguration *)configuration;
+- (void)setup:(BMPPlayerConfiguration *)configuration NS_SWIFT_NAME(setup(configuration:));
 
 /**
  * Sets a new media source.
  *
  * @param sourceConfiguration The source configuration used to set a new media source.
  */
-- (void)load:(BMPSourceConfiguration *)sourceConfiguration;
+- (void)load:(BMPSourceConfiguration *)sourceConfiguration NS_SWIFT_NAME(load(sourceConfiguration:));
 
 /**
  * Starts preloading the content of the currently loaded source.
@@ -136,7 +146,7 @@ NS_SWIFT_NAME(PlayerAPI)
  *
  * @param time The time to seek to.
  */
-- (void)seek:(NSTimeInterval)time;
+- (void)seek:(NSTimeInterval)time NS_SWIFT_NAME(seek(time:));
 
 /**
  * Mutes the player if an audio track is available. Has no effect if the player is already muted.
@@ -154,7 +164,7 @@ NS_SWIFT_NAME(PlayerAPI)
  *
  * @param subtitleTrack The BMPSubtitleTrack to be added to the available subtitles.
  */
-- (void)addSubtitle:(BMPSubtitleTrack *)subtitleTrack;
+- (void)addSubtitle:(BMPSubtitleTrack *)subtitleTrack NS_SWIFT_NAME(addSubtitle(track:));
 
 /**
  * Removes the existing BMPSubtitleTrack with the track ID specified by subtitleTrackID. If the track is currently active,
@@ -163,7 +173,7 @@ NS_SWIFT_NAME(PlayerAPI)
  *
  * @param subtitleTrackID The ID of the BMPSubtitleTrack to be removed.
  */
-- (void)removeSubtitle:(NSString *)subtitleTrackID;
+- (void)removeSubtitle:(NSString *)subtitleTrackID NS_SWIFT_NAME(removeSubtitle(trackIdentifier:));
 
 /**
  * Sets the subtitle track to the ID specified by trackID. A list can be retrieved by calling BMPPlayerAPI#availableSubtitles.
@@ -171,14 +181,26 @@ NS_SWIFT_NAME(PlayerAPI)
  *
  * @param subtitleTrackID The id of the BMPSubtitleTrack which should be set.
  */
-- (void)setSubtitleWithIdentifier:(nullable NSString *)subtitleTrackID NS_SWIFT_NAME(setSubtitle(_:));
+- (void)setSubtitleWithIdentifier:(nullable NSString *)subtitleTrackID NS_SWIFT_NAME(setSubtitle(trackIdentifier:));
 
 /**
  * Sets the audio track to the ID specified by audioTrackID. A list can be retrieved by calling BMPPlayerAPI#availableAudio.
  *
  * @param audioTrackID The ID of the BMPAudioTrack which should be set.
  */
-- (void)setAudioWithIdentifier:(NSString *)audioTrackID NS_SWIFT_NAME(setAudio(_:));
+- (void)setAudioWithIdentifier:(NSString *)audioTrackID NS_SWIFT_NAME(setAudio(trackIdentifier:));
+
+/**
+ * Skips the current ad. Has no effect if ad is not skippable or if no ad is played back.
+ */
+- (void)skipAd;
+
+/**
+ * Schedules an ad for playback.
+ *
+ * @param adItem the ad item to be scheduled.
+ */
+- (void)scheduleAd:(BMPAdItem *)adItem NS_SWIFT_NAME(scheduleAd(adItem:));
 
 @end
 

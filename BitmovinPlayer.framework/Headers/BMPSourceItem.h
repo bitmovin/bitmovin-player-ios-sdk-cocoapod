@@ -31,6 +31,7 @@ NS_SWIFT_NAME(SourceItem)
 @property (nonatomic, nullable, strong) NSURL *posterSource;
 @property (nonatomic, getter=isPosterPersistent) BOOL persistentPoster;
 @property (nonatomic, nonnull, strong) BMPLabelingConfiguration *labelingConfiguration;
+@property (nonatomic, nullable, strong, readonly) NSArray<BMPDRMConfiguration *> *drmConfigurations;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -39,9 +40,8 @@ NS_SWIFT_NAME(SourceItem)
 - (instancetype)initWithProgressiveSource:(BMPProgressiveSource *)progressiveSource;
 - (instancetype)initWithProgressiveSources:(NSArray<BMPProgressiveSource *> *)progressiveSources;
 
-- (nullable NSArray<BMPDRMConfiguration *> *)drmConfigurations;
-- (nullable BMPDRMConfiguration *)drmConfigurationForDRMScheme:(NSUUID *)uuid;
-- (void)addDRMConfiguration:(BMPDRMConfiguration *)drmConfiguration;
+- (nullable BMPDRMConfiguration *)drmConfigurationForDRMScheme:(NSUUID *)uuid NS_SWIFT_NAME(drmConfigurationForDRMScheme(uuid:));
+- (void)addDRMConfiguration:(BMPDRMConfiguration *)drmConfiguration NS_SWIFT_NAME(add(drmConfiguration:));
 @end
 
 NS_ASSUME_NONNULL_END
