@@ -63,5 +63,6 @@
 #import <BitmovinPlayer/BMPAdScheduledEvent.h>
 #import <BitmovinPlayer/BMPAdSkippedEvent.h>
 #import <BitmovinPlayer/BMPAdStartedEvent.h>
+#import <BitmovinPlayer/BMPVideoDownloadQualityChangedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

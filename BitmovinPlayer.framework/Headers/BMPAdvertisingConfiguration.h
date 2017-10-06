@@ -12,6 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Contains configuration values regarding the ads which should be played back by the player.
+ */
 NS_SWIFT_NAME(AdvertisingConfiguration)
 @interface BMPAdvertisingConfiguration : BMPConfiguration
 @property (nonatomic, readonly, copy) NSArray<BMPAdItem *> *schedule;

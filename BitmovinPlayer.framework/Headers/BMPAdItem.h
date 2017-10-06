@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Represents an ad which can be scheduled in the play.
+ */
 NS_SWIFT_NAME(AdItem)
 @interface BMPAdItem : NSObject
 @property (nonatomic, copy, readonly) NSArray<BMPAdSource *> *sources;

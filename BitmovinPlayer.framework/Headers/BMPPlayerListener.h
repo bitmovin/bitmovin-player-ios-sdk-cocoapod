@@ -325,6 +325,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event;
 
 /**
+ * Is fired when the current video download quality has changed.
+ */
+- (void)onVideoDownloadQualityChanged:(BMPVideoDownloadQualityChangedEvent *)event;
+
+/**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.

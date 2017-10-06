@@ -11,6 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Represents an ad source which can be assigned to an AdItem.
+ * An AdItem can have multiple AdSources as waterfalling option.
+ */
 NS_SWIFT_NAME(AdSource)
 @interface BMPAdSource : NSObject
 @property (nonatomic, readonly) BMPAdSourceType type;

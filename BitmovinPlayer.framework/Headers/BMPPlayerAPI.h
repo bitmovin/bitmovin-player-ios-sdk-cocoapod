@@ -11,6 +11,7 @@
 #import <AVKit/AVKit.h>
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
 #import <BitmovinPlayer/BMPAudioTrack.h>
+#import <BitmovinPlayer/BMPVideoQuality.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,12 @@ NS_SWIFT_NAME(PlayerAPI)
  * Returns YES if the player has been muted.
  */
 @property (nonatomic, readonly, getter=isMuted) BOOL muted;
+
+/**
+ * Get/set the player’s volume between 0 (silent) and 100 (max volume). This property is used to control the player audio
+ * volume relative to the system volume.
+ */
+@property (nonatomic) NSInteger volume;
 
 /**
  * Returns YES if the player has started playback but is currently paused.
@@ -84,7 +91,7 @@ NS_SWIFT_NAME(PlayerAPI)
 /**
  * Returns the currently used audio track.
  */
-@property (nonatomic, readonly) BMPAudioTrack *audio;
+@property (nonatomic, readonly, nullable) BMPAudioTrack *audio;
 
 /**
  * Returns true while an ad is played back or content playback has been paused for ad playback, false otherwise.
@@ -95,6 +102,20 @@ NS_SWIFT_NAME(PlayerAPI)
  * Returns true when media is played externally using AirPlay.
  */
 @property (nonatomic, readonly, getter=isAirPlayActive) BOOL airPlayActive;
+
+/**
+ * Returns an array containing all available video qualities the player can adapt between.
+ *
+ * @return An array containing all available video qualities the player can adapt between.
+ */
+@property (nonatomic, readonly) NSArray<BMPVideoQuality *> *availableVideoQualities;
+
+/**
+ * Returns the currently selected video quality.
+ *
+ * @return The currently selected video quality.
+ */
+@property (nonatomic, readonly, nullable) BMPVideoQuality *videoQuality;
 
 /**
  * Sets up player instance with the given configuration.
