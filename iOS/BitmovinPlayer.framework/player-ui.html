@@ -1,0 +1,45 @@
+<html>
+<head>
+    <style type="text/css">
+        /** 
+         * HACK: needed to fix display bug which occurs cause no figure is present
+         * as it would when the real HTML5 player would be used 
+         */
+    	.bmpui-ui-controlbar,
+    	.bmpui-ui-titlebar {
+    		box-sizing: border-box;
+        }
+        /**
+         * HACK: hide seekbar label to fix unwanted behaviour like just label is shown and no seek happens
+         */
+        .bmpui-ui-seekbar-label {
+            display: none;
+        }
+        /**
+         * HACK: SettingsHack: Hide the speed settings item.
+         */
+        #bmpui-id-21,
+        .bmpui-ui-settingstogglebutton {
+            display: none;
+        }
+        /**
+         * HACK: hide buttons cause their behaviour is not yet implemented
+         */
+        .bmpui-ui-fullscreentogglebutton,
+        .bmpui-ui-casttogglebutton {
+            display: none;
+        }
+        body {
+            font-size: 1.2em;
+        }
+    </style>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+</head>
+<div id="ui-container">
+
+</div>
+
+<script type="text/javascript" src="events.js"></script>
+<script type="text/javascript" src="main-release.js"></script>
+</body>
+</html>
