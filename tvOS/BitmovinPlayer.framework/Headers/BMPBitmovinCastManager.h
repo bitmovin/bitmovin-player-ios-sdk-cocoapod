@@ -14,6 +14,7 @@
 @class GCKMediaStatus;
 @class GCKMediaMetadata;
 @class GCKDevice;
+@class GCKCastChannel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,6 +37,7 @@ __TVOS_PROHIBITED
 @property (nonatomic, readonly, getter=isStalled) BOOL stalled;
 @property (nonatomic, readonly) NSTimeInterval currentTime;
 @property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly, nullable, strong) GCKCastChannel *defaultChannel;
 
 + (instancetype)sharedInstance;
 + (BOOL)isInitialized;

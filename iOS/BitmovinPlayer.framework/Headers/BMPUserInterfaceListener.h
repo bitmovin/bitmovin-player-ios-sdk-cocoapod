@@ -33,18 +33,32 @@ NS_SWIFT_NAME(UserInterfaceListener)
 - (void)onFullscreenExit:(BMPFullscreenExitEvent *)event;
 
 /**
- * Is called when a fullscreen handler has been set
+ * Is called when a fullscreen handler has been set.
  *
  * @param event An object holding specific event data.
  */
 - (void)onFullscreenEnabled:(BMPFullscreenEnabledEvent *)event;
 
 /**
- * Is called when the current fullscreen handler was removed
+ * Is called when the current fullscreen handler was removed.
  *
  * @param event An object holding specific event data.
  */
 - (void)onFullscreenDisabled:(BMPFullscreenDisabledEvent *)event;
+
+/**
+ * Fires when the UI controls are showing.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onControlsShow:(BMPControlsShowEvent *)event;
+
+/**
+ * Fires when the UI controls are hiding.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onControlsHide:(BMPControlsHideEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END

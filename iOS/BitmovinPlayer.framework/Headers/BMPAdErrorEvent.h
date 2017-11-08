@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(AdErrorEvent)
 __TVOS_PROHIBITED
 @interface BMPAdErrorEvent : BMPErrorEvent
-@property (nonatomic, strong, readonly) BMPAdItem *adItem;
+@property (nonatomic, strong, readonly, nullable) BMPAdItem *adItem;
 
 - (instancetype)initWithCode:(NSUInteger)code message:(NSString *)message NS_UNAVAILABLE;
-- (instancetype)initWithAdItem:(BMPAdItem *)adItem code:(NSUInteger)code message:(NSString *)message NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAdItem:(nullable BMPAdItem *)adItem code:(NSUInteger)code message:(NSString *)message NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

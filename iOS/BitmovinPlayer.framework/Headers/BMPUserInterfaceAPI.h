@@ -23,6 +23,13 @@ NS_SWIFT_NAME(UserInterfaceAPI)
 @property (nonatomic, readonly, getter=isFullscreen) BOOL fullscreen;
 
 /**
+ * Returns true if the players playback controls are currently shown, false if they are hidden.
+ *
+ * @return True if the players playback controls are currently shown, false if they are hidden.
+ */
+@property (nonatomic, readonly, getter=areControlsShown) BOOL controlsShown;
+
+/**
  * The player enters fullscreen mode. Has no effect if already in fullscreen.
  */
 - (void)enterFullscreen;
