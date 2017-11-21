@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
+#import <BitmovinPlayer/BMPUserInterfaceType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(StyleConfiguration)
 @interface BMPStyleConfiguration : BMPConfiguration
 @property (nonatomic, getter=isUiEnabled) BOOL uiEnabled;
+@property (nonatomic) BMPUserInterfaceType userInterfaceType;
 @property (nonatomic, copy) NSURL *playerUiCss;
 @property (nonatomic, copy) NSURL *playerUiJs;
 @end
