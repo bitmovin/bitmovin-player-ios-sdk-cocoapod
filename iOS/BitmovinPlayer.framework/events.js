@@ -156,7 +156,6 @@ window.bitmovin.player.EVENT = {
      */
     ON_FULLSCREEN_EXIT: 'onFullscreenExit',
 
-
     /**
      * Is fired when the player size is updated.
      * The passed event is of type {@link PlayerResizeEvent}.
@@ -277,6 +276,28 @@ window.bitmovin.player.EVENT = {
     ON_SUBTITLE_CHANGED: 'onSubtitleChanged',
 
     /**
+     * Is fired when changing the video quality is triggered by using setVideoQuality.
+     * The passed event is of type {@link VideoQualityChangedEvent}.
+     *
+     * Also accessible via the bitmovin.player.EVENT.ON_VIDEO_QUALITY_CHANGED constant.
+     *
+     * @event
+     * @since v7.3.1
+     */
+    ON_VIDEO_QUALITY_CHANGED: 'onVideoQualityChanged',
+
+    /**
+     * Is fired when changing the audio quality is triggered by using setAudioQuality.
+     * The passed event is of type {@link AudioQualityChangedEvent}.
+     *
+     * Also accessible via the bitmovin.player.EVENT.ON_AUDIO_QUALITY_CHANGED constant.
+     *
+     * @event
+     * @since v7.3.1
+     */
+    ON_AUDIO_QUALITY_CHANGED: 'onAudioQualityChanged',
+
+    /**
      * Is fired when changing the downloaded video quality is triggered, either by using setVideoQuality or due to
      * automatic dynamic adaptation.
      * The passed event is of type {@link VideoDownloadQualityChangeEvent}.
@@ -394,7 +415,6 @@ window.bitmovin.player.EVENT = {
      */
     ON_CUE_EXIT: 'onCueExit',
 
-
     /**
      * Is fired when a segment is played back.
      * The passed event is of type {@link SegmentPlaybackEvent}.
@@ -477,7 +497,7 @@ window.bitmovin.player.EVENT = {
     ON_PLAYER_CREATED: 'onPlayerCreated',
 
     /**
-     * Is fired when a download has been finished, whether successful or not.
+     * Is fired immediately after a download finishes successfully, or if all retries of a download failed.
      * The passed event is of type {@link DownloadFinishedEvent}.
      *
      * Also accessible via the bitmovin.player.EVENT.ON_DOWNLOAD_FINISHED constant.
@@ -536,6 +556,17 @@ window.bitmovin.player.EVENT = {
      * @since v4.1
      */
     ON_AD_STARTED: 'onAdStarted',
+
+    /**
+     * Is fired when the playback of an ad has progressed over a quartile boundary.
+     * The passed event is of type {@link AdQuartileEvent}.
+     *
+     * Also accessible via the bitmovin.player.EVENT.ON_AD_QUARTILE constant.
+     *
+     * @event
+     * @since v7.4.6
+     */
+    ON_AD_QUARTILE: 'onAdQuartile',
 
     /**
      * Is fired when an ad has been skipped.
@@ -607,7 +638,8 @@ window.bitmovin.player.EVENT = {
 
     /**
      * This event is fired when the VR viewing direction changes. The minimal interval between two consecutive event
-     * callbacks is specified through setVRViewingDirectionChangeEventInterval.
+     * callbacks is specified through {@link PlayerVRAPI.setViewingDirectionChangeEventInterval}.
+     * The passed event is of type {@link VRViewingDirectionChangeEvent}.
      *
      * Also accessible via the bitmovin.player.EVENT.ON_VR_VIEWING_DIRECTION_CHANGE constant.
      *
@@ -618,8 +650,9 @@ window.bitmovin.player.EVENT = {
 
     /**
      * This event is fired when the VR viewing direction did not change more than the specified threshold in the last
-     * interval, after the ON_VR_VIEWING_DIRECTION_CHANGE event was triggered. The threshold can be set through
-     * setVRViewingDirectionChangeThreshold.
+     * interval, after the {@link ON_VR_VIEWING_DIRECTION_CHANGE} event was triggered. The threshold can be set through
+     * {@link PlayerVRAPI.setViewingDirectionChangeThreshold}.
+     * The passed event is of type {@link VRViewingDirectionChangedEvent}.
      *
      * Also accessible via the bitmovin.player.EVENT.ON_VR_VIEWING_DIRECTION_CHANGED constant.
      *
@@ -774,7 +807,6 @@ window.bitmovin.player.EVENT = {
      * @since v6.2
      */
     ON_PERIOD_SWITCH: 'onPeriodSwitch',
-
 
     /**
      * Is fired when a period switch was performed.
