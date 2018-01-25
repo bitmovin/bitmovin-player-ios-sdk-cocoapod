@@ -23,6 +23,7 @@ NS_SWIFT_NAME(AdStartedEvent)
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly) NSTimeInterval timeOffset;
 @property (nonatomic, readonly) NSTimeInterval skipOffset;
+@property (nonatomic, readonly, copy, nullable) NSString *position;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -31,7 +32,8 @@ NS_SWIFT_NAME(AdStartedEvent)
                            indexInQueue:(NSUInteger)indexInQueue
                                duration:(NSTimeInterval)duration
                              timeOffset:(NSTimeInterval)timeOffset
-                             skipOffset:(NSTimeInterval)skipOffset NS_DESIGNATED_INITIALIZER;
+                             skipOffset:(NSTimeInterval)skipOffset
+                               position:(nullable NSString *)position NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

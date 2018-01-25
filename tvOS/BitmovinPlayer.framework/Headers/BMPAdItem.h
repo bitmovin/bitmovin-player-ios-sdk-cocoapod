@@ -18,7 +18,7 @@ NS_SWIFT_NAME(AdItem)
 __TVOS_PROHIBITED
 @interface BMPAdItem : NSObject
 @property (nonatomic, copy, readonly) NSArray<BMPAdSource *> *sources;
-@property (nonatomic, copy, readonly) NSString *position;
+@property (nonatomic, copy, readonly, nullable) NSString *position;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

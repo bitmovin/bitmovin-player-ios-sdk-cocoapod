@@ -118,6 +118,12 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly, nullable) BMPVideoQuality *videoQuality;
 
 /**
+ * Get/set the playback speed of the player. Fast forward as well as slow motion is supported. Slow motion is used by
+ * values between 0 and 1, fast forward by values between 1 and 2. Values less or equal zero are ignored.
+ */
+@property (nonatomic) float playbackSpeed;
+
+/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player

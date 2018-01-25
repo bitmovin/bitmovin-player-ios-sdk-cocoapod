@@ -39,9 +39,12 @@ __TVOS_PROHIBITED
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly, nullable, strong) GCKCastChannel *defaultChannel;
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 + (instancetype)sharedInstance;
 + (BOOL)isInitialized;
 + (void)initializeCasting;
++ (void)initializeCasting:(NSString *)applicationId messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:messageNamespace:));
 
 - (void)prepareWithMediaInformation:(GCKMediaInformation *)mediaInformation NS_SWIFT_NAME(prepare(mediaInformation:));
 - (void)loadMedia;

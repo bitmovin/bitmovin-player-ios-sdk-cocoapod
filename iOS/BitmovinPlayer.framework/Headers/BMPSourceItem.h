@@ -27,7 +27,7 @@ NS_SWIFT_NAME(SourceItem)
 @property (nonatomic, readonly) BMPMediaSourceType type;
 @property (nonatomic, nullable, strong, readonly) BMPHLSSource *hlsSource;
 @property (nonatomic, nullable, strong, readonly) NSArray<BMPProgressiveSource *> *progressiveSources;
-@property (nonatomic, nullable, strong, readonly) NSURL *url;
+@property (nonatomic, nullable, copy, readonly) NSURL *url;
 @property (nonatomic, nullable, strong) NSURL *posterSource;
 @property (nonatomic, getter=isPosterPersistent) BOOL persistentPoster;
 @property (nonatomic, nonnull, strong) BMPLabelingConfiguration *labelingConfiguration;
