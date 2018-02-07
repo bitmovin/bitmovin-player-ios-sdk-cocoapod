@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, BMPMediaSourceType) {
     BMPMediaSourceTypeNone = 0,
     /** Indicates media of type HLS. */
     BMPMediaSourceTypeHLS,
+    /** Indicates media of type DASH. */
+    BMPMediaSourceTypeDASH,
     /** Indicates media of type Progressive MP4. */
     BMPMediaSourceTypeProgressive
 };

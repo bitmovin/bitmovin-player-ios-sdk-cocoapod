@@ -124,6 +124,11 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic) float playbackSpeed;
 
 /**
+ * Returns the currently used streaming technology.
+ */
+@property (nonatomic, readonly) BMPMediaSourceType streamType;
+
+/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player

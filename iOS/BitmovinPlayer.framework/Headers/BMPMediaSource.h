@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Base class for all media sources.
  */
 NS_SWIFT_NAME(MediaSource)
-@interface BMPMediaSource : NSObject
+@interface BMPMediaSource : NSObject <NSCopying>
 @property (nonatomic) BMPMediaSourceType type;
 @property (nonatomic, nonnull, strong) NSURL *url;
 

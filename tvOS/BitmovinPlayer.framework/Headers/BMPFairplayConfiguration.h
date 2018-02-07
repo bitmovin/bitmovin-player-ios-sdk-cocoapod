@@ -12,12 +12,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represents a FairPlay Streaming configuration.
+ * Represents a FairPlay Streaming DRM configuration.
  */
 NS_SWIFT_NAME(FairplayConfiguration)
 @interface BMPFairplayConfiguration : BMPDRMConfiguration
 @property (nonatomic, strong) NSURL *certificateUrl;
+/** An array of objects which specify custom HTTP headers for the license request. */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *licenseRequestHeaders;
+/** An array of objects which specify custom HTTP headers for the certificate request. */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *certificateRequestHeaders;
 /**
  * An optional block to prepare the data which is sent as the body of the POST license request. As many DRM providers
