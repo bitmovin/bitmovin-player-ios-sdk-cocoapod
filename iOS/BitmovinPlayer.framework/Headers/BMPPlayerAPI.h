@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Defines the public API of the BitmovinPlayer. See the documentation of each single API method for further information.
+ * All calls to the public player API must be done from the main thread. Calling API methods from multiple threads
+ * concurrently is not guaranteed to result in consistent and stable behavior.
  */
 NS_SWIFT_NAME(PlayerAPI)
 @protocol BMPPlayerAPI
