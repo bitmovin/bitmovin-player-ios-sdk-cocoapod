@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <UIKit/UIKit.h>
+#import <BitmovinPlayer/BMPCue.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,25 +21,15 @@ NS_SWIFT_NAME(CueEvent)
 @property (nonatomic, readonly) NSTimeInterval startTime;
 @property (nonatomic, readonly) NSTimeInterval endTime;
 @property (nonatomic, readonly, nullable, copy) NSString *text;
+@property (nonatomic, readonly, nullable, copy) NSString *html;
+@property (nonatomic, readonly, nullable) UIImage *image;
 @property (nonatomic, readonly, nullable, copy) NSString *position;
 @property (nonatomic, readonly, nullable, copy) NSString *region;
 @property (nonatomic, readonly, nullable, copy) NSString *regionStyle;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithStartTime:(NSTimeInterval)startTime
-                          endTime:(NSTimeInterval)endTime
-                             text:(nullable NSString *)text
-                         position:(nullable NSString *)position
-                           region:(nullable NSString *)region
-                      regionStyle:(nullable NSString *)regionStyle NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithStartTime:(NSTimeInterval)startTime
-                          endTime:(NSTimeInterval)endTime;
-
-- (instancetype)initWithStartTime:(NSTimeInterval)startTime
-                          endTime:(NSTimeInterval)endTime
-                             text:(NSString *)text;
+- (instancetype)initWithCue:(BMPCue *)cue NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END
