@@ -8,12 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for BitmovinPlayer.
-FOUNDATION_EXPORT double BitmovinPlayerVersionNumber;
-
-//! Project version string for BitmovinPlayer.
-FOUNDATION_EXPORT const unsigned char BitmovinPlayerVersionString[];
-
 // In this header, you should import all the public headers of your framework using statements like #import <BitmovinPlayer/PublicHeader.h>
 
 #import <BitmovinPlayer/BMPBitmovinPlayer.h>

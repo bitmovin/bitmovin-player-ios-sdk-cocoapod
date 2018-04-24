@@ -16,9 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Describes an audio track.
  */
 NS_SWIFT_NAME(AudioTrack)
-@interface BMPAudioTrack : BMPTrack <BMPJsonable>
+@interface BMPAudioTrack : BMPTrack
 /** The IETF BCP 47 language tag associated with the audio track. */
 @property (nonatomic, nullable, copy, readonly) NSString *language;
+
 - (instancetype)initWithLabel:(NSString *)label
                    identifier:(NSString *)identifier
                isDefaultTrack:(BOOL)isDefaultTrack

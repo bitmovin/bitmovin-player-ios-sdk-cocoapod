@@ -15,6 +15,8 @@
 #import <BitmovinPlayer/BMPDRMConfiguration.h>
 #import <BitmovinPlayer/BMPJsonable.h>
 #import <BitmovinPlayer/BMPLabelingConfiguration.h>
+#import <BitmovinPlayer/BMPTrack.h>
+#import <BitmovinPlayer/BMPSubtitleTrack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +34,7 @@ NS_SWIFT_NAME(SourceItem)
 @property (nonatomic, getter=isPosterPersistent) BOOL persistentPoster;
 @property (nonatomic, nonnull, strong) BMPLabelingConfiguration *labelingConfiguration;
 @property (nonatomic, nullable, strong, readonly) NSArray<BMPDRMConfiguration *> *drmConfigurations;
+@property (nonatomic, nonnull, copy, readonly) NSArray<BMPTrack *> *tracks;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -48,6 +51,15 @@ NS_SWIFT_NAME(SourceItem)
 - (BOOL)addAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource error:(NSError **)error NS_SWIFT_NAME(add(adaptiveSource:));
 - (BOOL)addProgressiveSource:(BMPProgressiveSource *)progressiveSource error:(NSError **)error NS_SWIFT_NAME(add(progressiveSource:));
 - (BOOL)addProgressiveSources:(NSArray<BMPProgressiveSource *> *)progressiveSources error:(NSError **)error NS_SWIFT_NAME(add(progressiveSources:));
+/**
+ * Can be used to add external subtitles to the BMPSourceItem.
+ *
+ * @note Subtitles which are added using this method are only supported for SourceItems which are loaded into a
+ * Chromecast session. Subtitles for local playback need to be referenced in the manifest of the stream.
+ *
+ * @param subtitleTrack The BMPSubtitleTrack to add.
+ */
+- (void)addSubtitleTrack:(BMPSubtitleTrack *)subtitleTrack NS_SWIFT_NAME(add(subtitleTrack:));
 @end
 
 NS_ASSUME_NONNULL_END

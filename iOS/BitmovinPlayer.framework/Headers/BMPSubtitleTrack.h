@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Describes a subtitle track.
  */
 NS_SWIFT_NAME(SubtitleTrack)
-@interface BMPSubtitleTrack : BMPTrack <BMPJsonable>
+@interface BMPSubtitleTrack : BMPTrack
 /** The IETF BCP 47 language tag associated with the subtitle track. */
 @property (nonatomic, nullable, copy, readonly) NSString *language;
 @property (nonatomic, nonnull, strong, readonly) id<BMPSubtitleTrackController> controller;

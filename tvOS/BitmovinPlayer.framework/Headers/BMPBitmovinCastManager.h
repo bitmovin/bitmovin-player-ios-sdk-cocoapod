@@ -19,6 +19,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ * IMPORTANT: Methods from BMPBitmovinCastManager need to be called from the main thread.
+ *
  * Singleton providing access to GoogleCast related features. The BMPBitmovinCastManager needs to be initialized by calling
  * BMPBitmovinCastManager#initializeCasting in the AppDelegate of the application which should support casting.
  */

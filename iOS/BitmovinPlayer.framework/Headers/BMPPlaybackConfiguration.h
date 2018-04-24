@@ -16,9 +16,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(PlaybackConfiguration)
 @interface BMPPlaybackConfiguration : BMPConfiguration
+/** Whether the player starts playing automatically after loading a source or not. Default value is NO. */
 @property (nonatomic, getter=isAutoplayEnabled) BOOL autoplayEnabled;
+/** Whether the sound is muted on startup or not. Default value is NO. */
 @property (nonatomic, getter=isMuted) BOOL muted;
+/** Whether time shift / DVR for live streams is enabled or not. Default is YES. */
 @property (nonatomic, getter=isTimeShiftEnabled) BOOL timeShiftEnabled;
+/**
+ * Whether background playback is enabled or not. Default is NO. When set to YES, playback is not automatically paused
+ * anymore when the app moves to the background. When set to YES, also make sure to properly configure your app to allow
+ * background playback.
+ */
+@property (nonatomic, getter=isBackgroundPlaybackEnabled) BOOL backgroundPlaybackEnabled;
 @end
 
 NS_ASSUME_NONNULL_END

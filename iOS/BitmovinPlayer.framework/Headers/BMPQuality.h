@@ -15,6 +15,7 @@ NS_SWIFT_NAME(Quality)
 @interface BMPQuality : NSObject <BMPJsonable>
 @property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, copy, readonly) NSString *label;
+/** bitrate in bits per second (bps) */
 @property (nonatomic, readonly) NSUInteger bitrate;
 
 - (instancetype)init NS_UNAVAILABLE;

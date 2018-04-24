@@ -14,6 +14,7 @@
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
 #import <BitmovinPlayer/BMPAdvertisingConfiguration.h>
 #import <BitmovinPlayer/BMPCastConfiguration.h>
+#import <BitmovinPlayer/BMPRemoteControlConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,11 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(PlayerConfiguration)
 @interface BMPPlayerConfiguration : BMPConfiguration
+/** The BMPSourceConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPSourceConfiguration *sourceConfiguration;
+/** The BMPStyleConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPStyleConfiguration *styleConfiguration;
+/** The BMPPlaybackConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPPlaybackConfiguration *playbackConfiguration;
+/** The BMPAdvertisingConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPAdvertisingConfiguration *advertisingConfiguration __TVOS_PROHIBITED;
+/** The BMPCastConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPCastConfiguration *castConfiguration __TVOS_PROHIBITED;
+/** The BMPRemoteControlConfiguration of this BMPPlayerConfiguration. */
+@property (nonatomic, nonnull, strong) BMPRemoteControlConfiguration *remoteControlConfiguration __TVOS_PROHIBITED;
 
 /**
  * Get/Set a source item for this PlayerConfiguration. When a source item is set, also a new new SourceConfiguration

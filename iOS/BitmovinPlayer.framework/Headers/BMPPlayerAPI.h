@@ -198,7 +198,7 @@ NS_SWIFT_NAME(PlayerAPI)
  *
  * @param subtitleTrack The BMPSubtitleTrack to be added to the available subtitles.
  */
-- (void)addSubtitle:(BMPSubtitleTrack *)subtitleTrack NS_SWIFT_NAME(addSubtitle(track:));
+- (void)addSubtitle:(BMPSubtitleTrack *)subtitleTrack NS_SWIFT_NAME(addSubtitle(track:)) __deprecated_msg("Use SourceItem#add(subtitleTrack:) instead.");
 
 /**
  * Removes the existing BMPSubtitleTrack with the track ID specified by subtitleTrackID. If the track is currently active,
