@@ -30,6 +30,7 @@
 #import <BitmovinPlayer/BMPFairplayConfiguration.h>
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
 #import <BitmovinPlayer/BMPWidevineConfiguration.h>
+#import <BitmovinPlayer/BMPClearKeyConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
 #import <BitmovinPlayer/BMPOfflineManager.h>
 #import <BitmovinPlayer/BMPOfflineManagerListener.h>

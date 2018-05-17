@@ -15,8 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(DRMSystems)
 @interface BMPDRMSystems : NSObject
-@property (class, nonatomic, readonly, strong) NSUUID *fairplayUUID;
-@property (class, nonatomic, readonly, strong) NSUUID *widevineUUID;
+/** UUID for FairPlay Streaming protection system */
+@property (class, nonatomic, readonly, copy) NSUUID *fairplayUUID;
+/** UUID for Widevine protection system */
+@property (class, nonatomic, readonly, copy) NSUUID *widevineUUID;
+/** UUID for PlayReady protection system */
+@property (class, nonatomic, readonly, copy) NSUUID *playReadyUUID;
+/** UUID for ClearKey protection system */
+@property (class, nonatomic, readonly, copy) NSUUID *clearKeyUUID;
 @end
 
 NS_ASSUME_NONNULL_END

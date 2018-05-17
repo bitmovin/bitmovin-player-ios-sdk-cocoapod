@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(FairplayConfiguration)
 @interface BMPFairplayConfiguration : BMPDRMConfiguration
 @property (nonatomic, strong) NSURL *certificateUrl;
-/** An array of objects which specify custom HTTP headers for the license request. */
+/** A dictionary to specify custom HTTP headers for the license request. */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *licenseRequestHeaders;
-/** An array of objects which specify custom HTTP headers for the certificate request. */
+/** A dictionary to specify custom HTTP headers for the certificate request. */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *certificateRequestHeaders;
 /**
  * An optional block to prepare the data which is sent as the body of the POST license request. As many DRM providers
@@ -45,8 +45,7 @@ NS_SWIFT_NAME(FairplayConfiguration)
  */
 @property (nonatomic, copy, nullable) NSData *(^prepareLicense)(NSData *ckc);
 
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)initWithUUID:(NSUUID *)uuid NS_UNAVAILABLE;
 - (instancetype)initWithLicenseUrl:(nullable NSURL *)licenseUrl uuid:(NSUUID *)uuid NS_UNAVAILABLE;
 - (instancetype)initWithLicenseUrl:(nullable NSURL *)licenseUrl certificateURL:(NSURL *)certificateUrl NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCertificateURL:(NSURL *)certificateUrl;

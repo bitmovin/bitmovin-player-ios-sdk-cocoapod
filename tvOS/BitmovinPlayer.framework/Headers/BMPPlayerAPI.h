@@ -131,6 +131,16 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) BMPMediaSourceType streamType;
 
 /**
+ * The upper bitrate boundary in bits per second for network bandwidth consumption of the currently played source. Can
+ * be set to 0 for no limitation. The value set here is only valid for the currently played source and will not be
+ * carried over to subsequently loaded sources. Use BMPAdaptationConfiguration#maxSelectableBitrate to set a value which
+ * is persistent for all loaded sources of one BitmovinPlayer instance.
+ *
+ * Default value is 0.
+ */
+@property (nonatomic) NSUInteger maxSelectableBitrate;
+
+/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player
