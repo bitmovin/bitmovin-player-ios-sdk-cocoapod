@@ -66,5 +66,7 @@
 #import <BitmovinPlayer/BMPVideoDownloadQualityChangedEvent.h>
 #import <BitmovinPlayer/BMPControlsShowEvent.h>
 #import <BitmovinPlayer/BMPControlsHideEvent.h>
+#import <BitmovinPlayer/BMPAudioAddedEvent.h>
+#import <BitmovinPlayer/BMPAudioRemovedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

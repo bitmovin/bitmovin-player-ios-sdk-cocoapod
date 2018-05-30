@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPTrackType.h>
 #import <BitmovinPlayer/BMPJsonable.h>
+#import <BitmovinPlayer/BMPDeserializable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Base class for all available tracks.
  */
 NS_SWIFT_NAME(Track)
-@interface BMPTrack : NSObject <NSCopying, BMPJsonable>
+@interface BMPTrack : NSObject <NSCopying, BMPJsonable, BMPDeserializable>
 @property (nonatomic, nullable, copy, readonly) NSURL *url;
 @property (nonatomic, getter=isDefaultTrack, readonly) BOOL defaultTrack;
 @property (nonatomic, copy, readonly) NSString *label;

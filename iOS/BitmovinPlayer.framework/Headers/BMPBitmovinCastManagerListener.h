@@ -10,6 +10,7 @@
 
 @class GCKMediaStatus;
 @class GCKMediaMetadata;
+@class GCKCastChannel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,14 +34,6 @@ __TVOS_PROHIBITED
 - (void)updatedMediaMetadata:(GCKMediaMetadata *)mediaMetadata;
 
 /**
- * Called when the player state of the current sessions GCKRemoteMediaClient has been changed
- * @param oldState The previous state of type GCKMediaPlayerState
- * @param newState The new state of type GCKMediaPlayerState
- * @param idleReason The idle reason of type GCKMediaPlayerIdleReason
- */
-- (void)playerStateChangedfrom:(NSInteger)oldState to:(NSInteger)newState withIdleReason:(NSInteger)idleReason;
-
-/**
  * Called when a GCKCastSession session is about to be started or resumed
  */
 - (void)applicationWillConnect:(NSString *)deviceName;
@@ -61,6 +54,13 @@ __TVOS_PROHIBITED
  * @param castAvailable YES if cast devices are available, NO otherwise
  */
 - (void)castAvailableChanged:(BOOL)castAvailable;
+
+/**
+ * Called when the current cast channel received a text message
+ * @param castChannel the channel which received the message
+ * @param textMessage the text message
+ */
+- (void)castChannel:(GCKCastChannel *)castChannel didReceiveTextMessage:(NSString *)textMessage;
 @end
 
 NS_ASSUME_NONNULL_END

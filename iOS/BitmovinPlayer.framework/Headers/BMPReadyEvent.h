@@ -16,11 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(ReadyEvent)
 @interface BMPReadyEvent : BMPPlayerEvent
-@property (nonatomic, readonly, getter=isLive) BOOL live;
-
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithLive:(BOOL)live NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

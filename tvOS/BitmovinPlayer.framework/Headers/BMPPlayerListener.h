@@ -275,57 +275,67 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onUnmuted:(BMPUnmutedEvent *)event;
 
 /**
- * Is fired when the audio track is changed.
+ * Is called when an audio track is added.
+ */
+- (void)onAudioAdded:(BMPAudioAddedEvent *)event;
+
+/**
+ * Is called when an audio track is removed.
+ */
+- (void)onAudioRemoved:(BMPAudioRemovedEvent *)event;
+
+/**
+ * Is called when the audio track is changed.
  */
 - (void)onAudioChanged:(BMPAudioChangedEvent *)event;
 
 /**
- * Is fired when the playback of an ad has been started.
+ * Is called when the playback of an ad has been started.
  */
 - (void)onAdStarted:(BMPAdStartedEvent *)event;
 
 /**
- * Is fired when the playback of an ad has been finished.
+ * Is called when the playback of an ad has been finished.
  */
 - (void)onAdFinished:(BMPAdFinishedEvent *)event;
 
 /**
- * Is fired when the playback of an ad break has been started
+ * Is called when the playback of an ad break has been started
  */
 - (void)onAdBreakStarted:(BMPAdBreakStartedEvent *)event;
 
 /**
- * Is fired when the playback of an ad break has been finished.
+ * Is called when the playback of an ad break has been finished.
  */
 - (void)onAdBreakFinished:(BMPAdBreakFinishedEvent *)event;
 
 /**
- * Is fired when an ad manifest was successfully downloaded and parsed and the ad has been added onto the queue.
+ * Is called when an ad manifest was successfully downloaded and parsed and the ad has been added onto the queue.
  */
 - (void)onAdScheduled:(BMPAdScheduledEvent *)event;
 
 /**
- * Is fired when an ad has been skipped.
+ * Is called when an ad has been skipped.
  */
 - (void)onAdSkipped:(BMPAdSkippedEvent *)event;
 
 /**
- * Is fired when the user clicks on the ad.
+ * Is called when the user clicks on the ad.
  */
 - (void)onAdClicked:(BMPAdClickedEvent *)event;
 
 /**
- * Is fired when ad playback fails.
+ * Is called when ad playback fails.
  */
 - (void)onAdError:(BMPAdErrorEvent *)event __TVOS_PROHIBITED;
 
 /**
- * Is fired when the ad manifest has been successfully loaded.
+ * Is called when the ad manifest has been successfully loaded.
  */
 - (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event;
 
 /**
- * Is fired when the current video download quality has changed.
+ * Is called when the current video download quality has changed.
  */
 - (void)onVideoDownloadQualityChanged:(BMPVideoDownloadQualityChangedEvent *)event;
 
