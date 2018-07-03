@@ -1,0 +1,24 @@
+//
+// Bitmovin Player iOS SDK
+// Copyright (C) 2017, Bitmovin GmbH, All Rights Reserved
+//
+// This source code and its use and distribution, is subject to the terms
+// and conditions of the applicable license agreement.
+//
+
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSErrorDomain const BMPBitmovinPlayerErrorDomain;
+
+NS_ERROR_ENUM(BMPBitmovinPlayerErrorDomain)
+{
+    BMPErrorPlayerLicenseKeyNotFound = 1016,
+    BMPErrorPlayerLicenseInvalidDomain = 1017,
+    BMPErrorInvalidPlayerLicenseServerUrl = 1018,
+    BMPErrorBadSource = 3032,
+    BMPErrorManifestDownloadFailed = 3006
+};
+
+NS_ASSUME_NONNULL_END

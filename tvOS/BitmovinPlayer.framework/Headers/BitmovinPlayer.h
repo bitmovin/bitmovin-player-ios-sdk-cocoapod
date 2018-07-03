@@ -35,3 +35,5 @@
 #import <BitmovinPlayer/BMPOfflineManager.h>
 #import <BitmovinPlayer/BMPOfflineManagerListener.h>
 #import <BitmovinPlayer/BMPOfflineState.h>
+#import <BitmovinPlayer/BMPHttpRequestTypes.h>
+#import <BitmovinPlayer/BMPErrorCodes.h>

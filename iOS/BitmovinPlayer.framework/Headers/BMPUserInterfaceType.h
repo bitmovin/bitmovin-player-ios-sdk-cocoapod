@@ -18,7 +18,9 @@ typedef NS_ENUM(NSInteger, BMPUserInterfaceType) {
     /** Indicates that Bitmovins customizable UI should be used. */
     BMPUserInterfaceTypeBitmovin __TVOS_PROHIBITED,
     /** Indicates that the system UI should be used. */
-    BMPUserInterfaceTypeSystem
+    BMPUserInterfaceTypeSystem,
+    /** Indicates that only subtitles should be displayed along with the video content */
+    BMPUserInterfaceTypeSubtitle
 };
 
 NS_ASSUME_NONNULL_END

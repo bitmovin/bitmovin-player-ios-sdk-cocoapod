@@ -25,7 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 // NS_SWIFT_NAME(BitmovinPlayerView)
 @interface BMPBitmovinPlayerView : BMPPlayerView <BMPUserInterfaceAPI, BMPUserInterfaceEventHandler>
-@property (nonatomic, strong) id<BMPFullscreenHandler> fullscreenHandler;
+/**
+ * Get/set a fullscreen handler for this BMPBitmovinPlayerView. See the documentation of the BMPFullscreenHandler for
+ * more information.
+ */
+@property (nonatomic, strong, nullable) id<BMPFullscreenHandler> fullscreenHandler;
 - (void)willRotate;
 - (void)didRotate;
 @end
