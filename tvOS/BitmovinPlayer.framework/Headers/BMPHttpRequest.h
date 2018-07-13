@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represent a HTTP request
+ * A configuration object representing an HTTP request.
  */
 NS_SWIFT_NAME(HttpRequest)
 @interface BMPHttpRequest : NSObject <NSCopying>

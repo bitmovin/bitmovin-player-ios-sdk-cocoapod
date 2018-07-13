@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Get/set a fullscreen handler for this BMPBitmovinPlayerView. See the documentation of the BMPFullscreenHandler for
  * more information.
  */
-@property (nonatomic, strong, nullable) id<BMPFullscreenHandler> fullscreenHandler;
+@property (nonatomic, weak) id<BMPFullscreenHandler> fullscreenHandler;
 - (void)willRotate;
 - (void)didRotate;
 @end
