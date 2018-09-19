@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPLayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPPlayerEvent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
