@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPAdSource.h>
+#import <BitmovinPlayer/BMPJsonable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(AdItem)
 __TVOS_PROHIBITED
-@interface BMPAdItem : NSObject
+@interface BMPAdItem : NSObject<BMPJsonable>
 @property (nonatomic, copy, readonly) NSArray<BMPAdSource *> *sources;
 @property (nonatomic, copy, readonly, nullable) NSString *position;
 

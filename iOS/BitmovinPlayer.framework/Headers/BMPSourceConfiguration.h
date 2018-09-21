@@ -21,21 +21,18 @@ NS_SWIFT_NAME(SourceConfiguration)
 @property (nonatomic) BMPPlaybackType playbackType;
 @property (nonatomic) BOOL repeatAll;
 @property (nonatomic, strong, nullable, readonly) BMPSourceItem *firstSourceItem;
-
 /**
  * @brief Adds a new source item based on the provided url string.
  *
  * @param urlString The url to a DASH, HLS or Progressive MP4 source which is used to create a new SourceItem to be added.
  */
 - (BOOL)addSourceItemWithString:(NSString *)urlString error:(NSError **)error NS_SWIFT_NAME(addSourceItem(urlString:));
-
 /**
  * @brief Adds a new source item based on the provided url.
  *
  * @param url The url to a DASH, HLS or Progressive MP4 source which is used to create a new SourceItem to be added.
  */
 - (BOOL)addSourceItemWithUrl:(NSURL *)url error:(NSError **)error NS_SWIFT_NAME(addSourceItem(url:));
-
 /**
  * @brief Adds a new source item.
  *

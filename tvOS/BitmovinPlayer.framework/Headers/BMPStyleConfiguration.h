@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(StyleConfiguration)
 @interface BMPStyleConfiguration : BMPConfiguration
+
 /**
  * Sets if the the UI should be enabled or not. Default value is YES.
  */
@@ -41,6 +42,7 @@ NS_SWIFT_NAME(StyleConfiguration)
  * set with this property.
  */
 @property (nonatomic, copy) NSURL *playerUiJs;
+
 @end
 
 NS_ASSUME_NONNULL_END

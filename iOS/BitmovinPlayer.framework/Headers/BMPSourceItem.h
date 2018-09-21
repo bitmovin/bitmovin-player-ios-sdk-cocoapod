@@ -38,8 +38,10 @@ NS_SWIFT_NAME(SourceItem)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithUrl:(NSURL *)url;
-- (instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource;
+- (nullable instancetype)initWithUrl:(NSURL *)url;
+- (nullable instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource;
+- (instancetype)initWithHLSSource:(BMPHLSSource *)hlsSource;
+- (instancetype)initWithDASHSource:(BMPDASHSource *)dashSource;
 - (instancetype)initWithProgressiveSource:(BMPProgressiveSource *)progressiveSource;
 - (instancetype)initWithProgressiveSources:(NSArray<BMPProgressiveSource *> *)progressiveSources;
 

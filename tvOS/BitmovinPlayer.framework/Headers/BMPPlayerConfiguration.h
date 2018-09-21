@@ -49,6 +49,13 @@ NS_SWIFT_NAME(PlayerConfiguration)
 @property (nonatomic, nullable, strong) BMPSourceItem *sourceItem;
 
 /**
+ * Creates and returns a BMPPlayerConfiguration based on the given JSON String.
+ *
+ * @param jsonString The JSON string representing the BMPPlayerConfiguration.
+ */
++ (nullable instancetype)fromJsonString:(NSString *)jsonString error:(NSError **)error;
+
+/**
  * Sets a new source item based on the provided url for this PlayerConfiguration.
  *
  * @param urlString The url to a DASH, HLS or Progressive MP4 source which is used to create a new SourceConfiguration

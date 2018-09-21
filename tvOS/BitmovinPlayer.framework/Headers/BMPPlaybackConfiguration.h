@@ -28,6 +28,7 @@ NS_SWIFT_NAME(PlaybackConfiguration)
  * background playback.
  */
 @property (nonatomic, getter=isBackgroundPlaybackEnabled) BOOL backgroundPlaybackEnabled;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPTrack.h>
-#import <BitmovinPlayer/BMPJsonable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
