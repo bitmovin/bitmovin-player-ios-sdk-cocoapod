@@ -20,6 +20,8 @@ NS_SWIFT_NAME(RemoteControlConfiguration)
 @interface BMPRemoteControlConfiguration : BMPConfiguration
 /** A URL to a CSS file the Chromecast receiver app loads. Can be used to style the receiver app. */
 @property (nonatomic, copy, nullable) NSURL *receiverStylesheetUrl;
+/** Arbitrary configuration values that are sent to the remote control receiver. */
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *customReceiverConfiguration;
 /**
  * This block can be used to prepare a different BMPSourceConfiguration to be used for remote playback that for local
  * playback. This can be useful when the remote playback device supports different streaming formats, DRM systems, etc.
@@ -27,5 +29,4 @@ NS_SWIFT_NAME(RemoteControlConfiguration)
  */
 @property (nonatomic, copy, nullable) BMPSourceItem * __nullable (^prepareSource)(BMPRemoteControlType type, BMPSourceItem *sourceItem);
 @end
-
 NS_ASSUME_NONNULL_END
