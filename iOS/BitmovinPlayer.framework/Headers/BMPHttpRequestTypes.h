@@ -14,3 +14,4 @@
  */
 
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeDrmLicenseFairplay;
+FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeDrmCertificateFairplay;

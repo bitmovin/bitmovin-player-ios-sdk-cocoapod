@@ -340,6 +340,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onVideoDownloadQualityChanged:(BMPVideoDownloadQualityChangedEvent *)event;
 
 /**
+ * Is called when a web download request has finished.
+ */
+- (void)onDownloadFinished:(BMPDownloadFinishedEvent *)event;
+
+/**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.
