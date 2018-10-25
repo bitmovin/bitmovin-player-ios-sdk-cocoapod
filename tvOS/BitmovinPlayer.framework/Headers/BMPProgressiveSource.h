@@ -12,11 +12,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represents a progressive media source.
+ Represents a progressive media source.
  */
 NS_SWIFT_NAME(ProgressiveSource)
 @interface BMPProgressiveSource : BMPMediaSource
+/// :nodoc:
 - (instancetype)initWithType:(BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_UNAVAILABLE;
+/**
+ Creates a new BMPProgessiveSource based on the given URL.
+
+ @param url The progressive media URL.
+ @return A new progressive source initialized with the given URL.
+ */
 - (instancetype)initWithUrl:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 @end
 

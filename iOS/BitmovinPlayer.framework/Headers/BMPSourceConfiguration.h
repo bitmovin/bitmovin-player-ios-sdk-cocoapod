@@ -14,29 +14,34 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Contains configuration values regarding the media which should be played back by the player.
+ Contains configuration values regarding the media which should be played by the player.
  */
 NS_SWIFT_NAME(SourceConfiguration)
 @interface BMPSourceConfiguration : BMPConfiguration
+/** The playback type of the source configuration. Possible values are defined in BMPPlaybackType.h. */
 @property (nonatomic) BMPPlaybackType playbackType;
+/** Indicates whether to repeat all sources after being played. */
 @property (nonatomic) BOOL repeatAll;
+/** The first source item to be played. */
 @property (nonatomic, strong, nullable, readonly) BMPSourceItem *firstSourceItem;
 /**
- * @brief Adds a new source item based on the provided url string.
- *
- * @param urlString The url to a DASH, HLS or Progressive MP4 source which is used to create a new SourceItem to be added.
+ Adds a new source item based on the provided URL string.
+
+ @param urlString The URL to a DASH, HLS or Progressive MP4 source which is used to create a new source item to be added.
+ @return YES if the source item was added correctly, NO otherwise.
  */
 - (BOOL)addSourceItemWithString:(NSString *)urlString error:(NSError **)error NS_SWIFT_NAME(addSourceItem(urlString:));
 /**
- * @brief Adds a new source item based on the provided url.
- *
- * @param url The url to a DASH, HLS or Progressive MP4 source which is used to create a new SourceItem to be added.
+ Adds a new source item based on the provided URL.
+
+ @param url The URL to a DASH, HLS or Progressive MP4 source which is used to create a new SourceItem to be added.
+ @return YES if the source item was added correctly, NO otherwise.
  */
 - (BOOL)addSourceItemWithUrl:(NSURL *)url error:(NSError **)error NS_SWIFT_NAME(addSourceItem(url:));
 /**
- * @brief Adds a new source item.
- *
- * @param sourceItem The new SourceItem to be added.
+ Adds a new source item.
+
+ @param sourceItem The source item to be added.
  */
 - (void)addSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(addSourceItem(item:));
 @end

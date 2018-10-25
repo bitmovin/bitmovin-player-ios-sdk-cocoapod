@@ -13,11 +13,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represents a HLS media source.
+ Represents a HLS media source.
  */
 NS_SWIFT_NAME(HLSSource)
 @interface BMPHLSSource : BMPAdaptiveSource
+/// :nodoc:
 - (instancetype)initWithType:(BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_UNAVAILABLE;
+/**
+ Creates a new HLS source based on the given URL.
+
+ @param url The HLS media URL.
+ @return A new HLS source initialized with the given URL.
+ */
 - (instancetype)initWithUrl:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 @end
 

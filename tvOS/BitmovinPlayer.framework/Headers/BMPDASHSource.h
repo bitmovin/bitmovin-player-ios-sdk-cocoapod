@@ -13,11 +13,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Represents a DASH media source.
+ Represents a DASH media source.
  */
 NS_SWIFT_NAME(DASHSource)
 @interface BMPDASHSource : BMPAdaptiveSource
+/// :nodoc:
 - (instancetype)initWithType:(BMPMediaSourceType)mediaSourceType url:(NSURL *)url NS_UNAVAILABLE;
+/**
+ Creates a new DASHSource from the given URL.
+
+ @param url The URL to use for the DASH source.
+ @return A DASH media source initialized with the given URL.
+ */
 - (instancetype)initWithUrl:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 @end
 

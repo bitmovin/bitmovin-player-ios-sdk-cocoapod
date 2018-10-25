@@ -11,15 +11,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ Quality definition of a media representation.
+
+ @note This class acts as an abstract class.
+ */
 NS_SWIFT_NAME(Quality)
 @interface BMPQuality : NSObject <BMPJsonable>
+/** The unique identifier of the quality. */
 @property (nonatomic, copy, readonly) NSString *identifier;
+/** The label of the media representation that should be exposed to the user (e.g. in the UI). */
 @property (nonatomic, copy, readonly) NSString *label;
-/** bitrate in bits per second (bps) */
+/** The bitrate of the media representation in bits per second (bps). */
 @property (nonatomic, readonly) NSUInteger bitrate;
 
+/// :nodoc:
 - (instancetype)init NS_UNAVAILABLE;
+/// :nodoc:
 + (instancetype)new NS_UNAVAILABLE;
+/// :nodoc:
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              label:(NSString *)label
                            bitrate:(NSUInteger)bitrate NS_DESIGNATED_INITIALIZER;
