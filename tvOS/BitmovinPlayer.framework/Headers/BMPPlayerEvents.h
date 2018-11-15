@@ -17,6 +17,7 @@
 #import <BitmovinPlayer/BMPSeekEvent.h>
 #import <BitmovinPlayer/BMPDestroyEvent.h>
 #import <BitmovinPlayer/BMPErrorEvent.h>
+#import <BitmovinPlayer/BMPWarningEvent.h>
 #import <BitmovinPlayer/BMPMetadataEvent.h>
 #import <BitmovinPlayer/BMPPlaybackFinishedEvent.h>
 #import <BitmovinPlayer/BMPRenderFirstFrameEvent.h>

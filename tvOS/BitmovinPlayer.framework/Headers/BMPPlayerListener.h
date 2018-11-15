@@ -135,6 +135,13 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onError:(BMPErrorEvent *)event;
 
 /**
+ * Is called when a warning occurs.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onWarning:(BMPWarningEvent *)event;
+
+/**
  * Is called when a new source is loaded. This does not mean that loading of the new manifest has been finished.
  *
  * @param event An object holding specific event data.

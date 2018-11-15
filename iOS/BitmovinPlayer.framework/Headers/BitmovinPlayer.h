@@ -37,3 +37,4 @@
 #import <BitmovinPlayer/BMPOfflineState.h>
 #import <BitmovinPlayer/BMPHttpRequestTypes.h>
 #import <BitmovinPlayer/BMPErrorCodes.h>
+#import <BitmovinPlayer/BMPWarningCodes.h>
