@@ -15,6 +15,8 @@ NS_SWIFT_NAME(AdSourceType)
 typedef NS_ENUM(NSInteger, BMPAdSourceType) {
     /** Missing advertising source type */
     BMPAdSourceTypeNone = 0,
-    /** Interactive Media Ads. */
-    BMPAdSourceTypeIMA
+    /** Interactive Media Ads */
+    BMPAdSourceTypeIMA,
+    /** Unknown advertising source type */
+    BMPAdSourceTypeUnknown
 };

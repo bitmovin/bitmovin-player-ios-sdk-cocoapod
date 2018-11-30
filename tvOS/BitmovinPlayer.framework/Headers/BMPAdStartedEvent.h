@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(AdStartedEvent)
 @interface BMPAdStartedEvent : BMPPlayerEvent
-@property (nonatomic, readonly, copy) NSURL *clickThroughUrl;
+@property (nonatomic, readonly, copy, nullable) NSURL *clickThroughUrl;
 @property (nonatomic, readonly) BMPAdSourceType clientType;
 @property (nonatomic, readonly) NSUInteger indexInQueue;
 @property (nonatomic, readonly) NSTimeInterval duration;
@@ -27,7 +27,7 @@ NS_SWIFT_NAME(AdStartedEvent)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithClickThroughUrl:(NSURL *)clickThroughUrl
+- (instancetype)initWithClickThroughUrl:(nullable NSURL *)clickThroughUrl
                              clientType:(BMPAdSourceType)clientType
                            indexInQueue:(NSUInteger)indexInQueue
                                duration:(NSTimeInterval)duration
