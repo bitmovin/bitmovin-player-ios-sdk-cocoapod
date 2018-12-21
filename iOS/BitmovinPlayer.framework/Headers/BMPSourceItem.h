@@ -17,6 +17,7 @@
 #import <BitmovinPlayer/BMPLabelingConfiguration.h>
 #import <BitmovinPlayer/BMPTrack.h>
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
+#import <BitmovinPlayer/BMPThumbnailTrack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,8 +41,7 @@ NS_SWIFT_NAME(SourceItem)
  */
 @property (nonatomic, nullable, strong, readonly) BMPDASHSource *dashSource;
 /**
- An arry of objects to video files used for progressive download as fallback.
- Is only used when no HLS source is set.
+ An array of progressive multimedia sources which are used as fallback when no HLS source is set.
  */
 @property (nonatomic, nullable, strong, readonly) NSArray<BMPProgressiveSource *> *progressiveSources;
 /** The URL to a preview image displayed until the video starts. */
@@ -57,6 +57,21 @@ NS_SWIFT_NAME(SourceItem)
 @property (nonatomic, nullable, strong, readonly) NSArray<BMPDRMConfiguration *> *drmConfigurations;
 /** An array of timed data, such as thumbnail- or subtitle tracks. */
 @property (nonatomic, nonnull, copy, readonly) NSArray<BMPTrack *> *tracks;
+/** The thumbnail track for this source item */
+@property (nonatomic, nullable, strong) BMPThumbnailTrack *thumbnailTrack;
+/**
+ Holds metadata for this source item. This data can be used by the player UI to display additional information about the
+ currently played source. The following key-value pairs are supported for tvOS, where the system UI is used by default:
+
+ key                                        | value type
+ -------------------------------------------|----------------
+ AVMetadataCommonKeyTitle                   | AVMetadataItem
+ AVMetadataCommonKeyDescription             | AVMetadataItem
+ AVMetadataCommonIdentifierArtwork          | AVMetadataItem
+ AVMetadataiTunesMetadataKeyContentRating   | AVMetadataItem
+ AVMetadataQuickTimeMetadataKeyGenre        | AVMetadataItem
+ */
+@property (nonatomic, copy) NSMutableDictionary<NSString *, id<NSObject, NSCopying>> *metadata;
 
 /// :nodoc:
 - (instancetype)init NS_UNAVAILABLE;

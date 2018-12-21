@@ -15,7 +15,9 @@ FOUNDATION_EXPORT NSErrorDomain const BMPBitmovinPlayerWarningDomain;
 NS_ERROR_ENUM(BMPBitmovinPlayerWarningDomain)
 {
     BMPWarningGeneral = 1000,
-    BMPWarningSetupRemotePlaybackFailed = 1102
+    BMPWarningSetupRemotePlaybackFailed = 1102,
+    BMPWarningSourceCouldNotParseThumbnails = 1206,
+    BMPWarningNetworkCouldNotLoadThumbnails = 1403
 };
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,7 @@
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
 #import <BitmovinPlayer/BMPAudioTrack.h>
 #import <BitmovinPlayer/BMPVideoQuality.h>
+#import <BitmovinPlayer/BMPThumbnail.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -233,6 +234,15 @@ NS_SWIFT_NAME(PlayerAPI)
  * @param audioTrackID The ID of the BMPAudioTrack which should be set.
  */
 - (void)setAudioWithIdentifier:(NSString *)audioTrackID NS_SWIFT_NAME(setAudio(trackIdentifier:));
+
+/**
+ * Returns the thumbnail image for a certain time, or nil if there is no thumbnail available.
+ * Requires a configured BMPThumbnailTrack in the corresponding BMPSourceItem.
+ *
+ * @param time The time for which the thumbnail should be returned.
+ * @return An instance of BMPThumbnail for the given time, or nil if no thumbnail is available.
+ */
+- (nullable BMPThumbnail *)thumbnailForTime:(NSTimeInterval)time NS_SWIFT_NAME(thumbnail(forTime:));
 
 /**
  * Skips the current ad. Has no effect if ad is not skippable or if no ad is played back.

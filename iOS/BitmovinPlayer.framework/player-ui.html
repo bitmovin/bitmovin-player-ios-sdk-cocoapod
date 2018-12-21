@@ -12,10 +12,13 @@
     		box-sizing: border-box;
         }
         /**
-         * HACK: hide seekbar label to fix unwanted behaviour like just label is shown and no seek happens
+         * HACK: The black fading background of the time is longer than the actual element
+         * by exactly the left and right padding. Changing the box-sizing fixes this problem.
          */
-        .bmpui-ui-seekbar-label {
-            display: none;
+        .bmpui-ui-skin-modern .bmpui-ui-seekbar-label
+        .bmpui-seekbar-label-inner .bmpui-container-wrapper
+        .bmpui-seekbar-label-metadata {
+            box-sizing: border-box;
         }
         /**
          * HACK: Hide FCC Subtitle settings.

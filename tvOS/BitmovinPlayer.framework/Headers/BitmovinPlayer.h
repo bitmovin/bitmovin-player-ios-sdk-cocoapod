@@ -38,3 +38,5 @@
 #import <BitmovinPlayer/BMPHttpRequestTypes.h>
 #import <BitmovinPlayer/BMPErrorCodes.h>
 #import <BitmovinPlayer/BMPWarningCodes.h>
+#import <BitmovinPlayer/BMPSystemUserInterfaceConfiguration.h>
+#import <BitmovinPlayer/BMPSubtitleUserInterfaceConfiguration.h>

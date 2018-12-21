@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
 #import <BitmovinPlayer/BMPUserInterfaceType.h>
+#import <BitmovinPlayer/BMPScalingMode.h>
+#import <BitmovinPlayer/BMPUserInterfaceConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,6 +44,17 @@ NS_SWIFT_NAME(StyleConfiguration)
  * set with this property.
  */
 @property (nonatomic, copy) NSURL *playerUiJs;
+/**
+ * Determines how the video content is scaled or stretched within the parent container's bounds.
+ * Possible values are defined in BMPScalingMode. Default value is BMPScalingModeFit.
+ */
+@property (nonatomic) BMPScalingMode scalingMode;
+/**
+ * An optional configuration object, containing configuration values which apply to the selected user interface type.
+ * - When BMPUserInterfaceTypeSystem is selected, a BMPSystemUserInterfaceConfiguration can be set.
+ * - When BMPUserInterfaceTypeSubtitle is selected, a BMPSubtitleUserInterfaceConfiguration can be set.
+ */
+@property (nonatomic, nullable, strong) BMPUserInterfaceConfiguration *userInterfaceConfiguration;
 
 @end
 
