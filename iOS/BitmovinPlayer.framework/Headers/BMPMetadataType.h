@@ -14,7 +14,8 @@ NS_SWIFT_NAME(MetadataType)
 typedef NS_ENUM(NSInteger, BMPMetadataType) {
     BMPMetadataTypeNone = 0,
     BMPMetadataTypeID3,
-    BMPMetadataTypeEMSG
+    BMPMetadataTypeEMSG,
+    BMPMetadataTypeExtXDaterange
 };
 
 NS_ASSUME_NONNULL_END
