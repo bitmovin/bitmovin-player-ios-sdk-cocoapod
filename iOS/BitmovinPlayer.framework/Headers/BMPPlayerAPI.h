@@ -142,6 +142,13 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic) NSUInteger maxSelectableBitrate;
 
 /**
+ * Get/set metadata for the currently loaded source. All existing metadata will be completely replaced by the provided
+ * metadata when the setter is called. For example, if sourceMetadata is an empty object, all existing source metadata
+ * will be deleted. Setting new metadata results in a BMPSourceMetadataChanged event to be fired.
+ */
+@property (nonatomic) NSDictionary<NSString *, id<NSObject, NSCopying>> *sourceMetadata;
+
+/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player

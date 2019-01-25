@@ -40,4 +40,4 @@
 #import <BitmovinPlayer/BMPWarningCodes.h>
 #import <BitmovinPlayer/BMPSystemUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPSubtitleUserInterfaceConfiguration.h>
-#import <BitmovinPlayer/BMPDaterangeMetadataEntry.h>
+#import <BitmovinPlayer/BMPDaterangeMetadata.h>

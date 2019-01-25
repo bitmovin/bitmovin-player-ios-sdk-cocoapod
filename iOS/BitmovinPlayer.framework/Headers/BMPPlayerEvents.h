@@ -11,6 +11,7 @@
 
 #import <BitmovinPlayer/BMPPlayerEvent.h>
 #import <BitmovinPlayer/BMPPlayEvent.h>
+#import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
 #import <BitmovinPlayer/BMPTimeChangedEvent.h>
 #import <BitmovinPlayer/BMPDurationChangedEvent.h>
@@ -19,6 +20,7 @@
 #import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPWarningEvent.h>
 #import <BitmovinPlayer/BMPMetadataEvent.h>
+#import <BitmovinPlayer/BMPMetadataParsedEvent.h>
 #import <BitmovinPlayer/BMPPlaybackFinishedEvent.h>
 #import <BitmovinPlayer/BMPRenderFirstFrameEvent.h>
 #import <BitmovinPlayer/BMPSeekedEvent.h>
@@ -70,5 +72,7 @@
 #import <BitmovinPlayer/BMPAudioAddedEvent.h>
 #import <BitmovinPlayer/BMPAudioRemovedEvent.h>
 #import <BitmovinPlayer/BMPDownloadFinishedEvent.h>
+#import <BitmovinPlayer/BMPAirPlayChangedEvent.h>
+#import <BitmovinPlayer/BMPSourceMetadataChangedEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

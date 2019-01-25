@@ -26,11 +26,18 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onReady:(BMPReadyEvent *)event;
 
 /**
- * Is called when the player enters the play state.
+ * Notifies about the intention to start/resume playback.
  *
  * @param event An object holding specific event data.
  */
 - (void)onPlay:(BMPPlayEvent *)event;
+
+/**
+ * Is called when playback has been started.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onPlaying:(BMPPlayingEvent *)event;
 
 /**
  * Is called when the player enters the pause state.
@@ -175,6 +182,13 @@ NS_SWIFT_NAME(PlayerListener)
  * @param event An object holding specific event data.
  */
 - (void)onMetadata:(BMPMetadataEvent *)event;
+
+/**
+ * Is called when metadata is parsed.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onMetadataParsed:(BMPMetadataParsedEvent *)event;
 
 /**
  * Is called when casting to another device, such as a ChromeCast, is available.
@@ -350,6 +364,16 @@ NS_SWIFT_NAME(PlayerListener)
  * Is called when a web download request has finished.
  */
 - (void)onDownloadFinished:(BMPDownloadFinishedEvent *)event;
+
+/**
+ * Is called when AirPlay playback starts or stops.
+ */
+- (void)onAirPlayChanged:(BMPAirPlayChangedEvent *)event;
+
+/**
+ * Is called when a source item is loaded which has metadata attached or when setSourceMetadata: is called on the player.
+ */
+- (void)onSourceMetadataChanged:(BMPSourceMetadataChangedEvent *)event;
 
 /**
  * Is called for each occurring player event.

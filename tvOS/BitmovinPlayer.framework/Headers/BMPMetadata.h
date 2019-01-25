@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Metadata)
 @interface BMPMetadata : NSObject
 @property (nonatomic, readonly, copy) NSArray<id<BMPMetadataEntry>> *entries;
-
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithEntries:(NSArray<id<BMPMetadataEntry>> *)entries NS_DESIGNATED_INITIALIZER;
