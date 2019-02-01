@@ -46,6 +46,17 @@ NS_SWIFT_NAME(UserInterfaceAPI)
  * @param keepPersistent Flag to set the poster image persistent so it is also displayed during playback.
  */
 - (void)setPosterImage:(NSURL *)url keepPersistent:(BOOL)keepPersistent NS_SWIFT_NAME(setPosterImage(url:keepPersistent:));
+
+/**
+ * Set the subtitle styles which should be applied to WebVTT subtitles and other legible text. Setting subtitle styles
+ * using this method completely replaces all previously set subtitle styles.
+ *
+ * Setting subtitle styles is only supported when the userInterfaceType in the StyleConfiguration is set to
+ * BMPUserInterfaceTypeSystem or BMPUserInterfaceTypeSubtitle.
+ *
+ * @param subtitleStyles The subtitle styles which should be applied.
+ */
+- (void)setSubtitleStyles:(nullable NSArray<AVTextStyleRule *> *)subtitleStyles;
 @end
 
 NS_ASSUME_NONNULL_END
