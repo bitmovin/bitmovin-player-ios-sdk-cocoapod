@@ -18,6 +18,8 @@ NS_ERROR_ENUM(BMPBitmovinPlayerErrorDomain)
     BMPErrorPlayerLicenseInvalidDomain = 1017,
     BMPErrorInvalidPlayerLicenseServerUrl = 1018,
     BMPErrorJsonDeserializationFailed = 1114,
+    BMPErrorDrmNoLicenseServerUrlProvided = 2002,
+    BMPErrorDrmLicenseRequestFailed = 2003,
     BMPErrorManifestDownloadFailed = 3006,
     BMPErrorBadSource = 3032
 };
