@@ -154,6 +154,13 @@ NS_SWIFT_NAME(OfflineManager)
  * @return YES, if the BMPSourceItem instance is playable without a network connection, NO otherwise.
  */
 - (BOOL)isSourceItemPlayableOffline:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(isPlayableOffline(sourceItem:));
+/**
+ * Returns how many bytes of storage are used by the offline content.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the storage size in bytes should be calculated.
+ * @return How many bytes of storage are used by the offline content.
+ */
+- (long)usedStorageForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(usedStorage(for:));
 @end
 
 NS_ASSUME_NONNULL_END

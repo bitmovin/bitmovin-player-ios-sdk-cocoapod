@@ -21,6 +21,7 @@ NS_ERROR_ENUM(BMPBitmovinPlayerErrorDomain)
     BMPErrorPlaybackFailed = 1300,
     BMPErrorDrmNoLicenseServerUrlProvided = 2002,
     BMPErrorDrmLicenseRequestFailed = 2003,
+    BMPErrorOfflineInsufficientStorage = 2201,
     BMPErrorManifestDownloadFailed = 3006,
     BMPErrorBadSource = 3032
 };
