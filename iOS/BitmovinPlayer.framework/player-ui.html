@@ -15,7 +15,7 @@
          * HACK: The black fading background of the time is longer than the actual element
          * by exactly the left and right padding. Changing the box-sizing fixes this problem.
          */
-        .bmpui-ui-skin-modern .bmpui-ui-seekbar-label
+        .bmpui-ui-seekbar-label
         .bmpui-seekbar-label-inner .bmpui-container-wrapper
         .bmpui-seekbar-label-metadata {
             box-sizing: border-box;
@@ -36,17 +36,17 @@
             font-size: 1.2em;
         }
         /* Respect safe area insets to avoid UI element collision. */
-        .bmpui-ui-skin-modern .bmpui-ui-controlbar {
+        .bmpui-ui-uicontainer .bmpui-ui-controlbar {
             padding-bottom: max(0.5em,env(safe-area-inset-bottom));
         }
-        .bmpui-ui-skin-modern .bmpui-ui-titlebar {
+        .bmpui-ui-uicontainer .bmpui-ui-titlebar {
             padding-top: max(0.5em,env(safe-area-inset-top));
         }
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen .bmpui-ui-settings-panel .bmpui-ui-closebutton {
+        .bmpui-ui-uicontainer .bmpui-ui-skin-smallscreen .bmpui-ui-settings-panel .bmpui-ui-closebutton {
             margin-top: max(2em,env(safe-area-inset-top));
             margin-right: max(2em,env(safe-area-inset-right));
         }
-        .bmpui-ui-skin-modern .bmpui-ui-subtitle-overlay {
+        .bmpui-ui-uicontainer .bmpui-ui-subtitle-overlay {
             padding-bottom: env(safe-area-inset-bottom);
         }
         /* Unify the size of the following UI elements for portrait and landscape mode:
@@ -56,43 +56,43 @@
         - Error message overlay
         - Buffering overlay
         https://github.com/bitmovin/bitmovin-player-ui/blob/master/src/scss/skin-modern/_skin-smallscreen.scss#L89 */
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-settings-panel,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-hugeplaybacktogglebutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-hugereplaybutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-errormessage-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-buffering-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-cast-status-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-settings-panel,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-hugeplaybacktogglebutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-hugereplaybutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-errormessage-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-buffering-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-cast-status-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-settings-panel,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-hugeplaybacktogglebutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-hugereplaybutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-errormessage-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-buffering-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-cast-status-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-settings-panel,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-hugeplaybacktogglebutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-hugereplaybutton,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-errormessage-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-buffering-overlay,
-        .bmpui-ui-skin-modern.bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-cast-status-overlay {
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-settings-panel,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-hugeplaybacktogglebutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-hugereplaybutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-errormessage-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-buffering-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-400 .bmpui-ui-cast-status-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-settings-panel,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-hugeplaybacktogglebutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-hugereplaybutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-errormessage-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-buffering-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-600 .bmpui-ui-cast-status-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-settings-panel,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-hugeplaybacktogglebutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-hugereplaybutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-errormessage-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-buffering-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-800 .bmpui-ui-cast-status-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-settings-panel,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-hugeplaybacktogglebutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-hugereplaybutton,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-errormessage-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-buffering-overlay,
+        .bmpui-ui-skin-smallscreen.bmpui-layout-max-width-1200 .bmpui-ui-cast-status-overlay {
             font-size: 0.7em;
         }
         /* Beatify offset to bottom of UI for displayed subs for larger screen sizes */
-        .bmpui-ui-skin-modern.bmpui-layout-max-width-400 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
+        .bmpui-layout-max-width-400 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
             bottom: 5em;
         }
-        .bmpui-ui-skin-modern.bmpui-layout-max-width-600 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
+        .bmpui-layout-max-width-600 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
             bottom: 4em;
         }
-        .bmpui-ui-skin-modern.bmpui-layout-max-width-800 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
+        .bmpui-layout-max-width-800 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
             bottom: 3em;
         }
-        .bmpui-ui-skin-modern.bmpui-layout-max-width-1200 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
+        .bmpui-layout-max-width-1200 .bmpui-ui-subtitle-overlay.bmpui-controlbar-visible {
             bottom: 2em;
         }
     </style>
@@ -103,7 +103,6 @@
 
 </div>
 
-<script type="text/javascript" src="events.js"></script>
 <script type="text/javascript" src="main-release.js"></script>
 </body>
 </html>

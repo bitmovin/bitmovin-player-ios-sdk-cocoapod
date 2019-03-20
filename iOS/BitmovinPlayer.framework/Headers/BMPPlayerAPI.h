@@ -55,8 +55,10 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
- * Returns the current playback time in seconds of the video.
- */
+* Returns the current playback time in seconds of the video.
+* For VoD streams the returned time ranges between 0 and the duration of the asset.
+* For live streams a Unix timestamp denoting the current playback position is returned.
+*/
 @property (nonatomic, readonly) NSTimeInterval currentTime;
 
 /**
@@ -147,6 +149,11 @@ NS_SWIFT_NAME(PlayerAPI)
  * will be deleted. Setting new metadata results in a BMPSourceMetadataChanged event to be fired.
  */
 @property (nonatomic) NSDictionary<NSString *, id<NSObject, NSCopying>> *sourceMetadata;
+
+/**
+ * Returns the currently playing video frame rate in units of frames per second.
+ */
+@property (nonatomic, readonly) float currentVideoFrameRate;
 
 /**
  * Sets up player instance with the given configuration.

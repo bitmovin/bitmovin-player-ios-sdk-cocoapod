@@ -45,6 +45,10 @@ NS_SWIFT_NAME(FairplayConfiguration)
  with anything else than the license, e.g. if the license is wrapped into a JSON object.
  */
 @property (nonatomic, copy, nullable) NSData *(^prepareLicense)(NSData *ckc);
+/**
+ A block to prepare the URI (without the `skd://`) from the HLS manifest before passing it to the system. 
+ */
+@property (nonatomic, copy, nullable) NSString *(^prepareLicenseServerUrl)(NSString *licenseServerUrl);
 /// :nodoc:
 - (instancetype)initWithUUID:(NSUUID *)uuid NS_UNAVAILABLE;
 /// :nodoc:
