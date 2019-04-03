@@ -24,6 +24,8 @@ NS_SWIFT_NAME(Quality)
 @property (nonatomic, copy, readonly) NSString *label;
 /** The bitrate of the media representation in bits per second (bps). */
 @property (nonatomic, readonly) NSUInteger bitrate;
+/** The codec of the media representation */
+@property (nonatomic, readonly, nullable) NSString  *codec;
 
 /// :nodoc:
 - (instancetype)init NS_UNAVAILABLE;
@@ -31,8 +33,9 @@ NS_SWIFT_NAME(Quality)
 + (instancetype)new NS_UNAVAILABLE;
 /// :nodoc:
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                             label:(NSString *)label
-                           bitrate:(NSUInteger)bitrate NS_DESIGNATED_INITIALIZER;
+                            label:(NSString *)label
+                            bitrate:(NSUInteger)bitrate
+                            codec:(nullable NSString *)codec NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END
