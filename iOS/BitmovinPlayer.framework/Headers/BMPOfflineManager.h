@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Suspended       | resumeDownloadForSourceItem:      | offlineManager:didResumeDownloadWithProgress: | Downloading
  *  Suspended       | cancelDownloadForSourceItem:      | -                                             | Canceling
  *  Canceling       | -                                 | offlineManagerDidCancelDownload:              | NotDownloaded
+ *  Downloaded      | renewOfflineLicenseForSourceItem: | offlineManagerDidRenewOfflineLicense:         | Downloaded
  *
  */
 NS_SWIFT_NAME(OfflineManager)
@@ -116,6 +117,14 @@ NS_SWIFT_NAME(OfflineManager)
  * @param sourceItem A BMPSourceItem instance for which all associated suspended download tasks should be resumed.
  */
 - (void)resumeDownloadForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(resumeDownload(for:));
+/**
+ * Renews the already downloaded DRM license for a given SourceItem.
+ * When successfully finished, BMPOfflineManagerListener's offlineManagerDidRenewOfflineLicense: method is called.
+ * In case the license renewal fails an according error is passed via the listener's offlineManager:didFailWithError: method.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the DRM license should be renewed.
+ */
+- (void)renewOfflineLicenseForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(renewOfflineLicense(for:));
 /**
  * Creates and returns a BMPOfflineSourceItem which should be used with a BMPBitmovinPlayer instance when playback of
  * offline content is desired.

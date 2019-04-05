@@ -62,6 +62,12 @@ NS_SWIFT_NAME(OfflineManagerListener)
  * @param offlineManager The BMPOfflineManager calling the listener.
  */
 - (void)offlineManagerDidCancelDownload:(BMPOfflineManager *)offlineManager;
+/**
+ * Is called when the offline license was successfully renewed and written to disk.
+ *
+ * @param offlineManager The BMPOfflineManager calling the listener.
+ */
+- (void)offlineManagerDidRenewOfflineLicense:(BMPOfflineManager *)offlineManager;
 @end
 
 NS_ASSUME_NONNULL_END
