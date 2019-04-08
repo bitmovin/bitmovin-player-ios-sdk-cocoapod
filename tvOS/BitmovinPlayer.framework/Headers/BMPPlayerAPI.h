@@ -101,7 +101,7 @@ NS_SWIFT_NAME(PlayerAPI)
 /**
  * Returns true while an ad is played back or content playback has been paused for ad playback, false otherwise.
  */
-@property (nonatomic, readonly, getter=isAd) BOOL ad __TVOS_PROHIBITED;
+@property (nonatomic, readonly, getter=isAd) BOOL ad;
 
 /**
  * Returns true when media is played externally using AirPlay.
@@ -261,7 +261,7 @@ NS_SWIFT_NAME(PlayerAPI)
 /**
  * Skips the current ad. Has no effect if ad is not skippable or if no ad is played back.
  */
-- (void)skipAd __TVOS_PROHIBITED;
+- (void)skipAd;
 
 /**
  * Schedules an ad for playback.
