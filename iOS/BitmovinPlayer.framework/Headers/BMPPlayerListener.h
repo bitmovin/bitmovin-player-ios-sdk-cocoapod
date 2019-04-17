@@ -371,6 +371,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onAirPlayChanged:(BMPAirPlayChangedEvent *)event;
 
 /**
+ * Is called when AirPlay is available.
+ */
+- (void)onAirPlayAvailable:(BMPAirPlayAvailableEvent *)event;
+
+/**
  * Is called when a source item is loaded which has metadata attached or when setSourceMetadata: is called on the player.
  */
 - (void)onSourceMetadataChanged:(BMPSourceMetadataChangedEvent *)event;

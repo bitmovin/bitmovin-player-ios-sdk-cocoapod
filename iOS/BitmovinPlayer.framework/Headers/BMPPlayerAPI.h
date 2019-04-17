@@ -109,6 +109,11 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly, getter=isAirPlayActive) BOOL airPlayActive;
 
 /**
+ * Returns true when AirPlay is available.
+ */
+@property (nonatomic, readonly, getter=isAirPlayAvailable) BOOL airPlayAvailable;
+
+/**
  * Returns an array containing all available video qualities the player can adapt between.
  *
  * @return An array containing all available video qualities the player can adapt between.
@@ -269,6 +274,11 @@ NS_SWIFT_NAME(PlayerAPI)
  * @param adItem the ad item to be scheduled.
  */
 - (void)scheduleAd:(BMPAdItem *)adItem NS_SWIFT_NAME(scheduleAd(adItem:)) __TVOS_PROHIBITED;
+
+/**
+ * Shows the AirPlay playback target picker.
+ */
+- (void)showAirPlayTargetPicker;
 
 @end
 
