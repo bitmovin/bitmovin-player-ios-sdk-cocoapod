@@ -49,6 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(OfflineManager)
 @interface BMPOfflineManager : NSObject
+/**
+ * Value in megabytes for minimum system free space available before suspending active downloads.
+ * Default value is 500Mb.
+ */
+@property (class, nonatomic) NSUInteger minimumAvailableSpaceThreshold;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 /**

@@ -20,8 +20,9 @@ __TVOS_PROHIBITED
 @interface BMPAdItem : NSObject <BMPJsonable>
 @property (nonatomic, copy, readonly) NSArray<BMPAdSource *> *sources;
 @property (nonatomic, copy, readonly, nullable) NSString *position;
-
+/// :nodoc:
 - (instancetype)init NS_UNAVAILABLE;
+/// :nodoc:
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithAdSources:(NSArray<BMPAdSource *> *)sources atPosition:(nullable NSString *)position NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithAdSources:(NSArray<BMPAdSource *> *)sources;
