@@ -1,6 +1,6 @@
-Pod::Spec.new do |s|      
+Pod::Spec.new do |s|
     s.name = 'BitmovinPlayer'
-    s.version = '2.25.0'
+    s.version = '2.26.0-rc.1'
     s.summary = 'Bitmovin Player SDK for iOS and tvOS'
     s.homepage = 'https://www.bitmovin.com/'
     s.social_media_url = 'https://twitter.com/bitmovin'
@@ -11,20 +11,20 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = '9.0'
     s.ios.vendored_frameworks = 'iOS/BitmovinPlayer.framework'
-    s.ios.frameworks = [ 
-        'Foundation', 
-        'UIKit', 
-        'AVFoundation', 
-        'AVKit', 
+    s.ios.frameworks = [
+        'Foundation',
+        'UIKit',
+        'AVFoundation',
+        'AVKit',
         'WebKit'
     ]
 
     s.tvos.deployment_target = '9.0'
     s.tvos.vendored_frameworks = 'tvOS/BitmovinPlayer.framework'
-    s.tvos.frameworks = [ 
-        'Foundation', 
+    s.tvos.frameworks = [
+        'Foundation',
         'UIKit',
-        'AVFoundation', 
+        'AVFoundation',
         'AVKit'
     ] 
 end
