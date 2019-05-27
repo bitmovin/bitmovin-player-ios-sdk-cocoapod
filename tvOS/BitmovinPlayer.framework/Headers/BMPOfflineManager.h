@@ -128,6 +128,8 @@ NS_SWIFT_NAME(OfflineManager)
  * When successfully finished, BMPOfflineManagerListener's offlineManagerDidRenewOfflineLicense: method is called.
  * In case the license renewal fails an according error is passed via the listener's offlineManager:didFailWithError: method.
  *
+ * NOTE: The EXT-X-SESSION-KEY has to be present in the master playlist for this to work properly.
+ *
  * @param sourceItem A BMPSourceItem instance for which the DRM license should be renewed.
  */
 - (void)renewOfflineLicenseForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(renewOfflineLicense(for:));
