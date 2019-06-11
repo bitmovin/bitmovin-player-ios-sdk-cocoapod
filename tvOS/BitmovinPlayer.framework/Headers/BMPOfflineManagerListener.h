@@ -68,6 +68,16 @@ NS_SWIFT_NAME(OfflineManagerListener)
  * @param offlineManager The BMPOfflineManager calling the listener.
  */
 - (void)offlineManagerDidRenewOfflineLicense:(BMPOfflineManager *)offlineManager;
+/**
+ * Is called under following circumstances if and only if the offline DRM license has expired:
+ * - The OfflineManager first access a DRM protected SourceItem.
+ * - On every call to createOfflineSourceItemForSourceItem: if it is DRM protected.
+ *
+ * NOTE: This method is only available starting with iOS 11.0
+ *
+ * @param offlineManager The BMPOfflineManager calling the listener.
+ */
+- (void)offlineManagerOfflineLicenseDidExpire:(BMPOfflineManager *)offlineManager API_AVAILABLE(ios(11.0));
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,3 +41,4 @@
 #import <BitmovinPlayer/BMPSystemUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPSubtitleUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPDaterangeMetadata.h>
+#import <BitmovinPlayer/BMPDrmLicenseInformation.h>

@@ -11,6 +11,7 @@
 #import <BitmovinPlayer/BMPSourceItem.h>
 #import <BitmovinPlayer/BMPOfflineManagerListener.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
+#import <BitmovinPlayer/BMPDrmLicenseInformation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -123,6 +124,18 @@ NS_SWIFT_NAME(OfflineManager)
  * @param sourceItem A BMPSourceItem instance for which all associated suspended download tasks should be resumed.
  */
 - (void)resumeDownloadForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(resumeDownload(for:));
+/**
+ * Updates the stored DRM license information (e.g. expiration dates) by querying the KSM. The device needs to be online for this.
+ * The FairPlayConfiguration#prepareOfflineDrmLicenseInformation block is called after the KSM was queried successfully.
+ */
+- (void)syncOfflineDrmLicenseInformationForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(syncOfflineDrmLicenseInformation(for:)) API_AVAILABLE(ios(11.0));
+/**
+ * Returns information about the offline DRM license for a given SourceItem, e.g. the remaining license duration.
+ * The device does not need to be online for this.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the DRM license information should be returned.
+ */
+- (BMPDrmLicenseInformation *)offlineDrmLicenseInformationForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(offlineDrmLicenseInformation(for:)) API_AVAILABLE(ios(11.0));
 /**
  * Renews the already downloaded DRM license for a given SourceItem.
  * When successfully finished, BMPOfflineManagerListener's offlineManagerDidRenewOfflineLicense: method is called.

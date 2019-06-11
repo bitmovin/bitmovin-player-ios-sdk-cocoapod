@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPDRMConfiguration.h>
+#import <BitmovinPlayer/BMPDrmLicenseInformation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,6 +50,15 @@ NS_SWIFT_NAME(FairplayConfiguration)
  A block to prepare the URI (without the `skd://`) from the HLS manifest before passing it to the system. 
  */
 @property (nonatomic, copy, nullable) NSString *(^prepareLicenseServerUrl)(NSString *licenseServerUrl);
+/**
+ A block to prepare the loaded CKC data received by the Sync SPC call to the respective Key Security Module (KSM).
+ This data may contain information about the expiration dates of a DRM license.
+ */
+@property (nonatomic, copy, nullable) BMPDrmLicenseInformation *(^prepareOfflineDrmLicenseInformation)(NSData *data);
+/**
+ A block to prepare the data which is sent as the body of the POST request for syncing the DRM license information.
+ */
+@property (nonatomic, copy, nullable) NSData *(^prepareSyncMessage)(NSData *syncSpcData, NSString *assetID);
 /// :nodoc:
 - (instancetype)initWithUUID:(NSUUID *)uuid NS_UNAVAILABLE;
 /// :nodoc:
