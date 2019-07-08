@@ -348,7 +348,7 @@ NS_SWIFT_NAME(PlayerListener)
 /**
  * Is called when ad playback fails.
  */
-- (void)onAdError:(BMPAdErrorEvent *)event __TVOS_PROHIBITED;
+- (void)onAdError:(BMPAdErrorEvent *)event;
 
 /**
  * Is called when the ad manifest has been successfully loaded.

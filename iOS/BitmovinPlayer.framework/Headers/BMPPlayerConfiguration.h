@@ -17,6 +17,7 @@
 #import <BitmovinPlayer/BMPRemoteControlConfiguration.h>
 #import <BitmovinPlayer/BMPAdaptationConfiguration.h>
 #import <BitmovinPlayer/BMPNetworkConfiguration.h>
+#import <BitmovinPlayer/BMPTweaksConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,6 +42,8 @@ NS_SWIFT_NAME(PlayerConfiguration)
 @property (nonatomic, nonnull, strong) BMPAdaptationConfiguration *adaptationConfiguration;
 /** The BMPNetworkConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPNetworkConfiguration *networkConfiguration;
+/** The BMPTweaksConfiguration of this BMPPlayerConfiguration. */
+@property (nonatomic, nonnull, strong) BMPTweaksConfiguration *tweaksConfiguration;
 
 /**
  * Get/Set a source item for this PlayerConfiguration. When a source item is set, also a new new SourceConfiguration

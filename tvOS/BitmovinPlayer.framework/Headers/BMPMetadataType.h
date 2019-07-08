@@ -15,7 +15,8 @@ typedef NS_ENUM(NSInteger, BMPMetadataType) {
     BMPMetadataTypeNone = 0,
     BMPMetadataTypeID3,
     BMPMetadataTypeEMSG,
-    BMPMetadataTypeDaterange
+    BMPMetadataTypeDaterange,
+    BMPMetadataTypeScte
 };
 
 NS_ASSUME_NONNULL_END

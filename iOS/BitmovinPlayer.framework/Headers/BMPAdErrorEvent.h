@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  * See BMPPlayerListener.h for more information on this event.
  */
 NS_SWIFT_NAME(AdErrorEvent)
-__TVOS_PROHIBITED
 @interface BMPAdErrorEvent : BMPErrorEvent
 @property (nonatomic, strong, readonly, nullable) BMPAdItem *adItem;
 

@@ -42,3 +42,8 @@
 #import <BitmovinPlayer/BMPSubtitleUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPDaterangeMetadata.h>
 #import <BitmovinPlayer/BMPDrmLicenseInformation.h>
+#import <BitmovinPlayer/BMPScteMetadata.h>
+#import <BitmovinPlayer/BMPScteMetadataEntry.h>
+#if TARGET_OS_IOS
+#import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
+#endif
