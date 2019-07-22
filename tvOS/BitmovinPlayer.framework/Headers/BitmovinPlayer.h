@@ -31,10 +31,6 @@
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
 #import <BitmovinPlayer/BMPWidevineConfiguration.h>
 #import <BitmovinPlayer/BMPClearKeyConfiguration.h>
-#import <BitmovinPlayer/BMPOfflineSourceItem.h>
-#import <BitmovinPlayer/BMPOfflineManager.h>
-#import <BitmovinPlayer/BMPOfflineManagerListener.h>
-#import <BitmovinPlayer/BMPOfflineState.h>
 #import <BitmovinPlayer/BMPHttpRequestTypes.h>
 #import <BitmovinPlayer/BMPErrorCodes.h>
 #import <BitmovinPlayer/BMPWarningCodes.h>
@@ -46,4 +42,8 @@
 #import <BitmovinPlayer/BMPScteMetadataEntry.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
+#import <BitmovinPlayer/BMPOfflineSourceItem.h>
+#import <BitmovinPlayer/BMPOfflineManager.h>
+#import <BitmovinPlayer/BMPOfflineManagerListener.h>
+#import <BitmovinPlayer/BMPOfflineState.h>
 #endif
