@@ -6,7 +6,7 @@ Find some sample applications using the Bitmovin Player iOS SDK in our [sample r
 
 ## Using the SDK
 ### Using CocoaPods
-Add `pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.28.2` to your Podfile. After that, install the pod using `pod install`.
+Add `pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.28.3` to your Podfile. After that, install the pod using `pod install`.
 
 ### Adding The SDK Directly
 +   When using XCode, go to the `General` settings page and add the SDK bundle (`BitmovinPlayer.framework`) under `Linked Frameworks and Libraries`.
