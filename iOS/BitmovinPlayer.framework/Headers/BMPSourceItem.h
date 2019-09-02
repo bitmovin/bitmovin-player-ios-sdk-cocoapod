@@ -61,8 +61,12 @@ NS_SWIFT_NAME(SourceItem)
 @property (nonatomic, nullable, strong) BMPThumbnailTrack *thumbnailTrack;
 /**
  Holds metadata for this source item. This data can be used by the player UI to display additional information about the
- currently played source. When objects of type AVMetadataItem are passed as values to the metadata dictionary, they are
- set as externalMetadata on the AVPlayerItem.
+ currently played source.
+
+ When objects of type AVMetadataItem are passed as values to the metadata dictionary, they are
+ set as externalMetadata on the AVPlayerItem on tvOS.
+
+ See `BMPMetadataIdentifier` for more supported attributes.
  */
 @property (nonatomic, copy) NSMutableDictionary<NSString *, id<NSObject, NSCopying>> *metadata;
 

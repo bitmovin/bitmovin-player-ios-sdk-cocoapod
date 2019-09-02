@@ -22,6 +22,7 @@
 #import <BitmovinPlayer/BMPPlayerListener.h>
 #import <BitmovinPlayer/BMPUserInterfaceListener.h>
 #import <BitmovinPlayer/BMPMediaSourceType.h>
+#import <BitmovinPlayer/BMPMetadataIdentifier.h>
 #import <BitmovinPlayer/BMPBitmovinCastManager.h>
 #import <BitmovinPlayer/BMPBitmovinCastManagerListener.h>
 #import <BitmovinPlayer/BMPCastPayload.h>

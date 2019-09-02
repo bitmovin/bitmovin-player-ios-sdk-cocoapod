@@ -25,6 +25,10 @@ NS_SWIFT_NAME(DownloadFinishedEvent)
  */
 @property (nonatomic, readonly, copy) NSURL *url;
 /**
+ * The URL of the last redirect location in case a redirect happened
+ */
+@property (nonatomic, readonly, copy, nullable) NSURL *lastRedirectLocation;
+/**
  * The time needed to finish the request.
  */
 @property (nonatomic, readonly) NSTimeInterval downloadTime;
@@ -45,7 +49,13 @@ NS_SWIFT_NAME(DownloadFinishedEvent)
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-- (instancetype)initWithType:(NSString *)type url:(NSURL *)url downloadTime:(NSTimeInterval)downloadTime httpStatus:(NSUInteger)httpStatus size:(NSUInteger)size success:(BOOL)successful NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithType:(NSString *)type
+                         url:(NSURL *)url
+                downloadTime:(NSTimeInterval)downloadTime
+                  httpStatus:(NSUInteger)httpStatus
+                        size:(NSUInteger)size
+                     success:(BOOL)successful
+        lastRedirectLocation:(nullable NSURL *)lastRedirectLocation NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END
