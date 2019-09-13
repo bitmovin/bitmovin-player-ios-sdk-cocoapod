@@ -59,6 +59,24 @@ __TVOS_PROHIBITED
 - (void)play;
 - (void)pause;
 - (void)seek:(NSTimeInterval)time NS_SWIFT_NAME(seek(time:));
+
+/**
+ Sends the given message to the cast receiver.
+ The receiver can pick up the message on the namespace returned by defaultChannel.protocolNamespace.
+
+ @param message The message to send.
+ @return true if the message could be sent successfully.
+*/
+- (BOOL)sendMessage:(NSString *)message NS_SWIFT_NAME(sendMessage(_:));
+/**
+ Sends the given message to the cast receiver on the provided namespace.
+ If no namespace is provided, the one returned by defaultChannel.protocolNamespace is used.
+
+ @param message The message to send.
+ @param messageNamespace The namespace the message should be send on.
+ @return true if the message could be sent successfully.
+*/
+- (BOOL)sendMessage:(NSString *)message withNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(sendMessage(_:withNamespace:));
 @end
 
 NS_ASSUME_NONNULL_END
