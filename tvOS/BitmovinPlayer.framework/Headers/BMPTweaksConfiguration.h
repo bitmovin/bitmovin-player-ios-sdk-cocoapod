@@ -24,6 +24,12 @@ NS_SWIFT_NAME(TweaksConfiguration)
  */
 @property (nonatomic, assign, getter=isNativeHlsParsingEnabled) BOOL nativeHlsParsingEnabled;
 
+/**
+ The frequency in seconds PlayerListener#onTimeChanged is called with TimeChangedEvents.
+ Default is 1. Minimum is 0.025.
+ */
+@property (nonatomic, assign) NSTimeInterval timeChangedInterval;
+
 @end
 
 NS_ASSUME_NONNULL_END
