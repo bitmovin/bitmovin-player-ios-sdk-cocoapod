@@ -41,6 +41,7 @@
 #import <BitmovinPlayer/BMPDrmLicenseInformation.h>
 #import <BitmovinPlayer/BMPScteMetadata.h>
 #import <BitmovinPlayer/BMPScteMetadataEntry.h>
+#import <BitmovinPlayer/BMPAudioQuality.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
