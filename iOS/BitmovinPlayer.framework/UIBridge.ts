@@ -109,7 +109,7 @@ class UIBridge {
       NativeCommunicator.postEvent('controlsShow');
     });
 
-    this.uiManager.currentUi.events.onControlsShow.subscribe(() => {
+    this.uiManager.currentUi.events.onControlsHide.subscribe(() => {
       NativeCommunicator.postEvent('controlsHide');
     });
   }
