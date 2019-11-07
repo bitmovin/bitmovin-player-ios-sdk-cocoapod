@@ -23,6 +23,7 @@ import { NativePlayerStateHandler } from './NativePlayerStateHandler';
 import { EventEmitter } from './EventEmitter';
 import { Logger } from './helper/Logger';
 import { PlayerEventV7 } from './v7/PlayerEnums';
+import { BufferType } from './v8/PlayerV8Enums';
 
 export class NativePlayerAdapter implements PlayerAPI {
 
@@ -284,11 +285,15 @@ export class NativePlayerAdapter implements PlayerAPI {
   }
 
   getVideoBufferLength(): number | null {
-    return 0;
+    const bufferSizeString = NativeCommunicator.callSynchronously('buffer.getLevel', BufferType.ForwardDuration);
+    const bufferSize = parseFloat(bufferSizeString);
+
+    return isNaN(bufferSize) ? 0 : bufferSize;
   }
 
   getAudioBufferLength(): number | null {
-    return 0;
+    // The native player can't distinguish between audio and video so returning the same in both methods is sufficient
+    return this.getVideoBufferLength();
   }
 
   // This methods are not implemented within the native <> JS bridge

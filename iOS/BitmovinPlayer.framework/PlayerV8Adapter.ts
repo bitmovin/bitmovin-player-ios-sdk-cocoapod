@@ -1,35 +1,11 @@
-import { PlayerEventV8, ViewMode, WarningCode } from './PlayerV8Enums';
+import { BufferType, MediaType, PlayerEventV8, ViewMode, WarningCode } from './PlayerV8Enums';
 import { EventEnumMapper } from './EventEnumMapper';
 import {
-  AudioQuality,
-  AudioTrack,
-  DownloadedAudioData,
-  DownloadedVideoData,
-  LogLevel,
-  LowLatencyAPI,
-  MetadataType,
-  PlayerAdvertisingAPI,
-  PlayerAPI as PlayerAPIv8,
-  PlayerBufferAPI,
-  PlayerConfig,
-  PlayerEvent,
-  PlayerEventCallback,
-  PlayerExports,
-  PlayerSubtitlesAPI,
-  PlayerType,
-  PlayerVRAPI,
-  QueryParameters,
-  SegmentMap,
-  Snapshot,
-  SourceConfig,
-  StreamType,
-  SubtitleTrack,
-  SupportedTechnologyMode,
-  Technology,
-  Thumbnail,
-  TimeRange,
-  VideoQuality,
-  ViewModeOptions,
+  AudioQuality, AudioTrack, BufferLevel, DownloadedAudioData, DownloadedVideoData, LogLevel, LowLatencyAPI,
+  MetadataType, PlayerAdvertisingAPI, PlayerAPI as PlayerAPIv8, PlayerBufferAPI, PlayerConfig, PlayerEvent,
+  PlayerEventCallback, PlayerExports, PlayerSubtitlesAPI, PlayerType, PlayerVRAPI, QueryParameters,
+  SegmentMap, Snapshot, SourceConfig, StreamType, SubtitleTrack, SupportedTechnologyMode, Technology, Thumbnail,
+  TimeRange, VideoQuality, ViewModeOptions,
 } from 'bitmovin-player-v8';
 import { Logger } from '../helper/Logger';
 import { NativePlayerStateHandler } from '../NativePlayerStateHandler';
@@ -75,6 +51,21 @@ export class PlayerV8Adapter implements PlayerAPIv8 {
     },
   };
 
+  private bufferApi: PlayerBufferAPI = {
+    getLevel: (type: BufferType, media: MediaType): BufferLevel => {
+      return {
+        level: this.getVideoBufferLength(),
+        targetLevel: 0, // Not needed by our UI
+        type,
+        media,
+      };
+    },
+
+    setTargetLevel(type: BufferType, value: number, media: MediaType): void {
+      Logger.notImplemented('bufferApi.setTargetLevel');
+    }
+  };
+
   constructor(playerV7: PlayerAPIv7, stateHandler: NativePlayerStateHandler) {
     this.playerV7 = playerV7;
     this.stateHandler = stateHandler;
@@ -86,6 +77,10 @@ export class PlayerV8Adapter implements PlayerAPIv8 {
 
   get subtitles(): PlayerSubtitlesAPI {
     return this.subtitlesApi;
+  }
+
+  get buffer(): PlayerBufferAPI {
+    return this.bufferApi;
   }
 
   on(eventType: PlayerEvent, callback: PlayerEventCallback): void {
@@ -341,7 +336,6 @@ export class PlayerV8Adapter implements PlayerAPIv8 {
   // Not implemented
 
   readonly ads: PlayerAdvertisingAPI;
-  readonly buffer: PlayerBufferAPI;
   readonly lowlatency: LowLatencyAPI;
   readonly version: string;
   readonly vr: PlayerVRAPI;

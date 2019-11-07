@@ -13,6 +13,7 @@
 #import <BitmovinPlayer/BMPAudioTrack.h>
 #import <BitmovinPlayer/BMPVideoQuality.h>
 #import <BitmovinPlayer/BMPThumbnail.h>
+#import <BitmovinPlayer/BMPBufferApi.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,10 +56,10 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
-* Returns the current playback time in seconds of the video.
-* For VoD streams the returned time ranges between 0 and the duration of the asset.
-* For live streams a Unix timestamp denoting the current playback position is returned.
-*/
+ * Returns the current playback time in seconds of the video.
+ * For VoD streams the returned time ranges between 0 and the duration of the asset.
+ * For live streams a Unix timestamp denoting the current playback position is returned.
+ */
 @property (nonatomic, readonly) NSTimeInterval currentTime;
 
 /**
@@ -159,6 +160,11 @@ NS_SWIFT_NAME(PlayerAPI)
  * Returns the currently playing video frame rate in units of frames per second.
  */
 @property (nonatomic, readonly) float currentVideoFrameRate;
+
+/**
+ * Provides access to the buffer API.
+ */
+@property (nonatomic, readonly) id<BMPBufferApi> buffer API_AVAILABLE(ios(10.0), tvos(10.0));
 
 /**
  * Sets up player instance with the given configuration.

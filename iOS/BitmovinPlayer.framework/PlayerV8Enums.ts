@@ -124,3 +124,14 @@ export enum WarningCode {
   MODULE_ADVERTISING_WARNING = 3100,
   MODULE_ADVERTISING_IMA_SDK_NOT_FOUND = 3101
 }
+
+export enum BufferType {
+  ForwardDuration = "forwardduration",
+  BackwardDuration = "backwardduration"
+}
+
+export enum MediaType {
+  Audio = "audio",
+  Video = "video",
+  Subtitles = "subtitles"
+}

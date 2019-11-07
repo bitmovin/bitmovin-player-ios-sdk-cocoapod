@@ -4,6 +4,7 @@ import PlayerEvent = bitmovin.PlayerAPI.PlayerEvent;
 import EVENT = bitmovin.PlayerAPI.EVENT;
 import { uiBridge } from './UIBridge';
 import { PlayerEventV7 } from './v7/PlayerEnums';
+import { EventEnumMapper } from './v8/EventEnumMapper';
 
 export class EventEmitter {
   private eventHandlers: { [eventType: string]: PlayerEventCallback[]; } = {};
@@ -25,6 +26,17 @@ export class EventEmitter {
   }
 
   fireNativeEvent(eventType: EVENT, dataAsStringOrObject: string | PlayerEvent): void {
+    // As with UI v3 a few events were dropped we have to map it accordingly.
+    // I.e. all event callbacks are stored by their v7 event type string. For events not longer available in v8
+    // these events have to be mapped to their possible v7 equivalent. Example: 'onCastPlaying' does no longer exist.
+    // Its corresponding v8 event is 'playing'. So onCastPlaying <=> playing <=> onPlaying
+    const originalType = eventType;
+    eventType = EventEnumMapper.mapEventTypeIfNeeded(eventType);
+
+    if (eventType !== originalType) {
+      eventType = EventEnumMapper.mapToV7(eventType);
+    }
+
     if (this.eventHandlers.hasOwnProperty(eventType) && !this.shouldSuppressEvent(eventType)) {
       const toDataObj = (dataAsStringOrObject: string | PlayerEvent): PlayerEvent => {
         if (typeof dataAsStringOrObject === 'string') {

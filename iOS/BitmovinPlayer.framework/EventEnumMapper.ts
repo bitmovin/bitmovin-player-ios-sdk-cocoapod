@@ -87,7 +87,7 @@ export class EventEnumMapper {
     onSubtitleChanged: 'subtitleenabled',
   };
 
-  static mapToV7(event: PlayerEvent): string {
+  static mapToV7(event: PlayerEvent | string): string {
     return Object.keys(this.mapping).filter((key) => this.mapping[key] === event)[0];
   }
 
