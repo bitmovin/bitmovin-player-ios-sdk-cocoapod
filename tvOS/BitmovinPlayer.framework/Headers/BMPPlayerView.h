@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Base class for player user interfaces which should work together with the BMPBitmovinPlayer. If ypu want to build your
+ * Base class for player user interfaces which should work together with the BMPBitmovinPlayer. If you want to build your
  * own UI on top of our player, extend this class.
  */
 NS_SWIFT_NAME(PlayerView)
