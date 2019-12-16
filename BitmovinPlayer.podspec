@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'BitmovinPlayer'
-    s.version = '2.35.0'
+    s.version = '2.35.1'
     s.summary = 'Bitmovin Player SDK for iOS and tvOS'
     s.homepage = 'https://www.bitmovin.com/'
     s.social_media_url = 'https://twitter.com/bitmovin'
