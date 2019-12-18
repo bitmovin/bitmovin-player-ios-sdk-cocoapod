@@ -14,6 +14,7 @@
 #import <BitmovinPlayer/BMPVideoQuality.h>
 #import <BitmovinPlayer/BMPThumbnail.h>
 #import <BitmovinPlayer/BMPBufferApi.h>
+#import <BitmovinPlayer/BMPTimeMode.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,7 +57,7 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 /**
- * Returns the current playback time in seconds of the video.
+ * Returns the current playback time in seconds.
  * For VoD streams the returned time ranges between 0 and the duration of the asset.
  * For live streams a Unix timestamp denoting the current playback position is returned.
  */
@@ -285,6 +286,15 @@ NS_SWIFT_NAME(PlayerAPI)
  * Shows the AirPlay playback target picker.
  */
 - (void)showAirPlayTargetPicker;
+
+/**
+ * Returns the current playback time in seconds.
+ * For VoD streams the returned time ranges between 0 and the duration of the asset.
+ * For live streams it can be specified if an absolute unix timestamp or a value relative to the playback start should be returned.
+ *
+ * @param timeMode to specify if an absolute unix timestamp or an relative time should be returned.
+ */
+- (NSTimeInterval)currentTime:(BMPTimeMode)timeMode;
 
 @end
 
