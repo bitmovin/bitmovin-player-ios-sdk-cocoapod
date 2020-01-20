@@ -25,6 +25,13 @@ NS_SWIFT_NAME(TweaksConfiguration)
 @property (nonatomic, assign, getter=isNativeHlsParsingEnabled) BOOL nativeHlsParsingEnabled;
 
 /**
+ If enabled, playlists will be downloaded by the Bitmovin Player SDK instead of AVFoundation.
+ If set to NO, enabling `nativeHlsParsingEnabled` won't have any effect.
+ Default is YES.
+ */
+@property (nonatomic, assign, getter=isCustomHlsLoadingEnabled) BOOL customHlsLoadingEnabled;
+
+/**
  The frequency in seconds PlayerListener#onTimeChanged is called with TimeChangedEvents.
  Default is 1. Minimum is 0.025.
  */
