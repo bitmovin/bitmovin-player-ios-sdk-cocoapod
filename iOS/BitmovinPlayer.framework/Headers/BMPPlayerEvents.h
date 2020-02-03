@@ -47,6 +47,7 @@
 #import <BitmovinPlayer/BMPDvrWindowExceededEvent.h>
 #import <BitmovinPlayer/BMPStallStartedEvent.h>
 #import <BitmovinPlayer/BMPStallEndedEvent.h>
+#import <BitmovinPlayer/BMPCueParsedEvent.h>
 #import <BitmovinPlayer/BMPCueEnterEvent.h>
 #import <BitmovinPlayer/BMPCueExitEvent.h>
 #import <BitmovinPlayer/BMPCueEvent.h>

@@ -17,8 +17,10 @@ NS_ERROR_ENUM(BMPBitmovinPlayerWarningDomain)
     BMPWarningGeneral = 1000,
     BMPWarningSetupRemotePlaybackFailed = 1102,
     BMPWarningSourceCouldNotParseThumbnails = 1206,
-    BMPWarningNetworkCouldNotLoadThumbnails = 1403,
-    BMPWarningSourceHlsPlaylistTypeMissing = 1207
+    BMPWarningSourceHlsPlaylistTypeMissing = 1207,
+    BMPWarningSourceCouldNotParseSubtitles = 1208,
+    BMPWarningNetworkCouldNotLoadSubtitle = 1402,
+    BMPWarningNetworkCouldNotLoadThumbnails = 1403
 };
 
 NS_ASSUME_NONNULL_END

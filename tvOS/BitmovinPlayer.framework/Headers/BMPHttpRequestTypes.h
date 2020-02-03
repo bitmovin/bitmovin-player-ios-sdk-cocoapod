@@ -16,6 +16,7 @@
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeDrmLicenseFairplay;
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeDrmCertificateFairplay;
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeMediaThumbnails;
+FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeMediaSubtitles;
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeManifestHlsMaster;
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeManifestHlsVariant;
 FOUNDATION_EXPORT NSString *const BMPHttpRequestTypeKeyHlsAes;

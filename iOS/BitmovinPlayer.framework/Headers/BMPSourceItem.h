@@ -192,8 +192,8 @@ NS_SWIFT_NAME(SourceItem)
 /**
  Can be used to add external subtitles to this source item.
 
- @note Subtitles which are added using this method are only supported for source items which are loaded into a
- Chromecast session. Subtitles for local playback need to be referenced in the manifest of the stream.
+ @note Subtitles which are added using this method are only supported in combination with our Bitmovin UI or for source items
+ which are loaded into a Chromecast session.
 
  @param subtitleTrack The subtitle track to add.
  */

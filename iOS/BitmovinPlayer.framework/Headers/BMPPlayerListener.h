@@ -261,6 +261,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent *)event;
 
 /**
+ * Is called when a sideloaded subtitle cue has been parsed.
+ */
+- (void)onCueParsed:(BMPCueParsedEvent *)event;
+
+/**
  * Is called when a subtitle entry transitions into the active status.
  */
 - (void)onCueEnter:(BMPCueEnterEvent *)event;
