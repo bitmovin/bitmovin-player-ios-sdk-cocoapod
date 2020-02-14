@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPAdBreakEvent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
  * See BMPPlayerListener.h for more information on this event.
  */
 NS_SWIFT_NAME(AdBreakStartedEvent)
-@interface BMPAdBreakStartedEvent : BMPPlayerEvent
+@interface BMPAdBreakStartedEvent : BMPAdBreakEvent
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)initWithAdBreak:(id<BMPAdBreak>)adBreak NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPAdEvent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  * See BMPPlayerListener.h for more information on this event.
  */
 NS_SWIFT_NAME(AdSkippedEvent)
-@interface BMPAdSkippedEvent : BMPPlayerEvent
+@interface BMPAdSkippedEvent : BMPAdEvent
 @end
 
 NS_ASSUME_NONNULL_END

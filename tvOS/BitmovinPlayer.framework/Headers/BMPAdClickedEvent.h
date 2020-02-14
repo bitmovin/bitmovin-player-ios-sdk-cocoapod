@@ -20,7 +20,7 @@ NS_SWIFT_NAME(AdClickedEvent)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithClickThroughUr:(nullable NSURL *)clickThroughUrl NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithClickThroughUrl:(nullable NSURL *)clickThroughUrl NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

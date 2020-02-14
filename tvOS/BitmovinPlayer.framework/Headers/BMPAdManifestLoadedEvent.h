@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPAdBreakEvent.h>
+#import <BitmovinPlayer/BMPAdConfig.h>
+#import <BitmovinPlayer/BMPAdBreak.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,11 +18,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(AdManifestLoadedEvent)
 @interface BMPAdManifestLoadedEvent : BMPPlayerEvent
-@property (nonatomic, readonly, copy) NSURL *manifestUrl;
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly, copy, nullable) id<BMPAdConfig> adConfig;
+/**
+ * Returns the `AdBreak` this event is related to.
+ *
+ * @return The `AdBreak` this event is related to.
+ */
+@property (nonatomic, readonly, nullable) id<BMPAdBreak> adBreak;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithManifestUrl:(NSURL *)manifestUrl NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDownloadTime:(NSTimeInterval)downloadTime
+                             adBreak:(nullable id<BMPAdBreak>)adBreak
+                            adConfig:(nullable id<BMPAdConfig>)adConfig NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

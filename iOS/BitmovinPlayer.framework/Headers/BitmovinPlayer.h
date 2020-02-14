@@ -43,6 +43,11 @@
 #import <BitmovinPlayer/BMPScteMetadataEntry.h>
 #import <BitmovinPlayer/BMPAudioQuality.h>
 #import <BitmovinPlayer/BMPTimeMode.h>
+#import <BitmovinPlayer/BMPAdQuartile.h>
+#import <BitmovinPlayer/BMPOverlayAd.h>
+#import <BitmovinPlayer/BMPLinearAd.h>
+#import <BitmovinPlayer/BMPImaAdData.h>
+#import <BitmovinPlayer/BMPImaAdBreak.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPAdItem.h>
+#import <BitmovinPlayer/BMPAdConfig.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,9 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(AdErrorEvent)
 @interface BMPAdErrorEvent : BMPErrorEvent
 @property (nonatomic, strong, readonly, nullable) BMPAdItem *adItem;
+@property (nonatomic, readonly, nullable) id<BMPAdConfig> adConfig;
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)initWithCode:(NSUInteger)code message:(NSString *)message NS_UNAVAILABLE;
-- (instancetype)initWithAdItem:(nullable BMPAdItem *)adItem code:(NSUInteger)code message:(NSString *)message NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAdItem:(nullable BMPAdItem *)adItem
+                          code:(NSUInteger)code
+                       message:(NSString *)message
+                      adConfig:(nullable id<BMPAdConfig>)adConfig NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

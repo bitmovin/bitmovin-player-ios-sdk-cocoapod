@@ -76,5 +76,6 @@
 #import <BitmovinPlayer/BMPAirPlayChangedEvent.h>
 #import <BitmovinPlayer/BMPAirPlayAvailableEvent.h>
 #import <BitmovinPlayer/BMPSourceMetadataChangedEvent.h>
+#import <BitmovinPlayer/BMPAdQuartileEvent.h>
 
 #endif /* BMPWebPlayerEvents_h */

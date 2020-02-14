@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPPlayerEvent.h>
+#import <BitmovinPlayer/BMPAdEvent.h>
 #import <BitmovinPlayer/BMPAdSourceType.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * See BMPPlayerListener.h for more information on this event.
  */
 NS_SWIFT_NAME(AdStartedEvent)
-@interface BMPAdStartedEvent : BMPPlayerEvent
+@interface BMPAdStartedEvent : BMPAdEvent
 @property (nonatomic, readonly, copy, nullable) NSURL *clickThroughUrl;
 @property (nonatomic, readonly) BMPAdSourceType clientType;
 @property (nonatomic, readonly) NSUInteger indexInQueue;
@@ -33,7 +33,8 @@ NS_SWIFT_NAME(AdStartedEvent)
                                duration:(NSTimeInterval)duration
                              timeOffset:(NSTimeInterval)timeOffset
                              skipOffset:(NSTimeInterval)skipOffset
-                               position:(nullable NSString *)position NS_DESIGNATED_INITIALIZER;
+                               position:(nullable NSString *)position
+                                     ad:(nullable id<BMPAd>)ad NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

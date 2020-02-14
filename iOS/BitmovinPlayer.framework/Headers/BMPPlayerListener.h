@@ -326,6 +326,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onAdFinished:(BMPAdFinishedEvent *)event;
 
 /**
+ * Is fired when the playback of an ad has progressed over a quartile boundary.
+ */
+- (void)onAdQuartile:(BMPAdQuartileEvent *)event;
+
+/**
  * Is called when the playback of an ad break has been started
  */
 - (void)onAdBreakStarted:(BMPAdBreakStartedEvent *)event;
