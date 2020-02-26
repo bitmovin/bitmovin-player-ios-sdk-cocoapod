@@ -18,6 +18,7 @@
 #import <BitmovinPlayer/BMPTrack.h>
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
 #import <BitmovinPlayer/BMPThumbnailTrack.h>
+#import <BitmovinPlayer/BMPSourceOptions.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,6 +70,10 @@ NS_SWIFT_NAME(SourceItem)
  See `BMPMetadataIdentifier` for more supported attributes.
  */
 @property (nonatomic, copy) NSMutableDictionary<NSString *, id<NSObject, NSCopying>> *metadata;
+/**
+ An object specifying advanced source specific options.
+ */
+@property (nonatomic, nullable, strong) BMPSourceOptions *options;
 
 /// :nodoc:
 - (instancetype)init NS_UNAVAILABLE;

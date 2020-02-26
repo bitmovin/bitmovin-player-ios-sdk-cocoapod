@@ -48,6 +48,7 @@
 #import <BitmovinPlayer/BMPLinearAd.h>
 #import <BitmovinPlayer/BMPImaAdData.h>
 #import <BitmovinPlayer/BMPImaAdBreak.h>
+#import <BitmovinPlayer/BMPSourceOptions.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
