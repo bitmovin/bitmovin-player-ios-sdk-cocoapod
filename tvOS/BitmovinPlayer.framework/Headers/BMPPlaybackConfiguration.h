@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
+#import <BitmovinPlayer/BMPSubtitleTrack.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,6 +29,13 @@ NS_SWIFT_NAME(PlaybackConfiguration)
  * background playback.
  */
 @property (nonatomic, getter=isBackgroundPlaybackEnabled) BOOL backgroundPlaybackEnabled;
+/**
+ * Determines if the subtitle should be selected by the player per default and kept in sync with the selected audio language.
+ * The subtitle will not appear in availableSubtitles and can't be deactivated or activated through the API.
+ *
+ * In case of HLS these are subtitles with the attribute FORCED=YES.
+ */
+@property (nonatomic, nullable, getter=forcedSubtitleCallback) BOOL (^isForcedSubtitleCallback)(BMPSubtitleTrack *);
 
 @end
 
