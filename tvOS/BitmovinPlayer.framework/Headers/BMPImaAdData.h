@@ -22,6 +22,12 @@ NS_SWIFT_NAME(ImaAdData)
  * @return The first deal ID present in the wrapper chain for the ad, starting from the top.
  */
 @property (nonatomic, readonly, nullable) NSString *dealId;
+/**
+ * The custom parameters associated with the ad at the time of ad trafficking.
+ *
+ * @returns the custom parameters associated with the ad at the time of ad trafficking.
+ */
+@property (nonatomic, readonly, nullable) NSString *traffickingParameters;
 
 @end
 
