@@ -17,4 +17,9 @@
  The type of the value must be `NSData`.
  */
 FOUNDATION_EXPORT NSString *const BMPMetadataIdentifierArtwork NS_SWIFT_NAME(MetadataIdentifierArtwork);
+/**
+ Identifier for navigation markers on tvOS which will be passed to `AVPlayerItem.navigationMarkerGroups`.
+ The type of the value must be `NSArray<AVNavigationMarkersGroup>`.
+ */
+FOUNDATION_EXPORT NSString *const BMPMetadataIdentifierNavigationMarker NS_SWIFT_NAME(MetadataIdentifierNavigationMarker);
 
