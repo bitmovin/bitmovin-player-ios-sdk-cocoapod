@@ -12,6 +12,7 @@
 #import <BitmovinPlayer/BMPOfflineManagerListener.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
 #import <BitmovinPlayer/BMPDrmLicenseInformation.h>
+#import <BitmovinPlayer/BMPDownloadConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -100,7 +101,15 @@ NS_SWIFT_NAME(OfflineManager)
  * @param minimumBitrate The lowest media bitrate greater than or equal to this value in bps will be selected for
  *      download. If no suitable media bitrate is found, the highest media bitrate will be selected.
  */
-- (void)downloadSourceItem:(BMPSourceItem *)sourceItem minimumBitrate:(nullable NSNumber *)minimumBitrate NS_SWIFT_NAME(download(sourceItem:minimumBitrate:));
+- (void)downloadSourceItem:(BMPSourceItem *)sourceItem minimumBitrate:(nullable NSNumber *)minimumBitrate NS_SWIFT_NAME(download(sourceItem:minimumBitrate:)) __deprecated_msg("Use download(sourceItem:downloadConfiguration:) instead.");
+/**
+ * Downloads the media data associated with the given BMPSourceItem. Calling this method is only valid when
+ * offlineStateForSourceItem: for the same BMPSourceItem instance returns BMPOfflineStateNotDownloaded.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the media data should be downloaded.
+ * @param downloadConfiguration The BMPDownloadConfiguration used for this download
+ */
+- (void)downloadSourceItem:(BMPSourceItem *)sourceItem downloadConfiguration:(BMPDownloadConfiguration *)downloadConfiguration NS_SWIFT_NAME(download(sourceItem:downloadConfiguration:));
 /**
  * Cancels all running download tasks associated with the given BMPSourceItem and deletes the partially downloaded
  * content from disk. Calling this method is only valid when offlineStateForSourceItem: for the same BMPSourceItem
