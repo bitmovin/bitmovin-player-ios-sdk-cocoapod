@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
-#import <BitmovinPlayer/BMPDownloadTweaksConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,14 +21,14 @@ NS_SWIFT_NAME(DownloadConfiguration)
  download. If no suitable media bitrate is found or if set to nil, the highest media bitrate will be selected.
  */
 @property(nonatomic, strong, nullable) NSNumber *minimumBitrate;
-
 /**
- Contains tweaks which can be used to alter the default behaviour of a source download.
- When using one of the tweaks, be aware that they could be removed or changed in behaviour even
- with minor version updates of the Bitmovin Player SDK. Such changes will be stated in the release
- notes.
+ Indicates whether to scan for ClearKey decryption keys and store them for offline playback.
+ Default: false
+
+ @Note
+ To prevent issues with playback of offline content, make sure that the `EXT-X-PLAYLIST-TYPE:VOD` tag is present in all variant playlists.
  */
-@property(nonatomic, strong, nonnull) BMPDownloadTweaksConfiguration *tweaksConfiguration;
+@property(nonatomic) BOOL supportClearKeyContent;
 @end
 
 NS_ASSUME_NONNULL_END

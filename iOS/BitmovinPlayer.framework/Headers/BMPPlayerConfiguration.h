@@ -27,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(PlayerConfiguration)
 @interface BMPPlayerConfiguration : BMPConfiguration
+/**
+  * A personal key can be found in the bitmovin portal and can be specified here (in addition to the one in the Info.plist)
+  * Do not forget to enter all your domains (subdomains are included) in your account.
+  *
+  * If a license key is set here, it will be used instead of the license key found in Info.plist.
+  */
+@property (nonatomic, nullable, copy) NSString *key;
 /** The BMPSourceConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPSourceConfiguration *sourceConfiguration;
 /** The BMPStyleConfiguration of this BMPPlayerConfiguration. */
