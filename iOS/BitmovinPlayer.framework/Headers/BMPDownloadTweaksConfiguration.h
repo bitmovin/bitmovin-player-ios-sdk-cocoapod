@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(DownloadTweaksConfiguration)
 @interface BMPDownloadTweaksConfiguration : BMPConfiguration
 /**
- If enabled, playlists will be downloaded by the Bitmovin Player SDK instead of AVFoundation.
- Default is YES.
+ If enabled, tag EXT-X-PLAYLIST-TYPE:VOD will be inserted into downloaded playlists if EXT-X-PLAYLIST-TYPE is missing.
+ Default is NO.
  */
-@property (nonatomic, assign, getter=isCustomHlsLoadingEnabled) BOOL customHlsLoadingEnabled;
+@property (nonatomic, assign) BOOL shouldInsertPlaylistTypeTagIfMissing;
 @end
 
 NS_ASSUME_NONNULL_END

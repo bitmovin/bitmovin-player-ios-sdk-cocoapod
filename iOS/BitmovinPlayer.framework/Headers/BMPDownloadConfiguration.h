@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
+#import <BitmovinPlayer/BMPDownloadTweaksConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +30,13 @@ NS_SWIFT_NAME(DownloadConfiguration)
  To prevent issues with playback of offline content, make sure that the `EXT-X-PLAYLIST-TYPE:VOD` tag is present in all variant playlists.
  */
 @property(nonatomic) BOOL supportClearKeyContent;
+/**
+ Contains tweaks which can be used to alter the default behaviour of a source download.
+ When using one of the tweaks, be aware that they could be removed or changed in behaviour even
+ with minor version updates of the Bitmovin Player SDK. Such changes will be stated in the release
+ notes.
+ */
+@property(nonatomic, strong, nonnull) BMPDownloadTweaksConfiguration *tweaksConfiguration;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -61,6 +61,7 @@
 #import <BitmovinPlayer/BMPAdClickedEvent.h>
 #import <BitmovinPlayer/BMPAdErrorEvent.h>
 #import <BitmovinPlayer/BMPAdFinishedEvent.h>
+#import <BitmovinPlayer/BMPAdManifestLoadEvent.h>
 #import <BitmovinPlayer/BMPAdManifestLoadedEvent.h>
 #import <BitmovinPlayer/BMPAdBreakFinishedEvent.h>
 #import <BitmovinPlayer/BMPAdBreakStartedEvent.h>

@@ -361,6 +361,11 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onAdError:(BMPAdErrorEvent *)event;
 
 /**
+ * Is called when the download of an ad manifest is starting
+ */
+- (void)onAdManifestLoad:(BMPAdManifestLoadEvent *)event;
+
+/**
  * Is called when the ad manifest has been successfully loaded.
  */
 - (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event;
