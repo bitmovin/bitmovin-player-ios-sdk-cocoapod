@@ -83,6 +83,13 @@ NS_SWIFT_NAME(OfflineManager)
  */
 - (void)deleteOfflineDataForSourceItem:(BMPSourceItem *)sourceItem;
 /**
+ * Fetches which tracks are available for download.
+ * When finished, BMPOfflineManagerListener's didFetchAvailableTracks:: method is called.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the available tracks should be fetched.
+ */
+- (void)fetchAvailableTracksForSourceItem:(BMPSourceItem *)sourceItem;
+/**
  * Downloads the media data associated with the given BMPSourceItem. The highest media bitrate will be selected for
  * download by default. If you want to specify which bitrate should be selected for download, use
  * downloadSourceItem:minimumBitrate:.
@@ -110,6 +117,17 @@ NS_SWIFT_NAME(OfflineManager)
  * @param downloadConfiguration The BMPDownloadConfiguration used for this download
  */
 - (void)downloadSourceItem:(BMPSourceItem *)sourceItem downloadConfiguration:(BMPDownloadConfiguration *)downloadConfiguration NS_SWIFT_NAME(download(sourceItem:downloadConfiguration:));
+/**
+ * Downloads the media data associated with the given BMPSourceItem depending on the given BMPOfflineTrackSelection.
+ * Calling this method is only valid when offlineStateForSourceItem: for the same BMPSourceItem instance returns BMPOfflineStateNotDownloaded.
+ *
+ * @param sourceItem A BMPSourceItem instance for which the media data should be downloaded.
+ * @param tracks a BMPOfflineTrackSelection specifying which tracks to download
+ * @param downloadConfiguration The BMPDownloadConfiguration used for this download
+ */
+- (void)downloadSourceItem:(BMPSourceItem *)sourceItem
+                    tracks:(BMPOfflineTrackSelection *)tracks
+     downloadConfiguration:(BMPDownloadConfiguration *)downloadConfiguration NS_SWIFT_NAME(download(sourceItem:tracks:downloadConfiguration:));
 /**
  * Cancels all running download tasks associated with the given BMPSourceItem and deletes the partially downloaded
  * content from disk. Calling this method is only valid when offlineStateForSourceItem: for the same BMPSourceItem

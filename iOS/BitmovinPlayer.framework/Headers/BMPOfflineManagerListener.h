@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BitmovinPlayer/BMPOfflineTrackSelection.h>
 
 @class BMPOfflineManager;
 
@@ -78,6 +79,16 @@ NS_SWIFT_NAME(OfflineManagerListener)
  * @param offlineManager The BMPOfflineManager calling the listener.
  */
 - (void)offlineManagerOfflineLicenseDidExpire:(BMPOfflineManager *)offlineManager API_AVAILABLE(ios(11.0));
+
+@optional
+
+/**
+ * Is called when information on available tracks is available.
+ *
+ * @param offlineManager The BMPOfflineManager calling the listener.
+ * @param tracks The available BMPOfflineTrackSelection.
+ */
+- (void)offlineManager:(BMPOfflineManager *)offlineManager didFetchAvailableTracks:(BMPOfflineTrackSelection *)tracks;
 @end
 
 NS_ASSUME_NONNULL_END

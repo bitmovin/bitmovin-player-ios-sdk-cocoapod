@@ -57,4 +57,7 @@
 #import <BitmovinPlayer/BMPOfflineState.h>
 #import <BitmovinPlayer/BMPDownloadConfiguration.h>
 #import <BitmovinPlayer/BMPDownloadTweaksConfiguration.h>
+#import <BitmovinPlayer/BMPOfflineTrackSelection.h>
+#import <BitmovinPlayer/BMPOfflineTrack.h>
+#import <BitmovinPlayer/BMPOfflineTrackAction.h>
 #endif
