@@ -28,5 +28,15 @@ NS_SWIFT_NAME(RemoteControlConfiguration)
  * than the local device.
  */
 @property (nonatomic, copy, nullable) BMPSourceItem * __nullable (^prepareSource)(BMPRemoteControlType type, BMPSourceItem *sourceItem);
+/**
+ * Indicates whether the player should automatically switch to "external playback" mode while the "external
+ * screen" mode is active in order to play video content and switch back to "external screen" mode as soon
+ * as playback is done.
+ * Brief transition may be visible on the external display when automatically switching between the two modes.
+ * Default value is NO.
+ *
+ * NOTE: This is only supported with AirPlay.
+ */
+@property (nonatomic, assign) BOOL usesExternalPlaybackWhileExternalScreenIsActive;
 @end
 NS_ASSUME_NONNULL_END
