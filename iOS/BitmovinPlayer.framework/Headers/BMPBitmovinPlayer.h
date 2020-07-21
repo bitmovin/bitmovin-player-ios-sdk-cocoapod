@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(BitmovinPlayer)
 @interface BMPBitmovinPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
-- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration;
+- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

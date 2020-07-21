@@ -18,7 +18,5 @@ typedef NS_ENUM(NSInteger, BMPAdSourceType) {
     /** Interactive Media Ads */
     BMPAdSourceTypeIMA,
     /** Unknown advertising source type */
-    BMPAdSourceTypeUnknown,
-    /** Progressive ad type */
-    BMPAdSourceTypeProgressive
+    BMPAdSourceTypeUnknown
 };
