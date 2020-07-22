@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Provides methods to serialize objects to JSON strings.
  */
-NS_SWIFT_NAME(Jsonable)
 @protocol BMPJsonable <NSObject>
 /**
  * Serializes the object implementing this protocol to a JSON string
@@ -34,7 +33,7 @@ NS_SWIFT_NAME(Jsonable)
  * @param error Contains information about any errors which happened during deserialization if nil is returned by this method.
  * @return An instance of the class which is implementing this protocol or nil if an error occurred.
  */
-+ (nullable id)fromJsonData:(NSDictionary *)jsonData error:(NSError **)error;
++ (nullable instancetype)fromJsonData:(NSDictionary *)jsonData error:(NSError **)error;
 @end
 
 NS_ASSUME_NONNULL_END

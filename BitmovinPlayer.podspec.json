@@ -1,6 +1,6 @@
 {
   "name": "BitmovinPlayer",
-  "version": "2.49.0",
+  "version": "2.49.0-b.1",
   "summary": "Bitmovin Player SDK release build for iOS and tvOS",
   "homepage": "https://www.bitmovin.com/",
   "social_media_url": "https://twitter.com/bitmovin",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git",
-    "tag": "2.49.0"
+    "tag": "2.49.0-b.1"
   },
   "platforms": {
     "ios": "9.0",

@@ -4,3 +4,8 @@ framework module BitmovinPlayer {
   export *
   module * { export * }
 }
+
+module BitmovinPlayer.Swift {
+    header "BitmovinPlayer-Swift.h"
+    requires objc
+}
