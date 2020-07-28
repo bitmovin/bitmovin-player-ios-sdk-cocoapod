@@ -210,7 +210,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class BMPAudioTrack;
 
-/// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("AudioAddedEvent")
 @interface BMPAudioAddedEvent : BMPPlayerEvent
 @property (nonatomic, readonly, strong) BMPAudioTrack * _Nonnull audioTrack;
@@ -224,8 +223,6 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 @end
 
 
-
-
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("DestroyEvent")
 @interface BMPDestroyEvent : BMPPlayerEvent
@@ -233,8 +230,6 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -250,8 +245,6 @@ SWIFT_CLASS_NAMED("PlayEvent")
 @end
 
 
-
-
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("ReadyEvent")
 @interface BMPReadyEvent : BMPPlayerEvent
@@ -259,8 +252,6 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -478,7 +469,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class BMPAudioTrack;
 
-/// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("AudioAddedEvent")
 @interface BMPAudioAddedEvent : BMPPlayerEvent
 @property (nonatomic, readonly, strong) BMPAudioTrack * _Nonnull audioTrack;
@@ -492,8 +482,6 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 @end
 
 
-
-
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("DestroyEvent")
 @interface BMPDestroyEvent : BMPPlayerEvent
@@ -501,8 +489,6 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -518,8 +504,6 @@ SWIFT_CLASS_NAMED("PlayEvent")
 @end
 
 
-
-
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("ReadyEvent")
 @interface BMPReadyEvent : BMPPlayerEvent
@@ -527,8 +511,6 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
