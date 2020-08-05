@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * An AdItem can have multiple AdSources as waterfalling option.
  */
 NS_SWIFT_NAME(AdSource)
-@interface BMPAdSource : NSObject <NSCopying>
+@interface BMPAdSource : NSObject
 @property (nonatomic, readonly) BMPAdSourceType type;
 @property (nonatomic, readonly, copy) NSURL *tag;
 
