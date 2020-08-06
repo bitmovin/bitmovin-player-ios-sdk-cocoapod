@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(PlayerAPI)
 @protocol BMPPlayerAPI
 /**
+ * Flag to indicate if the player is destroyed.
+ */
+@property (nonatomic, readonly, getter=isDestroyed) BOOL destroyed;
+
+/**
  * Returns YES if the player has been muted.
  */
 @property (nonatomic, readonly, getter=isMuted) BOOL muted;
