@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BitmovinPlayer/BMPJsonable.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,9 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Base class for all event classes.
  */
 NS_SWIFT_NAME(PlayerEvent)
-@interface BMPPlayerEvent : NSObject
+@interface BMPPlayerEvent : NSObject <BMPJsonable>
 @property (nonatomic, readonly, strong) NSString *name;
 @property (nonatomic, readonly) NSTimeInterval timestamp;
+- (nullable instancetype)initWithJsonData:(NSDictionary *)jsonData error:(NSError **)error;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,13 +10,11 @@
 #define BMPWebPlayerEvents_h
 
 #import <BitmovinPlayer/BMPPlayerEvent.h>
-#import <BitmovinPlayer/BMPPlayEvent.h>
 #import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
 #import <BitmovinPlayer/BMPTimeChangedEvent.h>
 #import <BitmovinPlayer/BMPDurationChangedEvent.h>
 #import <BitmovinPlayer/BMPSeekEvent.h>
-#import <BitmovinPlayer/BMPDestroyEvent.h>
 #import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPWarningEvent.h>
 #import <BitmovinPlayer/BMPMetadataEvent.h>
@@ -27,7 +25,6 @@
 #import <BitmovinPlayer/BMPSourceLoadedEvent.h>
 #import <BitmovinPlayer/BMPSourceUnloadedEvent.h>
 #import <BitmovinPlayer/BMPVideoSizeChangedEvent.h>
-#import <BitmovinPlayer/BMPReadyEvent.h>
 #import <BitmovinPlayer/BMPCastAvailableEvent.h>
 #import <BitmovinPlayer/BMPCastPausedEvent.h>
 #import <BitmovinPlayer/BMPCastPlaybackFinishedEvent.h>
@@ -71,12 +68,16 @@
 #import <BitmovinPlayer/BMPVideoDownloadQualityChangedEvent.h>
 #import <BitmovinPlayer/BMPControlsShowEvent.h>
 #import <BitmovinPlayer/BMPControlsHideEvent.h>
-#import <BitmovinPlayer/BMPAudioAddedEvent.h>
 #import <BitmovinPlayer/BMPAudioRemovedEvent.h>
 #import <BitmovinPlayer/BMPDownloadFinishedEvent.h>
 #import <BitmovinPlayer/BMPAirPlayChangedEvent.h>
 #import <BitmovinPlayer/BMPAirPlayAvailableEvent.h>
 #import <BitmovinPlayer/BMPSourceMetadataChangedEvent.h>
 #import <BitmovinPlayer/BMPAdQuartileEvent.h>
+
+@class BMPReadyEvent;
+@class BMPDestroyEvent;
+@class BMPPlayEvent;
+@class BMPAudioAddedEvent;
 
 #endif /* BMPWebPlayerEvents_h */

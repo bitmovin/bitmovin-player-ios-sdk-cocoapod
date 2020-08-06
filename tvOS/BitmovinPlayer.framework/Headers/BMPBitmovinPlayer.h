@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  * to this player instance. This player does not come with an UI, it represents only the player logic. If you wish to use the
  * player along with an UI please use BMPBitmovinPlayerView.
  */
-NS_SWIFT_NAME(BitmovinPlayer)
+NS_SWIFT_NAME(Player)
 @interface BMPBitmovinPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
 - (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration;
 @end
