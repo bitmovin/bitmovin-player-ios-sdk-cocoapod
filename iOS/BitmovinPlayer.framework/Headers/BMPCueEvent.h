@@ -10,6 +10,7 @@
 #import <BitmovinPlayer/BMPPlayerEvent.h>
 #import <UIKit/UIKit.h>
 #import <BitmovinPlayer/BMPCue.h>
+#import <BitmovinPlayer/BMPVttProperties.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,7 @@ NS_SWIFT_NAME(CueEvent)
 @property (nonatomic, readonly, nullable, copy) NSString *position;
 @property (nonatomic, readonly, nullable, copy) NSString *region;
 @property (nonatomic, readonly, nullable, copy) NSString *regionStyle;
+@property (nonatomic, readonly, nullable, copy) BMPVttProperties *vtt;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

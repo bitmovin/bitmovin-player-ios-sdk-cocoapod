@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <BitmovinPlayer/BMPVttProperties.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +33,8 @@ NS_SWIFT_NAME(Cue)
 @property (nonatomic, nullable, copy) NSString *region;
 /** The region style of the cue. May be nil. */
 @property (nonatomic, nullable, copy) NSString *regionStyle;
+/** The vtt  positioning properties for this cue */
+@property (nonatomic, nullable, copy) BMPVttProperties *vtt;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -42,11 +45,26 @@ NS_SWIFT_NAME(Cue)
                             image:(nullable UIImage *)image
                          position:(nullable NSString *)position
                            region:(nullable NSString *)region
-                      regionStyle:(nullable NSString *)regionStyle NS_DESIGNATED_INITIALIZER;
+                      regionStyle:(nullable NSString *)regionStyle;
+
+- (instancetype)initWithStartTime:(NSTimeInterval)startTime
+                          endTime:(NSTimeInterval)endTime
+                             html:(nullable NSString *)html
+                             text:(nullable NSString *)text
+                            image:(nullable UIImage *)image
+                         position:(nullable NSString *)position
+                           region:(nullable NSString *)region
+                      regionStyle:(nullable NSString *)regionStyle
+                    vttProperties:(nullable BMPVttProperties *)vttProperties NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithStartTime:(NSTimeInterval)startTime
                           endTime:(NSTimeInterval)endTime
                              text:(NSString *)text;
+
+- (instancetype)initWithStartTime:(NSTimeInterval)startTime
+                          endTime:(NSTimeInterval)endTime
+                             text:(NSString *)text
+                    vttProperties:(nullable BMPVttProperties *)vttProperties;
 
 - (instancetype)initWithStartTime:(NSTimeInterval)startTime
                           endTime:(NSTimeInterval)endTime

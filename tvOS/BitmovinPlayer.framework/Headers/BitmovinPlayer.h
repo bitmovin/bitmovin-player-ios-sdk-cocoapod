@@ -49,6 +49,15 @@
 #import <BitmovinPlayer/BMPImaAdData.h>
 #import <BitmovinPlayer/BMPImaAdBreak.h>
 #import <BitmovinPlayer/BMPSourceOptions.h>
+#import <BitmovinPlayer/BMPVttProperties.h>
+#import <BitmovinPlayer/BMPVttVertical.h>
+#import <BitmovinPlayer/BMPVttLineAlign.h>
+#import <BitmovinPlayer/BMPVttPositionAlign.h>
+#import <BitmovinPlayer/BMPVttAlign.h>
+#import <BitmovinPlayer/BMPVttLine.h>
+#import <BitmovinPlayer/BMPVttLineValueType.h>
+#import <BitmovinPlayer/BMPVttPosition.h>
+#import <BitmovinPlayer/BMPVttPositionValueType.h>
 #import <BitmovinPlayer/_BMPErrorFactory.h>
 #import <BitmovinPlayer/_BMPJsonHelper.h>
 #if TARGET_OS_IOS
