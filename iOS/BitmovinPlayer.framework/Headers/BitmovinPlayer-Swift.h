@@ -262,6 +262,45 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 
 
 
+@class BMPUserInterfaceConfiguration;
+
+SWIFT_CLASS_NAMED("StyleConfiguration")
+@interface BMPStyleConfiguration : BMPConfiguration
+/// Sets if the the UI should be enabled or not. Default value is true.
+@property (nonatomic) BOOL isUiEnabled;
+@property (nonatomic) BOOL uiEnabled;
+/// Set which user interface type should be used. Default value is UserInterfaceType.bitmovin on iOS and
+/// UserInterfaceType.system on tvOS. This setting only applies if StyleConfiguration#uiEnabled is set to true.
+@property (nonatomic) BMPUserInterfaceType userInterfaceType;
+/// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
+/// set with this property.
+@property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
+/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// file or the CSS file set with StyleConfiguration#playerUiCss.
+@property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
+/// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
+/// set with this property.
+@property (nonatomic, copy) NSURL * _Nonnull playerUiJs SWIFT_AVAILABILITY(tvos,unavailable);
+/// Determines how the video content is scaled or stretched within the parent container’s bounds.
+/// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
+@property (nonatomic) BMPScalingMode scalingMode;
+/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// <ul>
+///   <li>
+///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
+///   </li>
+///   <li>
+///     When UserInterfaceType.subtitle is selected, a SubtitleUserInterfaceConfiguration can be set.
+///   </li>
+/// </ul>
+@property (nonatomic, strong) BMPUserInterfaceConfiguration * _Nullable userInterfaceConfiguration;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
@@ -526,6 +565,45 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 @property (nonatomic, readonly, copy) NSString * _Nonnull name;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+@class BMPUserInterfaceConfiguration;
+
+SWIFT_CLASS_NAMED("StyleConfiguration")
+@interface BMPStyleConfiguration : BMPConfiguration
+/// Sets if the the UI should be enabled or not. Default value is true.
+@property (nonatomic) BOOL isUiEnabled;
+@property (nonatomic) BOOL uiEnabled;
+/// Set which user interface type should be used. Default value is UserInterfaceType.bitmovin on iOS and
+/// UserInterfaceType.system on tvOS. This setting only applies if StyleConfiguration#uiEnabled is set to true.
+@property (nonatomic) BMPUserInterfaceType userInterfaceType;
+/// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
+/// set with this property.
+@property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
+/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// file or the CSS file set with StyleConfiguration#playerUiCss.
+@property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
+/// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
+/// set with this property.
+@property (nonatomic, copy) NSURL * _Nonnull playerUiJs SWIFT_AVAILABILITY(tvos,unavailable);
+/// Determines how the video content is scaled or stretched within the parent container’s bounds.
+/// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
+@property (nonatomic) BMPScalingMode scalingMode;
+/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// <ul>
+///   <li>
+///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
+///   </li>
+///   <li>
+///     When UserInterfaceType.subtitle is selected, a SubtitleUserInterfaceConfiguration can be set.
+///   </li>
+/// </ul>
+@property (nonatomic, strong) BMPUserInterfaceConfiguration * _Nullable userInterfaceConfiguration;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 @end
 
 

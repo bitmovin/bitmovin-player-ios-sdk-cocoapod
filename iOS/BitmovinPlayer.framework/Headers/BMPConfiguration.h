@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(Configuration)
 @interface BMPConfiguration : NSObject <BMPJsonable, NSCopying>
+- (nullable instancetype)initWithJsonData:(NSDictionary *)jsonData error:(NSError **)error;
 @end
 
 NS_ASSUME_NONNULL_END

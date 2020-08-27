@@ -10,7 +10,6 @@
 #import <BitmovinPlayer/BMPConfiguration.h>
 #import <BitmovinPlayer/BMPSourceConfiguration.h>
 #import <BitmovinPlayer/BMPSourceItem.h>
-#import <BitmovinPlayer/BMPStyleConfiguration.h>
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
 #import <BitmovinPlayer/BMPAdvertisingConfiguration.h>
 #import <BitmovinPlayer/BMPCastConfiguration.h>
@@ -19,6 +18,8 @@
 #import <BitmovinPlayer/BMPNetworkConfiguration.h>
 #import <BitmovinPlayer/BMPTweaksConfiguration.h>
 #import <BitmovinPlayer/BMPBufferConfiguration.h>
+
+@class BMPStyleConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 

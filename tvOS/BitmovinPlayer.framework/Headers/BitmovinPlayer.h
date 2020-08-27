@@ -60,6 +60,8 @@
 #import <BitmovinPlayer/BMPVttPositionValueType.h>
 #import <BitmovinPlayer/_BMPErrorFactory.h>
 #import <BitmovinPlayer/_BMPJsonHelper.h>
+#import <BitmovinPlayer/BMPUserInterfaceType.h>
+#import <BitmovinPlayer/BMPScalingMode.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

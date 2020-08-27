@@ -20,6 +20,26 @@ import Swift
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPStyleConfiguration) final public class StyleConfiguration : BitmovinPlayer.Configuration {
+  @objc final public var isUiEnabled: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc final public var uiEnabled: Swift.Bool
+  @objc final public var userInterfaceType: BitmovinPlayer.BMPUserInterfaceType
+  @objc @available(tvOS, unavailable)
+  final public var playerUiCss: Foundation.URL
+  @objc @available(tvOS, unavailable)
+  final public var supplementalPlayerUiCss: Foundation.URL?
+  @objc @available(tvOS, unavailable)
+  final public var playerUiJs: Foundation.URL
+  @objc final public var scalingMode: BitmovinPlayer.BMPScalingMode
+  @objc final public var userInterfaceConfiguration: BitmovinPlayer.UserInterfaceConfiguration?
+  @objc override dynamic public init()
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+}
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(BMPAudioAddedEvent) @objcMembers final public class AudioAddedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let audioTrack: BitmovinPlayer.AudioTrack
   @objc final public let time: Foundation.TimeInterval
