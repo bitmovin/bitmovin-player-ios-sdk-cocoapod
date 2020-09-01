@@ -27,12 +27,6 @@ import Swift
   }
   @objc final public var uiEnabled: Swift.Bool
   @objc final public var userInterfaceType: BitmovinPlayer.BMPUserInterfaceType
-  @objc @available(tvOS, unavailable)
-  final public var playerUiCss: Foundation.URL
-  @objc @available(tvOS, unavailable)
-  final public var supplementalPlayerUiCss: Foundation.URL?
-  @objc @available(tvOS, unavailable)
-  final public var playerUiJs: Foundation.URL
   @objc final public var scalingMode: BitmovinPlayer.BMPScalingMode
   @objc final public var userInterfaceConfiguration: BitmovinPlayer.UserInterfaceConfiguration?
   @objc override dynamic public init()
