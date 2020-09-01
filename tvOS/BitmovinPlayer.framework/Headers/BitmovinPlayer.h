@@ -58,6 +58,7 @@
 #import <BitmovinPlayer/BMPVttLineValueType.h>
 #import <BitmovinPlayer/BMPVttPosition.h>
 #import <BitmovinPlayer/BMPVttPositionValueType.h>
+#import <BitmovinPlayer/_BMPErrorFactory.h>
 #import <BitmovinPlayer/_BMPJsonHelper.h>
 #import <BitmovinPlayer/BMPUserInterfaceType.h>
 #import <BitmovinPlayer/BMPScalingMode.h>
