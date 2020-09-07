@@ -25,7 +25,7 @@ __TVOS_PROHIBITED
  * Called when GCKMediaStatus been updated
  * @param mediaStatus The updated GCKMediaStatus object
  */
-- (void)updatedMediaStatus:(GCKMediaStatus *)mediaStatus;
+- (void)updatedMediaStatus:(nullable GCKMediaStatus *)mediaStatus;
 
 /**
  * Called when GCKMediaMetadata has been updated

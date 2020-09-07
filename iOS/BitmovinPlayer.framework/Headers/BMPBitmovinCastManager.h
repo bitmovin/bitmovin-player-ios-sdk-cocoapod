@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPBitmovinCastManagerListener.h>
+#import <BitmovinPlayer/BMPGoogleCastReceiverVersion.h>
 
 @protocol GCKSessionManagerListener;
 @class GCKMediaInformation;
@@ -40,13 +41,34 @@ __TVOS_PROHIBITED
 @property (nonatomic, readonly) NSTimeInterval currentTime;
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly, nullable, strong) GCKCastChannel *defaultChannel;
+@property (nonatomic, readonly) BMPGoogleCastReceiverVersion castReceiverVersion;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 + (instancetype)sharedInstance;
 + (BOOL)isInitialized;
+/// Uses Bitmovin v2 receiver by default
 + (void)initializeCasting;
-+ (void)initializeCasting:(NSString *)applicationId messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:messageNamespace:));
+/// Uses Bitmovin v2 or v3 receiver based on castReceiverVersion
+/// @param castReceiverVersion version of receiver
++ (void)initializeCasting:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(castReceiverVersion:));
+/// Uses given receiver app and assumes it is v2
+/// @param applicationId ID of receiver application
+/// @param messageNamespace Custom namespace
++ (void)initializeCasting:(NSString *)applicationId
+         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:messageNamespace:)) __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(applicationId:castReceiverVersion:messageNamespace:) instead.");
+/// Uses given receiver app with given receiver version
+/// @param applicationId ID of receiver application
+/// @param castReceiverVersion version of receiver
++ (void)initializeCasting:(NSString *)applicationId
+      castReceiverVersion:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:));
+/// Uses given receiver app with given receiver version and namespace
+/// @param applicationId ID of receiver application
+/// @param castReceiverVersion version of receiver
+/// @param messageNamespace Custom namespace
++ (void)initializeCasting:(NSString *)applicationId
+      castReceiverVersion:(BMPGoogleCastReceiverVersion)castReceiverVersion
+         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:messageNamespace:));
 
 - (void)prepareWithMediaInformation:(GCKMediaInformation *)mediaInformation NS_SWIFT_NAME(prepare(mediaInformation:));
 - (void)loadMedia;
