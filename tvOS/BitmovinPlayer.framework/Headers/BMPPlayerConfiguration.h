@@ -35,16 +35,22 @@ NS_SWIFT_NAME(PlayerConfiguration)
   * If a license key is set here, it will be used instead of the license key found in Info.plist.
   */
 @property (nonatomic, nullable, copy) NSString *key;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 /** The BMPSourceConfiguration of this BMPPlayerConfiguration. */
-@property (nonatomic, nonnull, strong) BMPSourceConfiguration *sourceConfiguration;
+@property (nonatomic, nonnull, strong) BMPSourceConfiguration *sourceConfiguration __deprecated_msg("Use PlayerConfiguration.sourceItem instead.");
+#pragma GCC diagnostic pop
 /** The BMPStyleConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPStyleConfiguration *styleConfiguration;
 /** The BMPPlaybackConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPPlaybackConfiguration *playbackConfiguration;
 /** The BMPAdvertisingConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPAdvertisingConfiguration *advertisingConfiguration __TVOS_PROHIBITED;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 /** The BMPCastConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPCastConfiguration *castConfiguration __TVOS_PROHIBITED;
+#pragma GCC diagnostic pop
 /** The BMPRemoteControlConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPRemoteControlConfiguration *remoteControlConfiguration __TVOS_PROHIBITED;
 /** The BMPAdaptationConfiguration of this BMPPlayerConfiguration. */

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  Contains configuration values regarding the media which should be played by the player.
  */
 NS_SWIFT_NAME(SourceConfiguration)
+__deprecated_msg("Use SourceItem instead.")
 @interface BMPSourceConfiguration : BMPConfiguration
 /** The playback type of the source configuration. Possible values are defined in BMPPlaybackType.h. */
 @property (nonatomic) BMPPlaybackType playbackType;

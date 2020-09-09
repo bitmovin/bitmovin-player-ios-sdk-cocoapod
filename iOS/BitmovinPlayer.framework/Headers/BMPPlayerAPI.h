@@ -180,11 +180,17 @@ NS_SWIFT_NAME(PlayerAPI)
 - (void)setup:(BMPPlayerConfiguration *)configuration NS_SWIFT_NAME(setup(configuration:));
 
 /**
- * Sets a new media source.
+ * Loads a new media source.
  *
  * @param sourceConfiguration The source configuration used to set a new media source.
  */
-- (void)load:(BMPSourceConfiguration *)sourceConfiguration NS_SWIFT_NAME(load(sourceConfiguration:));
+- (void)load:(BMPSourceConfiguration *)sourceConfiguration NS_SWIFT_NAME(load(sourceConfiguration:)) __deprecated_msg("Use PlayerApi#load(sourceItem:) instead.");
+/**
+ * Loads a new media source.
+ *
+ * @param sourceItem The source item used to set a new media source.
+ */
+- (void)loadSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(load(sourceItem:));
 
 /**
  * Starts preloading the content of the currently loaded source.
