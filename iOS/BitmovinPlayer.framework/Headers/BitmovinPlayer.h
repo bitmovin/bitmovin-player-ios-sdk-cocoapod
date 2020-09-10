@@ -32,6 +32,7 @@
 #import <BitmovinPlayer/BMPPlaybackConfiguration.h>
 #import <BitmovinPlayer/BMPWidevineConfiguration.h>
 #import <BitmovinPlayer/BMPClearKeyConfiguration.h>
+#import <BitmovinPlayer/BMPPlayReadyConfiguration.h>
 #import <BitmovinPlayer/BMPHttpRequestTypes.h>
 #import <BitmovinPlayer/BMPErrorCodes.h>
 #import <BitmovinPlayer/BMPWarningCodes.h>

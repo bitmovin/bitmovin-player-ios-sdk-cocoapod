@@ -99,6 +99,14 @@ __TVOS_PROHIBITED
  @return true if the message could be sent successfully.
 */
 - (BOOL)sendMessage:(NSString *)message withNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(sendMessage(_:withNamespace:));
+/**
+ Sends the given metadata wrapped in a metadata message object to the cast receiver on the configured message namespace.
+ The provided metadata must be serializable using NSJSONSerialization.
+
+ @param metadata The metadata to send. Must be serializable using NSJSONSerialization.
+ @return true if the message could be sent successfully.
+*/
+- (BOOL)sendMetadata:(NSDictionary *)metadata NS_SWIFT_NAME(send(metadata:));
 @end
 
 NS_ASSUME_NONNULL_END

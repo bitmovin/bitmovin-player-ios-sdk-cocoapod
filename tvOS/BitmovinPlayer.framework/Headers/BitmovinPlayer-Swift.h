@@ -191,6 +191,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Foundation;
+@import ObjectiveC;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -227,6 +228,20 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+@class BMPCafDrmConfig;
+
+SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
+@protocol BMPCafDrmConfigConvertible
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("DestroyEvent")
@@ -235,6 +250,8 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -252,6 +269,11 @@ SWIFT_CLASS_NAMED("PlayEvent")
 @end
 
 
+
+
+@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -293,6 +315,37 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 @end
 
 
+
+
+@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_CafDrmConfig")
+@interface BMPCafDrmConfig : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_MediaInfoCustomData")
+@interface BMPMediaInfoCustomData : NSObject
+- (nonnull instancetype)initWithDrm:(BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_MetadataMessage")
+@interface BMPMetadataMessage : NSObject
+- (nonnull instancetype)initWithReceiverVersion:(BMPGoogleCastReceiverVersion _Nonnull)receiverVersion data:(NSDictionary * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -488,6 +541,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Foundation;
+@import ObjectiveC;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -524,6 +578,20 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+@class BMPCafDrmConfig;
+
+SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
+@protocol BMPCafDrmConfigConvertible
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("DestroyEvent")
@@ -532,6 +600,8 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 
@@ -549,6 +619,11 @@ SWIFT_CLASS_NAMED("PlayEvent")
 @end
 
 
+
+
+@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -590,6 +665,37 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 @end
 
 
+
+
+@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
+- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_CafDrmConfig")
+@interface BMPCafDrmConfig : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_MediaInfoCustomData")
+@interface BMPMediaInfoCustomData : NSObject
+- (nonnull instancetype)initWithDrm:(BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_MetadataMessage")
+@interface BMPMetadataMessage : NSObject
+- (nonnull instancetype)initWithReceiverVersion:(BMPGoogleCastReceiverVersion _Nonnull)receiverVersion data:(NSDictionary * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

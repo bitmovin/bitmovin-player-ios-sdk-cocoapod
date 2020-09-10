@@ -53,3 +53,65 @@ import Swift
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
 }
+@objc(BMPCafDrmConfigConvertible) public protocol _CafDrmConfigConvertible {
+  @objc func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+}
+extension WidevineConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
+  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+}
+extension ClearKeyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
+  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+}
+extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
+  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+}
+@objc(BMPCafDrmConfig) @objcMembers final public class _CafDrmConfig : ObjectiveC.NSObject {
+  public enum ProtectionSystem : Swift.String {
+    case widevine
+    case playReady
+    case clearKey
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public init(protectionSystem: BitmovinPlayer._CafDrmConfig.ProtectionSystem, licenseUrl: Foundation.URL, headers: [Swift.String : Swift.String]?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(BMPMediaInfoCustomData) @objcMembers final public class _MediaInfoCustomData : ObjectiveC.NSObject {
+  @objc public init(drm: BitmovinPlayer._CafDrmConfig)
+  @objc final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init()
+}
+public protocol HexConvertible {
+  var hexadecimal: Foundation.Data? { get }
+  var normalizedHexString: Swift.String { get }
+}
+extension String : BitmovinPlayer.HexConvertible {
+  public var hexadecimal: Foundation.Data? {
+    get
+  }
+  public var normalizedHexString: Swift.String {
+    get
+  }
+}
+extension NSString : BitmovinPlayer.HexConvertible {
+  public var hexadecimal: Foundation.Data? {
+    get
+  }
+  public var normalizedHexString: Swift.String {
+    get
+  }
+}
+@objc(BMPMetadataMessage) @objcMembers final public class _MetadataMessage : ObjectiveC.NSObject {
+  @objc public init(receiverVersion: BitmovinPlayer.GoogleCastReceiverVersion, data: [Swift.AnyHashable : Any])
+  @objc final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Equatable {}
+extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Hashable {}
+extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.RawRepresentable {}
