@@ -396,6 +396,12 @@ NS_SWIFT_NAME(PlayerListener)
 - (void)onSourceMetadataChanged:(BMPSourceMetadataChangedEvent *)event;
 
 /**
+ * Is called when DRM data is found in a downloaded manifest file.
+ * TweaksConfiguration.nativeHlsParsingEnabled needs to be set to true to receive those events.
+ */
+- (void)onDrmDataParsed:(BMPDrmDataParsedEvent *)event;
+
+/**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.

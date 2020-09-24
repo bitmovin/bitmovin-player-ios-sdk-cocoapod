@@ -255,7 +255,50 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 
 
 
+enum BMPDrmDataType : NSInteger;
 
+SWIFT_CLASS_NAMED("DrmData")
+@interface BMPDrmData : NSObject
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly) enum BMPDrmDataType type;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data type:(enum BMPDrmDataType)type OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithSkdUri:(NSString * _Nonnull)skdUri;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, BMPDrmDataType, "DrmDataType", open) {
+  BMPDrmDataTypeSkdUri = 0,
+};
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DrmDataParsedEvent")
+@interface BMPDrmDataParsedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithData:(BMPDrmData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// Represents an HTTP request for DRM information.
+SWIFT_CLASS_NAMED("DrmRequest")
+@interface BMPDrmRequest : BMPHttpRequest
+/// The DrmData that is associated with the request.
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull drmData;
+- (nonnull instancetype)initWithUrl:(NSURL * _Nonnull)url method:(NSString * _Nonnull)method SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+@interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
+- (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
+- (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -332,12 +375,73 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+enum _BMPLogLevel : NSInteger;
+
+SWIFT_PROTOCOL_NAMED("_Logger")
+@protocol _BMPLogger
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_CLASS_NAMED("_BitmovinLogger")
+@interface _BMPBitmovinLogger : NSObject <_BMPLogger>
+- (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init;
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
 @interface BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+SWIFT_PROTOCOL_NAMED("_DeficiencyService")
+@protocol _BMPDeficiencyService <_BMPService>
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+
+SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
+@interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
+  _BMPLogLevelVerbose = 0,
+  _BMPLogLevelInfo = 1,
+  _BMPLogLevelDebug = 2,
+  _BMPLogLevelWarning = 3,
+  _BMPLogLevelError = 4,
+  _BMPLogLevelNone = 5,
+};
 
 
 
@@ -615,7 +719,50 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 
 
 
+enum BMPDrmDataType : NSInteger;
 
+SWIFT_CLASS_NAMED("DrmData")
+@interface BMPDrmData : NSObject
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly) enum BMPDrmDataType type;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data type:(enum BMPDrmDataType)type OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithSkdUri:(NSString * _Nonnull)skdUri;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, BMPDrmDataType, "DrmDataType", open) {
+  BMPDrmDataTypeSkdUri = 0,
+};
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DrmDataParsedEvent")
+@interface BMPDrmDataParsedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithData:(BMPDrmData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// Represents an HTTP request for DRM information.
+SWIFT_CLASS_NAMED("DrmRequest")
+@interface BMPDrmRequest : BMPHttpRequest
+/// The DrmData that is associated with the request.
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull drmData;
+- (nonnull instancetype)initWithUrl:(NSURL * _Nonnull)url method:(NSString * _Nonnull)method SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+@interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
+- (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
+- (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -692,12 +839,73 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+enum _BMPLogLevel : NSInteger;
+
+SWIFT_PROTOCOL_NAMED("_Logger")
+@protocol _BMPLogger
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_CLASS_NAMED("_BitmovinLogger")
+@interface _BMPBitmovinLogger : NSObject <_BMPLogger>
+- (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init;
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
 @interface BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+SWIFT_PROTOCOL_NAMED("_DeficiencyService")
+@protocol _BMPDeficiencyService <_BMPService>
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+
+SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
+@interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
+  _BMPLogLevelVerbose = 0,
+  _BMPLogLevelInfo = 1,
+  _BMPLogLevelDebug = 2,
+  _BMPLogLevelWarning = 3,
+  _BMPLogLevelError = 4,
+  _BMPLogLevelNone = 5,
+};
 
 
 
@@ -978,7 +1186,50 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 
 
 
+enum BMPDrmDataType : NSInteger;
 
+SWIFT_CLASS_NAMED("DrmData")
+@interface BMPDrmData : NSObject
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly) enum BMPDrmDataType type;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data type:(enum BMPDrmDataType)type OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithSkdUri:(NSString * _Nonnull)skdUri;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, BMPDrmDataType, "DrmDataType", open) {
+  BMPDrmDataTypeSkdUri = 0,
+};
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DrmDataParsedEvent")
+@interface BMPDrmDataParsedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithData:(BMPDrmData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// Represents an HTTP request for DRM information.
+SWIFT_CLASS_NAMED("DrmRequest")
+@interface BMPDrmRequest : BMPHttpRequest
+/// The DrmData that is associated with the request.
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull drmData;
+- (nonnull instancetype)initWithUrl:(NSURL * _Nonnull)url method:(NSString * _Nonnull)method SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+@interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
+- (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
+- (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -1055,12 +1306,73 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+enum _BMPLogLevel : NSInteger;
+
+SWIFT_PROTOCOL_NAMED("_Logger")
+@protocol _BMPLogger
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_CLASS_NAMED("_BitmovinLogger")
+@interface _BMPBitmovinLogger : NSObject <_BMPLogger>
+- (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init;
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
 @interface BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+SWIFT_PROTOCOL_NAMED("_DeficiencyService")
+@protocol _BMPDeficiencyService <_BMPService>
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+
+SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
+@interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
+  _BMPLogLevelVerbose = 0,
+  _BMPLogLevelInfo = 1,
+  _BMPLogLevelDebug = 2,
+  _BMPLogLevelWarning = 3,
+  _BMPLogLevelError = 4,
+  _BMPLogLevelNone = 5,
+};
 
 
 
@@ -1338,7 +1650,50 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 
 
 
+enum BMPDrmDataType : NSInteger;
 
+SWIFT_CLASS_NAMED("DrmData")
+@interface BMPDrmData : NSObject
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly) enum BMPDrmDataType type;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data type:(enum BMPDrmDataType)type OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithSkdUri:(NSString * _Nonnull)skdUri;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, BMPDrmDataType, "DrmDataType", open) {
+  BMPDrmDataTypeSkdUri = 0,
+};
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DrmDataParsedEvent")
+@interface BMPDrmDataParsedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithData:(BMPDrmData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// Represents an HTTP request for DRM information.
+SWIFT_CLASS_NAMED("DrmRequest")
+@interface BMPDrmRequest : BMPHttpRequest
+/// The DrmData that is associated with the request.
+@property (nonatomic, readonly, strong) BMPDrmData * _Nonnull drmData;
+- (nonnull instancetype)initWithUrl:(NSURL * _Nonnull)url method:(NSString * _Nonnull)method SWIFT_UNAVAILABLE;
+@end
+
+
+
+
+@interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
+- (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
+- (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -1415,12 +1770,73 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+enum _BMPLogLevel : NSInteger;
+
+SWIFT_PROTOCOL_NAMED("_Logger")
+@protocol _BMPLogger
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_CLASS_NAMED("_BitmovinLogger")
+@interface _BMPBitmovinLogger : NSObject <_BMPLogger>
+- (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init;
+- (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
 @interface BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+SWIFT_PROTOCOL_NAMED("_DeficiencyService")
+@protocol _BMPDeficiencyService <_BMPService>
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+
+SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
+@interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (void)throwError:(NSInteger)code;
+- (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (void)throwLicensingErrorNoKey;
+- (void)throwLicensingErrorInvalidDomain;
+- (void)throwManifestNotFoundErrorWithReason:(NSString * _Nullable)reason;
+- (void)throwSourceError;
+- (void)throwSourceError:(NSString * _Nullable)reason;
+- (void)throwWarning:(NSInteger)code;
+- (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
+  _BMPLogLevelVerbose = 0,
+  _BMPLogLevelInfo = 1,
+  _BMPLogLevelDebug = 2,
+  _BMPLogLevelWarning = 3,
+  _BMPLogLevelError = 4,
+  _BMPLogLevelNone = 5,
+};
 
 
 

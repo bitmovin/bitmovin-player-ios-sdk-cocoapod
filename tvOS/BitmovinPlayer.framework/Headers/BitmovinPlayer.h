@@ -33,6 +33,7 @@
 #import <BitmovinPlayer/BMPWidevineConfiguration.h>
 #import <BitmovinPlayer/BMPClearKeyConfiguration.h>
 #import <BitmovinPlayer/BMPPlayReadyConfiguration.h>
+#import <BitmovinPlayer/BMPHttpRequest.h>
 #import <BitmovinPlayer/BMPHttpRequestTypes.h>
 #import <BitmovinPlayer/BMPErrorCodes.h>
 #import <BitmovinPlayer/BMPWarningCodes.h>
@@ -63,6 +64,13 @@
 #import <BitmovinPlayer/_BMPJsonHelper.h>
 #import <BitmovinPlayer/BMPUserInterfaceType.h>
 #import <BitmovinPlayer/BMPScalingMode.h>
+#import <BitmovinPlayer/_BMPPlayerListenerInternal.h>
+#import <BitmovinPlayer/_BMPEventEmitter.h>
+#import <BitmovinPlayer/_BMPService.h>
+#import <BitmovinPlayer/_BMPServiceType.h>
+#import <BitmovinPlayer/_BMPDefaultService.h>
+#import <BitmovinPlayer/_BMPDefaultService.h>
+#import <BitmovinPlayer/_BMPNamespacedServiceLocator.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

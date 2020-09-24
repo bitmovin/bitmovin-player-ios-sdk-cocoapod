@@ -20,6 +20,33 @@ import Swift
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+@objc(_BMPDeficiencyService) public protocol _DeficiencyService : BitmovinPlayer._Service {
+  @objc(throwError:) func throwError(code: Swift.Int)
+  @objc(throwError:replacements:) func throwError(code: Swift.Int, replacements: [Swift.String]?)
+  @objc func throwLicensingErrorNoKey()
+  @objc func throwLicensingErrorInvalidDomain()
+  @objc func throwManifestNotFoundError(withReason reason: Swift.String?)
+  @objc func throwSourceError()
+  @objc(throwSourceError:) func throwSourceError(reason: Swift.String?)
+  @objc(throwWarning:) func throwWarning(code: Swift.Int)
+  @objc(throwWarning:replacements:) func throwWarning(code: Swift.Int, replacements: [Swift.String]?)
+}
+@objc(_BMPLogLevel) public enum _LogLevel : Swift.Int {
+  case verbose = 0
+  case info
+  case debug
+  case warning
+  case error
+  case none
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(_BMPLogger) public protocol _Logger {
+  @objc func log(_ message: Swift.String, level: BitmovinPlayer._LogLevel)
+}
 @_inheritsConvenienceInitializers @objcMembers @objc(BMPStyleConfiguration) final public class StyleConfiguration : BitmovinPlayer.Configuration {
   @objc final public var isUiEnabled: Swift.Bool {
     @objc get
@@ -64,6 +91,31 @@ extension ClearKeyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
 }
 extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
   @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+}
+@objcMembers @objc(_BMPDefaultDeficiencyService) final public class _DefaultDeficiencyService : BitmovinPlayer._DefaultService, BitmovinPlayer._DeficiencyService {
+  @objc override final public var type: BitmovinPlayer._BMPServiceType {
+    @objc get
+  }
+  @objc public init(serviceLocator: BitmovinPlayer._NamespacedServiceLocator)
+  @objc override final public func start()
+  @objc override final public func stop()
+  @objc final public func throwError(code: Swift.Int)
+  @objc final public func throwError(code: Swift.Int, replacements: [Swift.String]?)
+  @objc final public func throwLicensingErrorNoKey()
+  @objc final public func throwLicensingErrorInvalidDomain()
+  @objc final public func throwManifestNotFoundError(withReason reason: Swift.String?)
+  @objc final public func throwSourceError()
+  @objc final public func throwSourceError(reason: Swift.String?)
+  @objc final public func throwWarning(code: Swift.Int)
+  @objc final public func throwWarning(code: Swift.Int, replacements: [Swift.String]?)
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(_BMPBitmovinLogger) public class _BitmovinLogger : ObjectiveC.NSObject, BitmovinPlayer._Logger {
+  @objc public init(level: BitmovinPlayer._LogLevel)
+  @objc override convenience dynamic public init()
+  @objc public func log(_ message: Swift.String, level: BitmovinPlayer._LogLevel)
+  @objc deinit
 }
 @objc(BMPCafDrmConfig) @objcMembers final public class _CafDrmConfig : ObjectiveC.NSObject {
   public enum ProtectionSystem : Swift.String {
@@ -112,6 +164,46 @@ extension NSString : BitmovinPlayer.HexConvertible {
   @objc deinit
   @objc override dynamic public init()
 }
+@_hasMissingDesignatedInitializers @objc(BMPDrmDataParsedEvent) @objcMembers final public class DrmDataParsedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let data: BitmovinPlayer.DrmData
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(data: BitmovinPlayer.DrmData)
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+}
+@objc(BMPDrmData) @objcMembers final public class DrmData : ObjectiveC.NSObject {
+  @objc(BMPDrmDataType) public enum DrmDataType : Swift.Int {
+    case skdUri
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc final public let data: Foundation.Data
+  @objc final public let type: BitmovinPlayer.DrmData.DrmDataType
+  @objc public init(data: Foundation.Data, type: BitmovinPlayer.DrmData.DrmDataType)
+  @objc convenience public init?(skdUri: Swift.String)
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_hasMissingDesignatedInitializers @objc(BMPDrmRequest) @objcMembers final public class DrmRequest : BitmovinPlayer.HttpRequest {
+  @objc final public let drmData: BitmovinPlayer.DrmData
+  @objc deinit
+  @objc override dynamic public init(url: Foundation.URL, method: Swift.String)
+}
+@objc extension NSURLRequest {
+  @objc dynamic public func _toBitmovinHttpRequest() -> BitmovinPlayer.HttpRequest?
+  @objc dynamic public func _toBitmovinDrmRequest(skdUri: Swift.String) -> BitmovinPlayer.DrmRequest?
+}
+extension BitmovinPlayer._LogLevel : Swift.Equatable {}
+extension BitmovinPlayer._LogLevel : Swift.Hashable {}
+extension BitmovinPlayer._LogLevel : Swift.RawRepresentable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Equatable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Hashable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.RawRepresentable {}
+extension BitmovinPlayer.DrmData.DrmDataType : Swift.Equatable {}
+extension BitmovinPlayer.DrmData.DrmDataType : Swift.Hashable {}
+extension BitmovinPlayer.DrmData.DrmDataType : Swift.RawRepresentable {}

@@ -1,0 +1,22 @@
+NS_SWIFT_NAME(_ServiceType)
+typedef NS_ENUM(NSInteger, _BMPServiceType) {
+    _BMPServiceTypeEvent,
+    _BMPServiceTypeImpression,
+    _BMPServiceTypeLicensing,
+    _BMPServiceTypePlayback,
+    _BMPServiceTypeConfiguration,
+    _BMPServiceTypeDeficiency,
+    _BMPServiceTypeNone,
+    _BMPServiceTypeTime,
+    _BMPServiceTypeMetadata,
+    _BMPServiceTypeCaption,
+    _BMPServiceTypeAdvertising,
+    _BMPServiceTypeVideo,
+    _BMPServiceTypeAudio,
+    _BMPServiceTypeInitialization,
+    _BMPServiceTypeResourceLoader,
+    _BMPServiceTypeCastMessaging,
+    _BMPServiceTypeThumbnail,
+    _BMPServiceTypePlaylistParser,
+    _BMPServiceTypeBuffer
+};

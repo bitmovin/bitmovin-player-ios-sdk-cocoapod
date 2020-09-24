@@ -79,5 +79,6 @@
 @class BMPDestroyEvent;
 @class BMPPlayEvent;
 @class BMPAudioAddedEvent;
+@class BMPDrmDataParsedEvent;
 
 #endif /* BMPWebPlayerEvents_h */
