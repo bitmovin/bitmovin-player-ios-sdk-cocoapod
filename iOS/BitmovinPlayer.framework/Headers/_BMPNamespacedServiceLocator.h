@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "_BMPEventEmitter.h"
 
 @protocol _BMPLogger;
+@protocol _BMPEventEmitter;
 
 NS_ASSUME_NONNULL_BEGIN
 

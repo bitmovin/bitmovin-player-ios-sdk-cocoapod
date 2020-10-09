@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerListener.h>
-@class BMPUpdatePlayerStateEvent;
-@class BMPMasterPlaylistLoadedEvent;
-@class BMPVariantPlaylistLoadedEvent;
-@class BMPScteTagsParsedEvent;
-@class BMPInternalTimeChangedEvent;
-@class BMPInternalReadyEvent;
+@class _BMPUpdatePlayerStateEvent;
+@class _BMPMasterPlaylistLoadedEvent;
+@class _BMPVariantPlaylistLoadedEvent;
+@class _BMPScteTagsParsedEvent;
+@class _BMPInternalTimeChangedEvent;
+@class _BMPInternalReadyEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +27,7 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
  Can be used to update the state of the player UI running in WebView, when updating through the official events
  documented in BMPPlayerListener is not working.
  */
-- (void)onUpdatePlayerState:(BMPUpdatePlayerStateEvent *)event;
+- (void)onUpdatePlayerState:(_BMPUpdatePlayerStateEvent *)event;
 
 /**
  Is called once after a new BMPPlayerListener was added to the event system.
@@ -39,27 +39,27 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
 /**
  Is called when master playlist data has been loaded.
  */
-- (void)onMasterPlaylistLoaded:(BMPMasterPlaylistLoadedEvent *)event;
+- (void)onMasterPlaylistLoaded:(_BMPMasterPlaylistLoadedEvent *)event;
 
 /**
  Is called when variant playlist data has been loaded.
  */
-- (void)onVariantPlaylistLoaded:(BMPVariantPlaylistLoadedEvent *)event;
+- (void)onVariantPlaylistLoaded:(_BMPVariantPlaylistLoadedEvent *)event;
 
 /**
  Is called when variant playlist SCTE-35 tags have been parsed.
  */
-- (void)onScteTagsParsed:(BMPScteTagsParsedEvent *)event;
+- (void)onScteTagsParsed:(_BMPScteTagsParsedEvent *)event;
 /**
  Is called when the current playback time has changed. Will be fired every 0.2 seconds.
  Public configuration of the firing interval for time changed events is not affecting this event.
  */
-- (void)onInternalTimeChanged:(BMPInternalTimeChangedEvent *)event;
+- (void)onInternalTimeChanged:(_BMPInternalTimeChangedEvent *)event;
 /**
  Is fired as soon as the AVPlayerItem enters the AVPlayerItemStatusReadyToPlay state for the first time after the source
  was loaded. This event is always fired before onReady.
  */
-- (void)onInternalReady:(BMPInternalReadyEvent *)event;
+- (void)onInternalReady:(_BMPInternalReadyEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END

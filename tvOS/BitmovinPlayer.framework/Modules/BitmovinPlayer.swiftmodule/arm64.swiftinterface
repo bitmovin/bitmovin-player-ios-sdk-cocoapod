@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)
-// swift-module-flags: -target arm64-apple-tvos9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BitmovinPlayer
+// swift-module-flags: -target arm64-apple-tvos10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BitmovinPlayer
 @_exported import BitmovinPlayer
 import Foundation
 import Swift
@@ -19,6 +19,18 @@ import Swift
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
+}
+@_inheritsConvenienceInitializers @objc(_BMPDefaultEventEmitter) public class _DefaultEventEmitter : BitmovinPlayer._DefaultService, BitmovinPlayer._EventEmitter {
+  @objc override dynamic public var type: BitmovinPlayer._BMPServiceType {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc public func emit(event: BitmovinPlayer.PlayerEvent)
+  @objc deinit
+}
+extension _DefaultEventEmitter : BitmovinPlayer.PlayerEventHandler {
+  @objc dynamic public func add(listener: BitmovinPlayer.PlayerListener)
+  @objc dynamic public func remove(listener: BitmovinPlayer.PlayerListener)
 }
 @objc(_BMPDeficiencyService) public protocol _DeficiencyService : BitmovinPlayer._Service {
   @objc(throwError:) func throwError(code: Swift.Int)
@@ -70,6 +82,9 @@ import Swift
   @objc public init(audioTrack: BitmovinPlayer.AudioTrack, time: Foundation.TimeInterval)
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
+}
+@objc(_BMPEventEmitter) public protocol _EventEmitter : BitmovinPlayer.PlayerEventHandler, BitmovinPlayer._Service {
+  @objc(emitEvent:) func emit(event: BitmovinPlayer.PlayerEvent)
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(BMPPlayEvent) @objcMembers final public class PlayEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let time: Foundation.TimeInterval
@@ -197,6 +212,63 @@ extension NSString : BitmovinPlayer.HexConvertible {
 @objc extension NSURLRequest {
   @objc dynamic public func _toBitmovinHttpRequest() -> BitmovinPlayer.HttpRequest?
   @objc dynamic public func _toBitmovinDrmRequest(skdUri: Swift.String) -> BitmovinPlayer.DrmRequest?
+}
+@_hasMissingDesignatedInitializers @objc(BMPDurationChangedEvent) @objcMembers final public class DurationChangedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let duration: Foundation.TimeInterval
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(duration: Foundation.TimeInterval)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc(_BMPConfigurationService) public protocol _ConfigurationService : BitmovinPlayer._Service {
+  @objc var licenseKey: Swift.String? { get }
+  @objc var sdkVersion: Swift.String? { get }
+  @objc var packageName: Swift.String? { get }
+  @objc var maxTimeShiftThreshold: Foundation.TimeInterval { get }
+  @objc var playerConfiguration: BitmovinPlayer.PlayerConfiguration { get }
+  @objc var isCurrentSourceRestrictedToCache: Swift.Bool { get }
+  @objc var suppressDefaultCaptionRendering: Swift.Bool { get }
+  @objc(updatePlayerConfiguration:) func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @objc(updateSourceConfiguration:) func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
+}
+@objc(_BMPDefaultConfigurationService) final public class _DefaultConfigurationService : BitmovinPlayer._DefaultService, BitmovinPlayer._ConfigurationService, BitmovinPlayer.PlayerListener {
+  @objc final public var licenseKey: Swift.String? {
+    get
+  }
+  @objc final public var sdkVersion: Swift.String? {
+    get
+  }
+  @objc final public var packageName: Swift.String? {
+    get
+  }
+  @objc final public var maxTimeShiftThreshold: Foundation.TimeInterval {
+    get
+  }
+  @objc final public var playerConfiguration: BitmovinPlayer.PlayerConfiguration {
+    get
+  }
+  @objc override final public var type: BitmovinPlayer._BMPServiceType {
+    @objc get
+  }
+  @objc final public var isCurrentSourceRestrictedToCache: Swift.Bool {
+    @objc get
+  }
+  @objc final public var suppressDefaultCaptionRendering: Swift.Bool {
+    @objc get
+  }
+  public init(serviceLocator: BitmovinPlayer._NamespacedServiceLocator, appBundle: Foundation.Bundle, sdkBundle: Foundation.Bundle)
+  @objc(initWithServiceLocator:) convenience public init(serviceLocator: BitmovinPlayer._NamespacedServiceLocator)
+  @objc override final public func start()
+  @objc override final public func stop()
+  @objc final public func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @objc final public func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
+  @objc final public func onSourceLoaded(_ event: BitmovinPlayer.SourceLoadedEvent)
+  @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
+  @objc deinit
+  @objc override dynamic public init()
 }
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}

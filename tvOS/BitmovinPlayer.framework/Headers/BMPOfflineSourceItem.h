@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(OfflineSourceItem)
 @interface BMPOfflineSourceItem : BMPSourceItem
+/** Defines if the player is restricted to the usage of completely offline stored media renditions */
+@property (nonatomic, readonly, getter=isRestrictedToAssetCache) BOOL restrictedToAssetCache;
+
 - (instancetype)initWithUrl:(NSURL *)url NS_UNAVAILABLE;
 - (instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource NS_UNAVAILABLE;
 - (instancetype)initWithProgressiveSource:(BMPProgressiveSource *)progressiveSource NS_UNAVAILABLE;

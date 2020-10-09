@@ -291,6 +291,21 @@ SWIFT_CLASS_NAMED("DrmRequest")
 @end
 
 
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DurationChangedEvent")
+@interface BMPDurationChangedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDuration:(NSTimeInterval)duration OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -387,6 +402,60 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
+@class BMPPlayerConfiguration;
+@class BMPSourceConfiguration;
+
+SWIFT_PROTOCOL_NAMED("_ConfigurationService")
+@protocol _BMPConfigurationService <_BMPService>
+/// The Bitmovin Player license key, as defined in PlayerConfiguration.key or if not, in the Info.plist file of
+/// the application which is using the SDK.
+@property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
+/// The Bitmovin SDK Version.
+@property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
+/// The package name of the Application.
+@property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
+/// Holds a reference to the current player configuration.
+@property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
+/// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
+/// <code>isRestrictedToAssetCache</code> property of the currently loaded OfflineSourceItem.
+@property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
+/// Returns true if AVPlayer should not render captions on its own, the captions need to be rendered manually by
+/// listening to cue events. If false is returned, the captions are rendered by AVPlayer, cue events are
+/// additionally fired.
+@property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
+- (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+@class BMPSourceLoadedEvent;
+@class BMPSourceUnloadedEvent;
+
+SWIFT_CLASS_NAMED("_DefaultConfigurationService")
+@interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
+@property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
+@property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
+@property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
+@property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
+@property (nonatomic, readonly) _BMPServiceType type;
+@property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
+@property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
+- (void)start;
+- (void)stop;
+- (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 SWIFT_PROTOCOL_NAMED("_DeficiencyService")
 @protocol _BMPDeficiencyService <_BMPService>
@@ -401,7 +470,6 @@ SWIFT_PROTOCOL_NAMED("_DeficiencyService")
 - (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 @end
 
-@protocol _BMPNamespacedServiceLocator;
 
 SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 @interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
@@ -421,6 +489,27 @@ SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+SWIFT_PROTOCOL_NAMED("_EventEmitter")
+@protocol _BMPEventEmitter <BMPPlayerEventHandler, _BMPService>
+- (void)emitEvent:(BMPPlayerEvent * _Nonnull)event;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultEventEmitter")
+@interface _BMPDefaultEventEmitter : _BMPDefaultService <_BMPEventEmitter>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)emitEvent:(BMPPlayerEvent * _Nonnull)event;
+@end
+
+
+@interface _BMPDefaultEventEmitter (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerEventHandler>
+- (void)addPlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
+- (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
+@end
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
@@ -745,6 +834,21 @@ SWIFT_CLASS_NAMED("DrmRequest")
 @end
 
 
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DurationChangedEvent")
+@interface BMPDurationChangedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDuration:(NSTimeInterval)duration OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -841,6 +945,60 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
+@class BMPPlayerConfiguration;
+@class BMPSourceConfiguration;
+
+SWIFT_PROTOCOL_NAMED("_ConfigurationService")
+@protocol _BMPConfigurationService <_BMPService>
+/// The Bitmovin Player license key, as defined in PlayerConfiguration.key or if not, in the Info.plist file of
+/// the application which is using the SDK.
+@property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
+/// The Bitmovin SDK Version.
+@property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
+/// The package name of the Application.
+@property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
+/// Holds a reference to the current player configuration.
+@property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
+/// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
+/// <code>isRestrictedToAssetCache</code> property of the currently loaded OfflineSourceItem.
+@property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
+/// Returns true if AVPlayer should not render captions on its own, the captions need to be rendered manually by
+/// listening to cue events. If false is returned, the captions are rendered by AVPlayer, cue events are
+/// additionally fired.
+@property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
+- (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+@end
+
+@protocol _BMPNamespacedServiceLocator;
+@class BMPSourceLoadedEvent;
+@class BMPSourceUnloadedEvent;
+
+SWIFT_CLASS_NAMED("_DefaultConfigurationService")
+@interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
+@property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
+@property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
+@property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
+@property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
+@property (nonatomic, readonly) _BMPServiceType type;
+@property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
+@property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
+- (void)start;
+- (void)stop;
+- (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 SWIFT_PROTOCOL_NAMED("_DeficiencyService")
 @protocol _BMPDeficiencyService <_BMPService>
@@ -855,7 +1013,6 @@ SWIFT_PROTOCOL_NAMED("_DeficiencyService")
 - (void)throwWarning:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 @end
 
-@protocol _BMPNamespacedServiceLocator;
 
 SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 @interface _BMPDefaultDeficiencyService : _BMPDefaultService <_BMPDeficiencyService>
@@ -875,6 +1032,27 @@ SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+SWIFT_PROTOCOL_NAMED("_EventEmitter")
+@protocol _BMPEventEmitter <BMPPlayerEventHandler, _BMPService>
+- (void)emitEvent:(BMPPlayerEvent * _Nonnull)event;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultEventEmitter")
+@interface _BMPDefaultEventEmitter : _BMPDefaultService <_BMPEventEmitter>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)emitEvent:(BMPPlayerEvent * _Nonnull)event;
+@end
+
+
+@interface _BMPDefaultEventEmitter (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerEventHandler>
+- (void)addPlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
+- (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
+@end
+
 
 
 typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {

@@ -13,7 +13,6 @@
 #import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
 #import <BitmovinPlayer/BMPTimeChangedEvent.h>
-#import <BitmovinPlayer/BMPDurationChangedEvent.h>
 #import <BitmovinPlayer/BMPSeekEvent.h>
 #import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPWarningEvent.h>
@@ -80,5 +79,6 @@
 @class BMPPlayEvent;
 @class BMPAudioAddedEvent;
 @class BMPDrmDataParsedEvent;
+@class BMPDurationChangedEvent;
 
 #endif /* BMPWebPlayerEvents_h */
