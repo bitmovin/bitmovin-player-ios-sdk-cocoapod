@@ -190,6 +190,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
 #endif
@@ -228,16 +229,16 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
-@class BMPCafDrmConfig;
+@class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
-@protocol BMPCafDrmConfigConvertible
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@protocol _BMPCafDrmConfigConvertible
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
-@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -252,6 +253,31 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DownloadFinishedEvent")
+@interface BMPDownloadFinishedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull downloadType;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSURL * _Nullable lastRedirectLocation;
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly) NSUInteger httpStatus;
+@property (nonatomic, readonly) NSUInteger size;
+@property (nonatomic, readonly) BOOL successful;
+@property (nonatomic, readonly) BOOL wasSuccessful;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithType:(NSString * _Nonnull)type url:(NSURL * _Nonnull)url downloadTime:(NSTimeInterval)downloadTime httpStatus:(NSUInteger)httpStatus size:(NSUInteger)size success:(BOOL)success lastRedirectLocation:(NSURL * _Nullable)lastRedirectLocation OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class _BMPRequestMetadata;
+
+@interface BMPDownloadFinishedEvent (SWIFT_EXTENSION(BitmovinPlayer))
+- (nonnull instancetype)initWithRequestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+@end
 
 enum BMPDrmDataType : NSInteger;
 
@@ -329,8 +355,8 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 
-@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -375,8 +401,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
-@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 enum _BMPLogLevel : NSInteger;
@@ -396,7 +422,7 @@ SWIFT_CLASS_NAMED("_BitmovinLogger")
 
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
-@interface BMPCafDrmConfig : NSObject
+@interface _BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -406,7 +432,7 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @class BMPSourceConfiguration;
 
 SWIFT_PROTOCOL_NAMED("_ConfigurationService")
-@protocol _BMPConfigurationService <_BMPService>
+@protocol _BMPConfigurationService
 /// The Bitmovin Player license key, as defined in PlayerConfiguration.key or if not, in the Info.plist file of
 /// the application which is using the SDK.
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
@@ -458,8 +484,9 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 
 
 SWIFT_PROTOCOL_NAMED("_DeficiencyService")
-@protocol _BMPDeficiencyService <_BMPService>
+@protocol _BMPDeficiencyService
 - (void)throwError:(NSInteger)code;
+- (void)throwErrorWithCode:(NSInteger)code message:(NSString * _Nonnull)message;
 - (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 - (void)throwLicensingErrorNoKey;
 - (void)throwLicensingErrorInvalidDomain;
@@ -478,6 +505,7 @@ SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 - (void)start;
 - (void)stop;
 - (void)throwError:(NSInteger)code;
+- (void)throwErrorWithCode:(NSInteger)code message:(NSString * _Nonnull)message;
 - (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 - (void)throwLicensingErrorNoKey;
 - (void)throwLicensingErrorInvalidDomain;
@@ -510,7 +538,145 @@ SWIFT_CLASS_NAMED("_DefaultEventEmitter")
 - (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
 @end
 
+@class BMPSourceItem;
 
+SWIFT_PROTOCOL_NAMED("_InitializationService")
+@protocol _BMPInitializationService <_BMPService>
+@property (nonatomic, readonly) BMPMediaSourceType selectedStreamType;
+- (void)setup:(BMPPlayerConfiguration * _Nonnull)playerConfig;
+- (void)loadSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)unload;
+@end
+
+@class _BMPAVPlayer;
+
+SWIFT_CLASS_NAMED("_DefaultInitializationService")
+@interface _BMPDefaultInitializationService : _BMPDefaultService <_BMPInitializationService>
+@property (nonatomic, readonly) BMPMediaSourceType selectedStreamType;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player;
+- (void)setup:(BMPPlayerConfiguration * _Nonnull)playerConfig;
+- (void)loadSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)unload;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPDefaultInitializationService (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly) _BMPServiceType type;
+- (void)start;
+- (void)stop;
+@end
+
+@class AVURLAsset;
+
+SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
+@protocol _BMPResourceLoaderService
+- (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
+@interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class AVAssetResourceLoader;
+@class AVAssetResourceLoadingRequest;
+@class AVAssetResourceRenewalRequest;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <AVAssetResourceLoaderDelegate>
+- (BOOL)resourceLoader:(AVAssetResourceLoader * _Nonnull)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest * _Nonnull)loadingRequest SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)resourceLoader:(AVAssetResourceLoader * _Nonnull)resourceLoader shouldWaitForRenewalOfRequestedResource:(AVAssetResourceRenewalRequest * _Nonnull)renewalRequest SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class _BMPFairplayHandler;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPFairplayHandlerDelegate>
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishDRMLicenseRequestWithMetadata:(_BMPRequestMetadata * _Nonnull)metadata;
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishDRMCertificateRequestWithMetadata:(_BMPRequestMetadata * _Nonnull)metadata;
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishWithError:(NSError * _Nonnull)error;
+@end
+
+@class _BMPBitmovinResourceLoader;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBitmovinResourceLoaderDelegate>
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingMasterPlaylistData:(NSData * _Nonnull)masterData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingVariantPlaylistData:(NSData * _Nonnull)variantData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingPlaylistWithError:(NSError * _Nonnull)error;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyData:(NSData * _Nonnull)keyData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
+@end
+
+@class BMPVideoQuality;
+
+SWIFT_PROTOCOL_NAMED("_VideoService")
+@protocol _BMPVideoService
+@property (nonatomic, readonly, copy) NSArray<BMPVideoQuality *> * _Nonnull availableVideoQualities;
+@property (nonatomic, readonly, strong) BMPVideoQuality * _Nullable videoQuality;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultVideoService")
+@interface _BMPDefaultVideoService : _BMPDefaultService <_BMPVideoService>
+@property (nonatomic, readonly, copy) NSArray<BMPVideoQuality *> * _Nonnull availableVideoQualities;
+@property (nonatomic, readonly, strong) BMPVideoQuality * _Nullable videoQuality;
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class _BMPAVPlayerItem;
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@end
+
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
+@class _BMPMasterPlaylistLoadedEvent;
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPPlayerListenerInternal>
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+- (void)onMasterPlaylistLoaded:(_BMPMasterPlaylistLoadedEvent * _Nonnull)event;
+@end
+
+
+
+
+SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
+@interface _BMPInitialTimeShiftContext : NSObject
+@property (nonatomic, readonly) NSTimeInterval initialTimestamp;
+@property (nonatomic, readonly) NSTimeInterval initialLiveEdge;
+- (nonnull instancetype)initWithInitialTimestamp:(NSTimeInterval)initialTimestamp initialLiveEdge:(NSTimeInterval)initialLiveEdge OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
+@interface _BMPInternalTimeShiftEvent : BMPTimeShiftEvent
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS_NAMED("_InternalTimeShiftedEvent")
+@interface _BMPInternalTimeShiftedEvent : BMPTimeShiftedEvent
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
   _BMPLogLevelVerbose = 0,
@@ -523,9 +689,21 @@ typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
 
 
 
+SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
+@interface _BMPMasterPlaylistLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data requestUrl:(NSURL * _Nonnull)requestUrl OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
-@interface BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+@interface _BMPMediaInfoCustomData : NSObject
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -533,12 +711,53 @@ SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 
 
 SWIFT_CLASS_NAMED("_MetadataMessage")
-@interface BMPMetadataMessage : NSObject
+@interface _BMPMetadataMessage : NSObject
 - (nonnull instancetype)initWithReceiverVersion:(BMPGoogleCastReceiverVersion _Nonnull)receiverVersion data:(NSDictionary * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+SWIFT_CLASS_NAMED("_RequestMetadata")
+@interface _BMPRequestMetadata : NSObject
+@property (nonatomic, copy) NSString * _Nonnull downloadType;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, copy) NSURL * _Nullable redirectUrl;
+@property (nonatomic) NSTimeInterval downloadTime;
+@property (nonatomic) NSInteger httpStatus;
+@property (nonatomic) NSInteger size;
+@property (nonatomic) BOOL wasSuccessful;
+@property (nonatomic, readonly) BOOL isLocalResource;
+- (nonnull instancetype)initWithDownloadType:(NSString * _Nonnull)downloadType url:(NSURL * _Nonnull)url OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_TimeShiftStatus")
+@interface _BMPTimeShiftStatus : NSObject
+@property (nonatomic, readonly) NSTimeInterval lastTimeShiftOffset;
+@property (nonatomic, readonly) NSTimeInterval lastTimeShiftReachedTime;
+@property (nonatomic, readonly, copy) NSDate * _Nonnull lastTimeShiftDate;
+- (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
+@interface _BMPVariantPlaylistLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data requestUrl:(NSURL * _Nonnull)requestUrl OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -733,6 +952,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
 #endif
@@ -771,16 +991,16 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
-@class BMPCafDrmConfig;
+@class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
-@protocol BMPCafDrmConfigConvertible
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@protocol _BMPCafDrmConfigConvertible
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
-@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -795,6 +1015,31 @@ SWIFT_CLASS_NAMED("DestroyEvent")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("DownloadFinishedEvent")
+@interface BMPDownloadFinishedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull downloadType;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSURL * _Nullable lastRedirectLocation;
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly) NSUInteger httpStatus;
+@property (nonatomic, readonly) NSUInteger size;
+@property (nonatomic, readonly) BOOL successful;
+@property (nonatomic, readonly) BOOL wasSuccessful;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithType:(NSString * _Nonnull)type url:(NSURL * _Nonnull)url downloadTime:(NSTimeInterval)downloadTime httpStatus:(NSUInteger)httpStatus size:(NSUInteger)size success:(BOOL)success lastRedirectLocation:(NSURL * _Nullable)lastRedirectLocation OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class _BMPRequestMetadata;
+
+@interface BMPDownloadFinishedEvent (SWIFT_EXTENSION(BitmovinPlayer))
+- (nonnull instancetype)initWithRequestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+@end
 
 enum BMPDrmDataType : NSInteger;
 
@@ -872,8 +1117,8 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 
-@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -918,8 +1163,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
-@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <BMPCafDrmConfigConvertible>
-- (BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 enum _BMPLogLevel : NSInteger;
@@ -939,7 +1184,7 @@ SWIFT_CLASS_NAMED("_BitmovinLogger")
 
 
 SWIFT_CLASS_NAMED("_CafDrmConfig")
-@interface BMPCafDrmConfig : NSObject
+@interface _BMPCafDrmConfig : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -949,7 +1194,7 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @class BMPSourceConfiguration;
 
 SWIFT_PROTOCOL_NAMED("_ConfigurationService")
-@protocol _BMPConfigurationService <_BMPService>
+@protocol _BMPConfigurationService
 /// The Bitmovin Player license key, as defined in PlayerConfiguration.key or if not, in the Info.plist file of
 /// the application which is using the SDK.
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
@@ -1001,8 +1246,9 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 
 
 SWIFT_PROTOCOL_NAMED("_DeficiencyService")
-@protocol _BMPDeficiencyService <_BMPService>
+@protocol _BMPDeficiencyService
 - (void)throwError:(NSInteger)code;
+- (void)throwErrorWithCode:(NSInteger)code message:(NSString * _Nonnull)message;
 - (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 - (void)throwLicensingErrorNoKey;
 - (void)throwLicensingErrorInvalidDomain;
@@ -1021,6 +1267,7 @@ SWIFT_CLASS_NAMED("_DefaultDeficiencyService")
 - (void)start;
 - (void)stop;
 - (void)throwError:(NSInteger)code;
+- (void)throwErrorWithCode:(NSInteger)code message:(NSString * _Nonnull)message;
 - (void)throwError:(NSInteger)code replacements:(NSArray<NSString *> * _Nullable)replacements;
 - (void)throwLicensingErrorNoKey;
 - (void)throwLicensingErrorInvalidDomain;
@@ -1053,7 +1300,145 @@ SWIFT_CLASS_NAMED("_DefaultEventEmitter")
 - (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
 @end
 
+@class BMPSourceItem;
 
+SWIFT_PROTOCOL_NAMED("_InitializationService")
+@protocol _BMPInitializationService <_BMPService>
+@property (nonatomic, readonly) BMPMediaSourceType selectedStreamType;
+- (void)setup:(BMPPlayerConfiguration * _Nonnull)playerConfig;
+- (void)loadSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)unload;
+@end
+
+@class _BMPAVPlayer;
+
+SWIFT_CLASS_NAMED("_DefaultInitializationService")
+@interface _BMPDefaultInitializationService : _BMPDefaultService <_BMPInitializationService>
+@property (nonatomic, readonly) BMPMediaSourceType selectedStreamType;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player;
+- (void)setup:(BMPPlayerConfiguration * _Nonnull)playerConfig;
+- (void)loadSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)unload;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPDefaultInitializationService (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly) _BMPServiceType type;
+- (void)start;
+- (void)stop;
+@end
+
+@class AVURLAsset;
+
+SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
+@protocol _BMPResourceLoaderService
+- (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
+@interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class AVAssetResourceLoader;
+@class AVAssetResourceLoadingRequest;
+@class AVAssetResourceRenewalRequest;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <AVAssetResourceLoaderDelegate>
+- (BOOL)resourceLoader:(AVAssetResourceLoader * _Nonnull)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest * _Nonnull)loadingRequest SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)resourceLoader:(AVAssetResourceLoader * _Nonnull)resourceLoader shouldWaitForRenewalOfRequestedResource:(AVAssetResourceRenewalRequest * _Nonnull)renewalRequest SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class _BMPFairplayHandler;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPFairplayHandlerDelegate>
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishDRMLicenseRequestWithMetadata:(_BMPRequestMetadata * _Nonnull)metadata;
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishDRMCertificateRequestWithMetadata:(_BMPRequestMetadata * _Nonnull)metadata;
+- (void)fairplayHandler:(_BMPFairplayHandler * _Nonnull)sender didFinishWithError:(NSError * _Nonnull)error;
+@end
+
+@class _BMPBitmovinResourceLoader;
+
+@interface _BMPDefaultResourceLoaderService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBitmovinResourceLoaderDelegate>
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingMasterPlaylistData:(NSData * _Nonnull)masterData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingVariantPlaylistData:(NSData * _Nonnull)variantData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingPlaylistWithError:(NSError * _Nonnull)error;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyData:(NSData * _Nonnull)keyData requestMetadata:(_BMPRequestMetadata * _Nonnull)requestMetadata;
+- (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
+@end
+
+@class BMPVideoQuality;
+
+SWIFT_PROTOCOL_NAMED("_VideoService")
+@protocol _BMPVideoService
+@property (nonatomic, readonly, copy) NSArray<BMPVideoQuality *> * _Nonnull availableVideoQualities;
+@property (nonatomic, readonly, strong) BMPVideoQuality * _Nullable videoQuality;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultVideoService")
+@interface _BMPDefaultVideoService : _BMPDefaultService <_BMPVideoService>
+@property (nonatomic, readonly, copy) NSArray<BMPVideoQuality *> * _Nonnull availableVideoQualities;
+@property (nonatomic, readonly, strong) BMPVideoQuality * _Nullable videoQuality;
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class _BMPAVPlayerItem;
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@end
+
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
+@class _BMPMasterPlaylistLoadedEvent;
+
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPPlayerListenerInternal>
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+- (void)onMasterPlaylistLoaded:(_BMPMasterPlaylistLoadedEvent * _Nonnull)event;
+@end
+
+
+
+
+SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
+@interface _BMPInitialTimeShiftContext : NSObject
+@property (nonatomic, readonly) NSTimeInterval initialTimestamp;
+@property (nonatomic, readonly) NSTimeInterval initialLiveEdge;
+- (nonnull instancetype)initWithInitialTimestamp:(NSTimeInterval)initialTimestamp initialLiveEdge:(NSTimeInterval)initialLiveEdge OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
+@interface _BMPInternalTimeShiftEvent : BMPTimeShiftEvent
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS_NAMED("_InternalTimeShiftedEvent")
+@interface _BMPInternalTimeShiftedEvent : BMPTimeShiftedEvent
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
   _BMPLogLevelVerbose = 0,
@@ -1066,9 +1451,21 @@ typedef SWIFT_ENUM_NAMED(NSInteger, _BMPLogLevel, "_LogLevel", open) {
 
 
 
+SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
+@interface _BMPMasterPlaylistLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data requestUrl:(NSURL * _Nonnull)requestUrl OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
-@interface BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+@interface _BMPMediaInfoCustomData : NSObject
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -1076,12 +1473,53 @@ SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 
 
 SWIFT_CLASS_NAMED("_MetadataMessage")
-@interface BMPMetadataMessage : NSObject
+@interface _BMPMetadataMessage : NSObject
 - (nonnull instancetype)initWithReceiverVersion:(BMPGoogleCastReceiverVersion _Nonnull)receiverVersion data:(NSDictionary * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+SWIFT_CLASS_NAMED("_RequestMetadata")
+@interface _BMPRequestMetadata : NSObject
+@property (nonatomic, copy) NSString * _Nonnull downloadType;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, copy) NSURL * _Nullable redirectUrl;
+@property (nonatomic) NSTimeInterval downloadTime;
+@property (nonatomic) NSInteger httpStatus;
+@property (nonatomic) NSInteger size;
+@property (nonatomic) BOOL wasSuccessful;
+@property (nonatomic, readonly) BOOL isLocalResource;
+- (nonnull instancetype)initWithDownloadType:(NSString * _Nonnull)downloadType url:(NSURL * _Nonnull)url OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS_NAMED("_TimeShiftStatus")
+@interface _BMPTimeShiftStatus : NSObject
+@property (nonatomic, readonly) NSTimeInterval lastTimeShiftOffset;
+@property (nonatomic, readonly) NSTimeInterval lastTimeShiftReachedTime;
+@property (nonatomic, readonly, copy) NSDate * _Nonnull lastTimeShiftDate;
+- (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
+@interface _BMPVariantPlaylistLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSData * _Nonnull data;
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data requestUrl:(NSURL * _Nonnull)requestUrl OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

@@ -22,8 +22,8 @@ NS_SWIFT_NAME(VideoDownloadQualityChangedEvent)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithNewVideoQuality:(BMPVideoQuality *)newVideoQuality
-                        oldVideoQuality:(BMPVideoQuality *)oldVideoQuality NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNewVideoQuality:(nullable BMPVideoQuality *)newVideoQuality
+                        oldVideoQuality:(nullable BMPVideoQuality *)oldVideoQuality NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

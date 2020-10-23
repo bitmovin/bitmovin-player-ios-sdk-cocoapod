@@ -1,4 +1,3 @@
-NS_SWIFT_NAME(_ServiceType)
 typedef NS_ENUM(NSInteger, _BMPServiceType) {
     _BMPServiceTypeEvent,
     _BMPServiceTypeImpression,
@@ -19,4 +18,4 @@ typedef NS_ENUM(NSInteger, _BMPServiceType) {
     _BMPServiceTypeThumbnail,
     _BMPServiceTypePlaylistParser,
     _BMPServiceTypeBuffer
-};
+} NS_SWIFT_NAME(_ServiceType);

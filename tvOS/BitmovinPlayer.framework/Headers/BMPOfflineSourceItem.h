@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <BitmovinPlayer/BMPSourceItem.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,6 +21,12 @@ NS_SWIFT_NAME(OfflineSourceItem)
 @interface BMPOfflineSourceItem : BMPSourceItem
 /** Defines if the player is restricted to the usage of completely offline stored media renditions */
 @property (nonatomic, readonly, getter=isRestrictedToAssetCache) BOOL restrictedToAssetCache;
+/// :nodoc:
+/// This references either the asset which is used to download offline content or the asset pointing to the already downloaded and stored local asset bundle
+@property (nonatomic, strong, readonly) AVURLAsset *_urlAsset;
+/// :nodoc:
+/** The offline DRM license data which contains the content decryption keys needed to properly playback this asset */
+@property (nonatomic, copy, readonly, nullable) NSData *_offlineDRMLicense;
 
 - (instancetype)initWithUrl:(NSURL *)url NS_UNAVAILABLE;
 - (instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource NS_UNAVAILABLE;

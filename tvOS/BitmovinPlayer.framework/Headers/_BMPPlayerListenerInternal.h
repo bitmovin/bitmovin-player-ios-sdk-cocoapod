@@ -14,6 +14,8 @@
 @class _BMPScteTagsParsedEvent;
 @class _BMPInternalTimeChangedEvent;
 @class _BMPInternalReadyEvent;
+@class _BMPInternalTimeShiftEvent;
+@class _BMPInternalTimeShiftedEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,6 +62,21 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
  was loaded. This event is always fired before onReady.
  */
 - (void)onInternalReady:(_BMPInternalReadyEvent *)event;
+/**
+ * Is called periodically during time shifting. Only applies to live streams, please refer to onSeek for VoD streams.
+ *
+ * @note This event is always triggered even for internal TimeShifts e.g. when applying a startOffset
+ * @param event An object holding specific event data.
+ */
+- (void)onInternalTimeShift:(_BMPInternalTimeShiftEvent *)event;
+
+/**
+ * Is called when time shifting has been finished and data is available to continue playback. Only applies to live streams, please refer to onSeeked for VoD streams.
+ *
+ * @note This event is always triggered even for internal TimeShifts e.g. when applying a startOffset
+ * @param event An object holding specific event data.
+ */
+- (void)onInternalTimeShifted:(_BMPInternalTimeShiftedEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END

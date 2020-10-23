@@ -10,6 +10,8 @@
 #import <BitmovinPlayer/BMPAdItem.h>
 #import <BitmovinPlayer/BMPConfiguration.h>
 
+@class IMAAdsManager;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -25,6 +27,10 @@ __TVOS_PROHIBITED
  * @see BMPAdItem
  */
 @property (nonatomic, readonly, copy) NSArray<BMPAdItem *> *schedule;
+/**
+ * Provides access to the current IMAAdsManager once it becomes available.
+ */
+@property (nonatomic, copy, nullable) void (^onAdsManagerAvailable)(IMAAdsManager *adsManager);
 
 /**
  * Creates a new AdvertisingConfiguration with the given ad schedule.

@@ -68,7 +68,6 @@
 #import <BitmovinPlayer/BMPControlsShowEvent.h>
 #import <BitmovinPlayer/BMPControlsHideEvent.h>
 #import <BitmovinPlayer/BMPAudioRemovedEvent.h>
-#import <BitmovinPlayer/BMPDownloadFinishedEvent.h>
 #import <BitmovinPlayer/BMPAirPlayChangedEvent.h>
 #import <BitmovinPlayer/BMPAirPlayAvailableEvent.h>
 #import <BitmovinPlayer/BMPSourceMetadataChangedEvent.h>
@@ -80,5 +79,6 @@
 @class BMPAudioAddedEvent;
 @class BMPDrmDataParsedEvent;
 @class BMPDurationChangedEvent;
+@class BMPDownloadFinishedEvent;
 
 #endif /* BMPWebPlayerEvents_h */
