@@ -13,6 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 @interface _BMPAVPlayerItem : AVPlayerItem
 - (void)addListener:(id<_BMPAVPlayerItemListener>)listener;
 - (void)removeListener:(id<_BMPAVPlayerItemListener>)listener;

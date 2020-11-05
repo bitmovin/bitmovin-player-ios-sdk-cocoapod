@@ -93,6 +93,7 @@
 #import <BitmovinPlayer/_BMPAVPlayerItemListener.h>
 #import <BitmovinPlayer/_M3U8ExtXStreamInfList.h>
 #import <BitmovinPlayer/NSString+m3u8.h>
+#import <BitmovinPlayer/_BMPMatcher.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

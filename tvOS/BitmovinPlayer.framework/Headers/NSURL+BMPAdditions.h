@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 @interface NSURL (BMPAdditions)
 @property (nonatomic, readonly, copy) NSString *_bmp_relativePathToHomeDirectory;
 @property (nonatomic, readonly) BOOL _bmp_isSkdScheme;

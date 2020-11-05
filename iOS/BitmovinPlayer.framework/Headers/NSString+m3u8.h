@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class _M3U8ExtXStreamInfList, M3U8SegmentInfoList;
+
+/// :nodoc:
 @interface NSString (m3u8)
 
 - (BOOL)_isExtendedM3Ufile;

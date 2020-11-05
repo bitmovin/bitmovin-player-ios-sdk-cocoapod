@@ -21,11 +21,11 @@ import Swift
 @objc(_BMPLogger) public protocol _Logger {
   @objc func log(_ message: Swift.String, level: BitmovinPlayer._LogLevel)
 }
-@objc(_BMPDefaultResourceLoaderService) @objcMembers final public class _DefaultResourceLoaderService : BitmovinPlayer._DefaultService, BitmovinPlayer._ResourceLoaderService {
+@_hasMissingDesignatedInitializers @objc(_BMPDefaultResourceLoaderService) @objcMembers final public class _DefaultResourceLoaderService : BitmovinPlayer._DefaultService, BitmovinPlayer._ResourceLoaderService {
   @objc override final public var type: BitmovinPlayer._ServiceType {
     @objc get
   }
-  @objc public init(serviceLocator: BitmovinPlayer._NamespacedServiceLocator)
+  @objc convenience public init(serviceLocator: BitmovinPlayer._NamespacedServiceLocator)
   @objc final public func setupResourceLoaders(with sourceItem: BitmovinPlayer.SourceItem, asset: AVFoundation.AVURLAsset)
   @objc deinit
   @objc override dynamic public init()
@@ -45,6 +45,12 @@ extension _DefaultResourceLoaderService : BitmovinPlayer._BitmovinResourceLoader
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingPlaylistWithError error: Swift.Error)
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingAesKeyData keyData: Foundation.Data, requestMetadata: BitmovinPlayer._RequestMetadata)
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingAesKeyWithError error: Swift.Error)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(_BMPDefaultPlaylistManipulator) public class _DefaultPlaylistManipulator : ObjectiveC.NSObject, BitmovinPlayer._PlaylistManipulator {
+  @objc public func replace(decryptionKeyUrl keyUrl: Swift.String, with keyData: Foundation.Data, in playlist: Swift.String, decryptionKeyStoreStrategy keyStoreStrategy: BitmovinPlayer._PlaylistDecryptionKeyStoreStrategy) -> Swift.String
+  @objc public func replace(manifestUrl url: Swift.String, with customUrl: Swift.String, in playlist: Swift.String) -> Swift.String
+  @objc deinit
+  @objc override dynamic public init()
 }
 @objc(_BMPVariantPlaylistLoadedEvent) @objcMembers final public class _VariantPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let data: Foundation.Data
@@ -131,6 +137,10 @@ extension _DefaultResourceLoaderService : BitmovinPlayer._BitmovinResourceLoader
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
 }
+public protocol _HexConvertible {
+  var hexadecimal: Foundation.Data? { get }
+  var normalizedHexString: Swift.String { get }
+}
 @_inheritsConvenienceInitializers @objc(BMPDestroyEvent) final public class DestroyEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get
@@ -180,6 +190,11 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
   @objc deinit
   @objc override dynamic public init(position: Foundation.TimeInterval, target: Foundation.TimeInterval, timeShift: Foundation.TimeInterval)
 }
+@_inheritsConvenienceInitializers @objc(_BMPInlinePlaylistDecryptionKeyStoreStrategy) public class _InlinePlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObject, BitmovinPlayer._PlaylistDecryptionKeyStoreStrategy {
+  @objc public func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?
+  @objc deinit
+  @objc override dynamic public init()
+}
 @_inheritsConvenienceInitializers @objc(_BMPDefaultEventEmitter) public class _DefaultEventEmitter : BitmovinPlayer._DefaultService, BitmovinPlayer._EventEmitter {
   @objc override dynamic public var type: BitmovinPlayer._ServiceType {
     @objc get
@@ -217,6 +232,10 @@ extension _DefaultInitializationService {
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
+}
+@objc(_BMPPlaylistManipulator) public protocol _PlaylistManipulator : AnyObject {
+  @objc func replace(decryptionKeyUrl keyUrl: Swift.String, with keyData: Foundation.Data, in playlist: Swift.String, decryptionKeyStoreStrategy keyStoreStrategy: BitmovinPlayer._PlaylistDecryptionKeyStoreStrategy) -> Swift.String
+  @objc(replaceManifestUrl:withCustomUrl:in:) func replace(manifestUrl url: Swift.String, with customUrl: Swift.String, in playlist: Swift.String) -> Swift.String
 }
 @_inheritsConvenienceInitializers @objc(_BMPInternalTimeShiftedEvent) final public class _InternalTimeShiftedEvent : BitmovinPlayer.TimeShiftedEvent {
   @objc deinit
@@ -264,11 +283,7 @@ extension _DefaultInitializationService {
   @objc deinit
   @objc override dynamic public init()
 }
-public protocol HexConvertible {
-  var hexadecimal: Foundation.Data? { get }
-  var normalizedHexString: Swift.String { get }
-}
-extension String : BitmovinPlayer.HexConvertible {
+extension String : BitmovinPlayer._HexConvertible {
   public var hexadecimal: Foundation.Data? {
     get
   }
@@ -276,7 +291,7 @@ extension String : BitmovinPlayer.HexConvertible {
     get
   }
 }
-extension NSString : BitmovinPlayer.HexConvertible {
+extension NSString : BitmovinPlayer._HexConvertible {
   public var hexadecimal: Foundation.Data? {
     get
   }
@@ -380,6 +395,9 @@ extension NSString : BitmovinPlayer.HexConvertible {
   @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
   @objc deinit
   @objc override dynamic public init()
+}
+@objc(_BMPPlaylistDecryptionKeyStoreStrategy) public protocol _PlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObjectProtocol {
+  @objc func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?
 }
 @objc(_BMPRequestMetadata) @objcMembers final public class _RequestMetadata : ObjectiveC.NSObject {
   @objc final public var downloadType: Swift.String

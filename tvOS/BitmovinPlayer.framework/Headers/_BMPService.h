@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 NS_SWIFT_NAME(_Service)
 @protocol _BMPService <NSObject>
 @property (nonatomic, readonly, getter=isRunning) BOOL running;

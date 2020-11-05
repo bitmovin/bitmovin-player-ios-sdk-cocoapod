@@ -35,6 +35,8 @@
 #define M3U8_EXT_X_STREAM_INF_URI           @"URI"  // The value is a enumerated-string containing a URI that identifies the Playlist file.
 
  */
+
+/// :nodoc:
 @interface _M3U8ExtXStreamInf : NSObject
 
 @property (nonatomic, readonly, assign) NSInteger bandwidth;

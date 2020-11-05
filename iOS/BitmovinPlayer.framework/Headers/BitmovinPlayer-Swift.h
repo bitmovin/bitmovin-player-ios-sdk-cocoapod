@@ -579,6 +579,22 @@ SWIFT_CLASS_NAMED("_DefaultInitializationService")
 - (void)stop;
 @end
 
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy;
+
+SWIFT_PROTOCOL_NAMED("_PlaylistManipulator")
+@protocol _BMPPlaylistManipulator
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultPlaylistManipulator")
+@interface _BMPDefaultPlaylistManipulator : NSObject <_BMPPlaylistManipulator>
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class AVURLAsset;
 
 SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
@@ -590,7 +606,7 @@ SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
 SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 @interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
 @property (nonatomic, readonly) _BMPServiceType type;
-- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
 - (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -646,13 +662,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 @class _BMPAVPlayerItem;
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -675,6 +691,19 @@ SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy <NSObject>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
+@interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
@@ -728,6 +757,8 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
 
 
 SWIFT_CLASS_NAMED("_RequestMetadata")
@@ -1351,6 +1382,22 @@ SWIFT_CLASS_NAMED("_DefaultInitializationService")
 - (void)stop;
 @end
 
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy;
+
+SWIFT_PROTOCOL_NAMED("_PlaylistManipulator")
+@protocol _BMPPlaylistManipulator
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultPlaylistManipulator")
+@interface _BMPDefaultPlaylistManipulator : NSObject <_BMPPlaylistManipulator>
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class AVURLAsset;
 
 SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
@@ -1362,7 +1409,7 @@ SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
 SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 @interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
 @property (nonatomic, readonly) _BMPServiceType type;
-- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
 - (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -1418,13 +1465,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 @class _BMPAVPlayerItem;
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1447,6 +1494,19 @@ SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy <NSObject>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
+@interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
@@ -1500,6 +1560,8 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
 
 
 SWIFT_CLASS_NAMED("_RequestMetadata")
@@ -2126,6 +2188,22 @@ SWIFT_CLASS_NAMED("_DefaultInitializationService")
 - (void)stop;
 @end
 
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy;
+
+SWIFT_PROTOCOL_NAMED("_PlaylistManipulator")
+@protocol _BMPPlaylistManipulator
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultPlaylistManipulator")
+@interface _BMPDefaultPlaylistManipulator : NSObject <_BMPPlaylistManipulator>
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class AVURLAsset;
 
 SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
@@ -2137,7 +2215,7 @@ SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
 SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 @interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
 @property (nonatomic, readonly) _BMPServiceType type;
-- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
 - (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -2193,13 +2271,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 @class _BMPAVPlayerItem;
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2222,6 +2300,19 @@ SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy <NSObject>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
+@interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
@@ -2275,6 +2366,8 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
 
 
 SWIFT_CLASS_NAMED("_RequestMetadata")
@@ -2898,6 +2991,22 @@ SWIFT_CLASS_NAMED("_DefaultInitializationService")
 - (void)stop;
 @end
 
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy;
+
+SWIFT_PROTOCOL_NAMED("_PlaylistManipulator")
+@protocol _BMPPlaylistManipulator
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultPlaylistManipulator")
+@interface _BMPDefaultPlaylistManipulator : NSObject <_BMPPlaylistManipulator>
+- (NSString * _Nonnull)replaceWithDecryptionKeyUrl:(NSString * _Nonnull)keyUrl with:(NSData * _Nonnull)keyData in:(NSString * _Nonnull)playlist decryptionKeyStoreStrategy:(id <_BMPPlaylistDecryptionKeyStoreStrategy> _Nonnull)keyStoreStrategy SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)replaceManifestUrl:(NSString * _Nonnull)url withCustomUrl:(NSString * _Nonnull)customUrl in:(NSString * _Nonnull)playlist SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class AVURLAsset;
 
 SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
@@ -2909,7 +3018,7 @@ SWIFT_PROTOCOL_NAMED("_ResourceLoaderService")
 SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 @interface _BMPDefaultResourceLoaderService : _BMPDefaultService <_BMPResourceLoaderService>
 @property (nonatomic, readonly) _BMPServiceType type;
-- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator;
 - (void)setupResourceLoadersWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem asset:(AVURLAsset * _Nonnull)asset;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -2965,13 +3074,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 @class _BMPAVPlayerItem;
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2994,6 +3103,19 @@ SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
+@protocol _BMPPlaylistDecryptionKeyStoreStrategy <NSObject>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
+@interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
+- (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
@@ -3047,6 +3169,8 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
 
 
 SWIFT_CLASS_NAMED("_RequestMetadata")
