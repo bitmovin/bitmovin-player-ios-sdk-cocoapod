@@ -5,6 +5,7 @@ import AVFoundation
 @_exported import BitmovinPlayer
 import Foundation
 import Swift
+import UIKit
 @objc(_BMPLogLevel) public enum _LogLevel : Swift.Int {
   case verbose = 0
   case info
@@ -462,6 +463,15 @@ extension _DefaultVideoService : BitmovinPlayer._AVPlayerObserver {
 }
 extension _DefaultVideoService : BitmovinPlayer._AVPlayerItemListener {
   @objc dynamic public func playerItemDidReceiveNewAccessLogEntry(_ playerItem: BitmovinPlayer._BMPAVPlayerItem)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(_BMPBackgroundPlaybackLifecycleHandler) @objcMembers public class _BackgroundPlaybackLifecycleHandler : ObjectiveC.NSObject {
+  @objc weak public var delegate: BitmovinPlayer._BackgroundPlaybackLifecycleHandlerDelegate?
+  @objc override convenience dynamic public init()
+  @objc deinit
+}
+@objc(_BMPBackgroundPlaybackLifecycleHandlerDelegate) public protocol _BackgroundPlaybackLifecycleHandlerDelegate {
+  @objc func enteringBackground()
+  @objc func exitingBackground()
 }
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}

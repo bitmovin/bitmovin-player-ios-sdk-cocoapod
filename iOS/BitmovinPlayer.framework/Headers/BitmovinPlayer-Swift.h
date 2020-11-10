@@ -195,6 +195,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -412,8 +413,25 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
+
+
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
+
+SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
+@interface _BMPBackgroundPlaybackLifecycleHandler : NSObject
+@property (nonatomic, weak) id <_BMPBackgroundPlaybackLifecycleHandlerDelegate> _Nullable delegate;
+- (nonnull instancetype)init;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BackgroundPlaybackLifecycleHandlerDelegate")
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate
+- (void)enteringBackground;
+- (void)exitingBackground;
 @end
 
 enum _BMPLogLevel : NSInteger;
@@ -998,6 +1016,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -1215,8 +1234,25 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
+
+
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
+
+SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
+@interface _BMPBackgroundPlaybackLifecycleHandler : NSObject
+@property (nonatomic, weak) id <_BMPBackgroundPlaybackLifecycleHandlerDelegate> _Nullable delegate;
+- (nonnull instancetype)init;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BackgroundPlaybackLifecycleHandlerDelegate")
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate
+- (void)enteringBackground;
+- (void)exitingBackground;
 @end
 
 enum _BMPLogLevel : NSInteger;
@@ -1804,6 +1840,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -2021,8 +2058,25 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
+
+
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
+
+SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
+@interface _BMPBackgroundPlaybackLifecycleHandler : NSObject
+@property (nonatomic, weak) id <_BMPBackgroundPlaybackLifecycleHandlerDelegate> _Nullable delegate;
+- (nonnull instancetype)init;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BackgroundPlaybackLifecycleHandlerDelegate")
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate
+- (void)enteringBackground;
+- (void)exitingBackground;
 @end
 
 enum _BMPLogLevel : NSInteger;
@@ -2607,6 +2661,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #import <BitmovinPlayer/BitmovinPlayer.h>
@@ -2824,8 +2879,25 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 
 
 
+
+
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
+
+SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
+@interface _BMPBackgroundPlaybackLifecycleHandler : NSObject
+@property (nonatomic, weak) id <_BMPBackgroundPlaybackLifecycleHandlerDelegate> _Nullable delegate;
+- (nonnull instancetype)init;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BackgroundPlaybackLifecycleHandlerDelegate")
+@protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate
+- (void)enteringBackground;
+- (void)exitingBackground;
 @end
 
 enum _BMPLogLevel : NSInteger;
