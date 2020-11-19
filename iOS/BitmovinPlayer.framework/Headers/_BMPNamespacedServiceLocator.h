@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "_BMPTimeService.h"
 
 @protocol _BMPLogger;
 @protocol _BMPEventEmitter;
 @protocol _BMPResourceLoaderService;
 @protocol _BMPDeficiencyService;
 @protocol _BMPConfigurationService;
+@protocol _BMPBufferService;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +25,8 @@ NS_SWIFT_NAME(_NamespacedServiceLocator)
 @property (nonatomic, strong, readonly) id<_BMPDeficiencyService> deficiencyService;
 @property (nonatomic, strong, readonly) id<_BMPConfigurationService> configurationService;
 @property (nonatomic, strong, readonly) id<_BMPLogger> logger;
+@property (nonatomic, strong, readonly) id<_BMPTimeService> timeService;
+@property (nonatomic, strong, readonly) id<_BMPBufferService> bufferService;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,6 +39,10 @@ NS_SWIFT_NAME(Track)
                       label:(NSString *)label
                  identifier:(NSString *)identifier
              isDefaultTrack:(BOOL)isDefaultTrack NS_DESIGNATED_INITIALIZER;
+/// :nodoc:
+- (void)_updateLabelTo:(NSString *)label;
+/// :nodoc:
+- (void)_updateDefaultTrackTo:(BOOL)isDefaultTrack;
 @end
 
 NS_ASSUME_NONNULL_END

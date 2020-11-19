@@ -37,6 +37,20 @@ NS_SWIFT_NAME(TweaksConfiguration)
  */
 @property (nonatomic, assign) NSTimeInterval timeChangedInterval;
 
+/**
+ When duration for subtitle tracks mismatch between
+ the HLS manifest and the subtitle track, this can cause the player to get stalled or prevent it from
+ rendering subtitles after seeking. This can be avoided by deselecting subtitles during seeking and reselecting
+ them afterwards.
+
+ If set to true, active subtitle track will be deselected before seeking and reselected when seeking finished.
+ No subtitle change related events will be fired.
+ If set to false, no changes are applied to subtitle selection on seeking.
+
+ Default is false.
+ */
+@property (nonatomic, assign) BOOL disableSubtitleTracksWhileSeeking;
+
 @end
 
 NS_ASSUME_NONNULL_END

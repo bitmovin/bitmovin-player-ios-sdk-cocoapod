@@ -26,6 +26,8 @@ NS_SWIFT_NAME(_AVPlayerItemListener)
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didFailToToPlayToEnd:(nullable NSError *)error;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangeTimedMetadata:(NSArray<AVMetadataItem *> *)timedMetadata;
 - (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem *)playerItem;
+- (void)playerItem:(_BMPAVPlayerItem *)playerItem willSeekToTargetTime:(CMTime)seekTarget;
+- (void)playerItem:(_BMPAVPlayerItem *)playerItem didSeekWithSuccess:(BOOL)finished;
 @end
 
 NS_ASSUME_NONNULL_END

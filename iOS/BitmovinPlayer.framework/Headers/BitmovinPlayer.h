@@ -76,9 +76,7 @@
 #import <BitmovinPlayer/_BMPInternalTimeChangedEvent.h>
 #import <BitmovinPlayer/_BMPInternalReadyEvent.h>
 #import <BitmovinPlayer/BMPId3Metadata.h>
-#import <BitmovinPlayer/_BMPAVPlayer.h>
 #import <BitmovinPlayer/_BMPCapabilityChecker.h>
-#import <BitmovinPlayer/_BMPDefaultUrlAssetValuesLoader.h>
 #import <BitmovinPlayer/_BMPAVPlayerItem.h>
 #import <BitmovinPlayer/_BMPBitmovinResourceLoaderDelegate.h>
 #import <BitmovinPlayer/_BMPFairplayHandlerDelegate.h>
@@ -92,8 +90,12 @@
 #import <BitmovinPlayer/_BMPAVPlayerObserver.h>
 #import <BitmovinPlayer/_BMPAVPlayerItemListener.h>
 #import <BitmovinPlayer/_M3U8ExtXStreamInfList.h>
+#import <BitmovinPlayer/_BMPAudioService.h>
+#import <BitmovinPlayer/AVMediaSelectionOption+BitmovinPlayer.h>
 #import <BitmovinPlayer/NSString+m3u8.h>
 #import <BitmovinPlayer/_BMPMatcher.h>
+#import <BitmovinPlayer/BMPMediaType.h>
+#import <BitmovinPlayer/_BMPPlaybackService.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

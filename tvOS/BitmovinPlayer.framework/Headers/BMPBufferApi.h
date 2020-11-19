@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPBufferLevel.h>
 #import <BitmovinPlayer/BMPBufferType.h>
+
+@class BMPBufferLevel;
 
 NS_ASSUME_NONNULL_BEGIN
 

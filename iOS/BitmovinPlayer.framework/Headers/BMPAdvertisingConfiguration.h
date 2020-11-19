@@ -11,6 +11,7 @@
 #import <BitmovinPlayer/BMPConfiguration.h>
 
 @class IMAAdsManager;
+@class IMASettings;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,6 +32,12 @@ __TVOS_PROHIBITED
  * Provides access to the current IMAAdsManager once it becomes available.
  */
 @property (nonatomic, copy, nullable) void (^onAdsManagerAvailable)(IMAAdsManager *adsManager);
+/**
+ * Callback that provides access to the IMASettings before any initialization happens.
+ *
+ * @discussion Changes to enableDebugMode, playerType and autoPlayAdBreaks will be ignored.
+ */
+@property (nonatomic, copy, nullable) void (^beforeInitialization)(IMASettings *settings);
 
 /**
  * Creates a new AdvertisingConfiguration with the given ad schedule.
@@ -43,4 +50,3 @@ __TVOS_PROHIBITED
 @end
 
 NS_ASSUME_NONNULL_END
-

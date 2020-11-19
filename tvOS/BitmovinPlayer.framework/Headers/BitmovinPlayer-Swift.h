@@ -191,6 +191,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AVFoundation;
+@import CoreMedia;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -229,6 +230,22 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 @end
 
 
+
+
+/// Holds different information about the buffer levels.
+SWIFT_CLASS_NAMED("BufferLevel")
+@interface BMPBufferLevel : NSObject
+/// The amount of currently buffered data, e.g. audio or video buffer level.
+@property (nonatomic, readonly) NSTimeInterval level;
+/// The target buffer level the player tries to maintain.
+@property (nonatomic, readonly) NSTimeInterval targetLevel;
+/// The media type the buffer data applies to.
+@property (nonatomic, readonly) enum BMPMediaType media;
+/// The buffer type the buffer data applies to.
+@property (nonatomic, readonly) BMPBufferType type;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 @class _BMPCafDrmConfig;
 
@@ -408,6 +425,26 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@class _BMPAVPlayerItem;
+@protocol _BMPAVPlayerObserver;
+@class AVPlayerItem;
+
+SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
+@interface _BMPAVPlayer : AVPlayer
+@property (nonatomic, readonly, strong) _BMPAVPlayerItem * _Nullable currentItem;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)addObserver:(id <_BMPAVPlayerObserver> _Nonnull)observer;
+- (void)removeObserver:(id <_BMPAVPlayerObserver> _Nonnull)observer;
+- (void)seekToTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter suppressEvents:(BOOL)suppressEvents completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+- (void)seekToTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+/// For following method calls we notify the observers when they were called and forward the
+/// calls to super.
+- (void)seekToTime:(CMTime)time completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
+- (nonnull instancetype)initWithURL:(NSURL * _Nonnull)URL SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithPlayerItem:(AVPlayerItem * _Nullable)item SWIFT_UNAVAILABLE;
+@end
+
 @protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
 
 SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
@@ -436,6 +473,24 @@ SWIFT_CLASS_NAMED("_BitmovinLogger")
 - (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init;
 - (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BufferApiDelegate")
+@protocol _BMPBufferApiDelegate
+/// Returns the buffer level of specified type.
+/// \param type The type of buffer to return the level for.
+///
+- (BMPBufferLevel * _Nonnull)bufferAPI_getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+/// Sets the target level for the forward buffer.
+/// \param value The value to set.
+///
+- (void)bufferAPI_setTargetLevel:(NSTimeInterval)value;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BufferService")
+@protocol _BMPBufferService <BMPBufferApi, _BMPService>
 @end
 
 
@@ -476,8 +531,57 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @end
 
 @protocol _BMPNamespacedServiceLocator;
-@class BMPSourceLoadedEvent;
+
+SWIFT_CLASS_NAMED("_DefaultAudioService")
+@interface _BMPDefaultAudioService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class BMPSourceUnloadedEvent;
+
+@interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+@end
+
+
+@interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAudioService>
+@property (nonatomic, readonly, copy) NSArray<BMPAudioTrack *> * _Nonnull availableAudio;
+@property (nonatomic, readonly, strong) BMPAudioTrack * _Nullable audio;
+- (void)setupAudioTracks;
+- (void)setAudioWithIdentifier:(NSString * _Nonnull)audioTrackID;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultBufferService")
+@interface _BMPDefaultBufferService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBufferService>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
+@end
+
+@class BMPConfigurationUpdatedEvent;
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
+- (void)onReady:(BMPReadyEvent * _Nonnull)event;
+- (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+@end
+
+@class BMPSourceLoadedEvent;
 
 SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
@@ -566,7 +670,6 @@ SWIFT_PROTOCOL_NAMED("_InitializationService")
 - (void)unload;
 @end
 
-@class _BMPAVPlayer;
 
 SWIFT_CLASS_NAMED("_DefaultInitializationService")
 @interface _BMPDefaultInitializationService : _BMPDefaultService <_BMPInitializationService>
@@ -646,6 +749,18 @@ SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 - (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
 @end
 
+
+SWIFT_CLASS_NAMED("_DefaultUrlAssetValuesLoader")
+@interface _BMPDefaultUrlAssetValuesLoader : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface _BMPDefaultUrlAssetValuesLoader (SWIFT_EXTENSION(BitmovinPlayer))
+- (void)loadValuesAsynchronouslyForAsset:(AVURLAsset * _Nonnull)asset onComplete:(void (^ _Nullable)(AVURLAsset * _Nonnull, BOOL, BOOL))onComplete;
+- (void)triggerContentKeyRequestForAsset:(AVURLAsset * _Nonnull)asset;
+@end
+
 @class BMPVideoQuality;
 
 SWIFT_PROTOCOL_NAMED("_VideoService")
@@ -667,7 +782,6 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class _BMPAVPlayerItem;
 
 @interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
 - (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
@@ -687,6 +801,19 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("_GoogleCastBufferService")
+@interface _BMPGoogleCastBufferService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface _BMPGoogleCastBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBufferService>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
+@end
 
 
 SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
@@ -763,6 +890,20 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_PlayerBufferApi")
+@interface _BMPPlayerBufferApi : NSObject
+- (nonnull instancetype)initWithDelegate:(id <_BMPBufferApiDelegate> _Nonnull)delegate OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPPlayerBufferApi (SWIFT_EXTENSION(BitmovinPlayer)) <BMPBufferApi>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
 @end
 
 
@@ -1002,6 +1143,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AVFoundation;
+@import CoreMedia;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -1040,6 +1182,22 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 @end
 
 
+
+
+/// Holds different information about the buffer levels.
+SWIFT_CLASS_NAMED("BufferLevel")
+@interface BMPBufferLevel : NSObject
+/// The amount of currently buffered data, e.g. audio or video buffer level.
+@property (nonatomic, readonly) NSTimeInterval level;
+/// The target buffer level the player tries to maintain.
+@property (nonatomic, readonly) NSTimeInterval targetLevel;
+/// The media type the buffer data applies to.
+@property (nonatomic, readonly) enum BMPMediaType media;
+/// The buffer type the buffer data applies to.
+@property (nonatomic, readonly) BMPBufferType type;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 @class _BMPCafDrmConfig;
 
@@ -1219,6 +1377,26 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@class _BMPAVPlayerItem;
+@protocol _BMPAVPlayerObserver;
+@class AVPlayerItem;
+
+SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
+@interface _BMPAVPlayer : AVPlayer
+@property (nonatomic, readonly, strong) _BMPAVPlayerItem * _Nullable currentItem;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)addObserver:(id <_BMPAVPlayerObserver> _Nonnull)observer;
+- (void)removeObserver:(id <_BMPAVPlayerObserver> _Nonnull)observer;
+- (void)seekToTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter suppressEvents:(BOOL)suppressEvents completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+- (void)seekToTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+/// For following method calls we notify the observers when they were called and forward the
+/// calls to super.
+- (void)seekToTime:(CMTime)time completionHandler:(void (^ _Nonnull)(BOOL))completionHandler;
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
+- (nonnull instancetype)initWithURL:(NSURL * _Nonnull)URL SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithPlayerItem:(AVPlayerItem * _Nullable)item SWIFT_UNAVAILABLE;
+@end
+
 @protocol _BMPBackgroundPlaybackLifecycleHandlerDelegate;
 
 SWIFT_CLASS_NAMED("_BackgroundPlaybackLifecycleHandler")
@@ -1247,6 +1425,24 @@ SWIFT_CLASS_NAMED("_BitmovinLogger")
 - (nonnull instancetype)initWithLevel:(enum _BMPLogLevel)level OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init;
 - (void)log:(NSString * _Nonnull)message level:(enum _BMPLogLevel)level;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BufferApiDelegate")
+@protocol _BMPBufferApiDelegate
+/// Returns the buffer level of specified type.
+/// \param type The type of buffer to return the level for.
+///
+- (BMPBufferLevel * _Nonnull)bufferAPI_getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+/// Sets the target level for the forward buffer.
+/// \param value The value to set.
+///
+- (void)bufferAPI_setTargetLevel:(NSTimeInterval)value;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_BufferService")
+@protocol _BMPBufferService <BMPBufferApi, _BMPService>
 @end
 
 
@@ -1287,8 +1483,57 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @end
 
 @protocol _BMPNamespacedServiceLocator;
-@class BMPSourceLoadedEvent;
+
+SWIFT_CLASS_NAMED("_DefaultAudioService")
+@interface _BMPDefaultAudioService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class BMPSourceUnloadedEvent;
+
+@interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+@end
+
+
+@interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAudioService>
+@property (nonatomic, readonly, copy) NSArray<BMPAudioTrack *> * _Nonnull availableAudio;
+@property (nonatomic, readonly, strong) BMPAudioTrack * _Nullable audio;
+- (void)setupAudioTracks;
+- (void)setAudioWithIdentifier:(NSString * _Nonnull)audioTrackID;
+@end
+
+
+SWIFT_CLASS_NAMED("_DefaultBufferService")
+@interface _BMPDefaultBufferService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)initWithServiceLocator:(id <_BMPNamespacedServiceLocator> _Nonnull)serviceLocator player:(_BMPAVPlayer * _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (void)start;
+- (void)stop;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBufferService>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
+@end
+
+@class BMPConfigurationUpdatedEvent;
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
+- (void)onReady:(BMPReadyEvent * _Nonnull)event;
+- (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent * _Nonnull)event;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
+@end
+
+@class BMPSourceLoadedEvent;
 
 SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
@@ -1377,7 +1622,6 @@ SWIFT_PROTOCOL_NAMED("_InitializationService")
 - (void)unload;
 @end
 
-@class _BMPAVPlayer;
 
 SWIFT_CLASS_NAMED("_DefaultInitializationService")
 @interface _BMPDefaultInitializationService : _BMPDefaultService <_BMPInitializationService>
@@ -1457,6 +1701,18 @@ SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 - (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
 @end
 
+
+SWIFT_CLASS_NAMED("_DefaultUrlAssetValuesLoader")
+@interface _BMPDefaultUrlAssetValuesLoader : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface _BMPDefaultUrlAssetValuesLoader (SWIFT_EXTENSION(BitmovinPlayer))
+- (void)loadValuesAsynchronouslyForAsset:(AVURLAsset * _Nonnull)asset onComplete:(void (^ _Nullable)(AVURLAsset * _Nonnull, BOOL, BOOL))onComplete;
+- (void)triggerContentKeyRequestForAsset:(AVURLAsset * _Nonnull)asset;
+@end
+
 @class BMPVideoQuality;
 
 SWIFT_PROTOCOL_NAMED("_VideoService")
@@ -1478,7 +1734,6 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class _BMPAVPlayerItem;
 
 @interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
 - (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
@@ -1498,6 +1753,19 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("_GoogleCastBufferService")
+@interface _BMPGoogleCastBufferService : _BMPDefaultService
+@property (nonatomic, readonly) _BMPServiceType type;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface _BMPGoogleCastBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPBufferService>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
+@end
 
 
 SWIFT_CLASS_NAMED("_InitialTimeShiftContext")
@@ -1574,6 +1842,20 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_PlayerBufferApi")
+@interface _BMPPlayerBufferApi : NSObject
+- (nonnull instancetype)initWithDelegate:(id <_BMPBufferApiDelegate> _Nonnull)delegate OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPPlayerBufferApi (SWIFT_EXTENSION(BitmovinPlayer)) <BMPBufferApi>
+- (BMPBufferLevel * _Nonnull)getLevel:(BMPBufferType)type SWIFT_WARN_UNUSED_RESULT;
+- (void)setTargetLevel:(NSTimeInterval)value;
 @end
 
 
