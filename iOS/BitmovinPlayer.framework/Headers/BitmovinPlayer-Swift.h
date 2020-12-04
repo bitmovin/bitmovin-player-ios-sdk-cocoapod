@@ -403,7 +403,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
 /// set with this property.
 @property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
-/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// Set a CSS file which contains supplemental styles for the player UI.
+/// These styles will be added to the default CSS
 /// file or the CSS file set with StyleConfiguration#playerUiCss.
 @property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
 /// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
@@ -412,7 +413,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
@@ -1365,7 +1367,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
 /// set with this property.
 @property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
-/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// Set a CSS file which contains supplemental styles for the player UI.
+/// These styles will be added to the default CSS
 /// file or the CSS file set with StyleConfiguration#playerUiCss.
 @property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
 /// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
@@ -1374,7 +1377,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
@@ -2330,7 +2334,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
 /// set with this property.
 @property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
-/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// Set a CSS file which contains supplemental styles for the player UI.
+/// These styles will be added to the default CSS
 /// file or the CSS file set with StyleConfiguration#playerUiCss.
 @property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
 /// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
@@ -2339,7 +2344,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
@@ -3292,7 +3298,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Set the CSS file that will be used for the UI. The default CSS file will be completely replaced by the CSS file
 /// set with this property.
 @property (nonatomic, copy) NSURL * _Nonnull playerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
-/// Set a CSS file which contains supplemental styles for the player UI. These styles will be added to the default CSS
+/// Set a CSS file which contains supplemental styles for the player UI.
+/// These styles will be added to the default CSS
 /// file or the CSS file set with StyleConfiguration#playerUiCss.
 @property (nonatomic, copy) NSURL * _Nullable supplementalPlayerUiCss SWIFT_AVAILABILITY(tvos,unavailable);
 /// Sets the JS file that will be used for the UI. The default JS file will be completely replaced by the JS file
@@ -3301,7 +3308,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.

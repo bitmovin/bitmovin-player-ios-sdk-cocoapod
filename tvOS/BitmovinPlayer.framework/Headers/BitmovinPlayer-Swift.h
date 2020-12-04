@@ -401,7 +401,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.
@@ -1353,7 +1354,8 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 /// Determines how the video content is scaled or stretched within the parent container’s bounds.
 /// Possible values are defined in ScalingMode. Default value is ScalingMode.fit.
 @property (nonatomic) BMPScalingMode scalingMode;
-/// An optional configuration object, containing configuration values which apply to the selected user interface type.
+/// An optional configuration object, containing configuration values which apply to
+/// the selected user interface type.
 /// <ul>
 ///   <li>
 ///     When UserInterfaceType.system is selected, a SystemUserInterfaceConfiguration can be set.

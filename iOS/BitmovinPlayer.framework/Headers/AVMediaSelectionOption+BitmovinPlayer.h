@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 @interface AVMediaSelectionOption (BitmovinPlayer)
 @property (nonatomic, copy, readonly) NSString *_bmp_displayName;
 @property (nonatomic, readonly) BOOL _bmp_isForced;
