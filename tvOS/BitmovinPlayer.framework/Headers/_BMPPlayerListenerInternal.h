@@ -16,6 +16,7 @@
 @class _BMPInternalReadyEvent;
 @class _BMPInternalTimeShiftEvent;
 @class _BMPInternalTimeShiftedEvent;
+@class _BMPInternalPlayEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,6 +63,10 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
  was loaded. This event is always fired before onReady.
  */
 - (void)onInternalReady:(_BMPInternalReadyEvent *)event;
+/**
+ Is fired on intention to start/resume playback for main content (non-ad)
+ */
+- (void)onInternalPlay:(_BMPInternalPlayEvent *)event;
 /**
  * Is called periodically during time shifting. Only applies to live streams, please refer to onSeek for VoD streams.
  *

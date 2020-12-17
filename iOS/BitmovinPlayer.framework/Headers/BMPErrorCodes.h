@@ -29,7 +29,8 @@ NS_ERROR_ENUM(BMPBitmovinPlayerErrorDomain)
     BMPErrorOfflineFailedPersistingDrmLicense = 2202,
     BMPErrorOfflineFailedPostProcessingError = 2203,
     BMPErrorManifestDownloadFailed = 3006,
-    BMPErrorBadSource = 3032
+    BMPErrorBadSource = 3032,
+    BMPErrorAdvertising = 3100
 };
 
 NS_ASSUME_NONNULL_END

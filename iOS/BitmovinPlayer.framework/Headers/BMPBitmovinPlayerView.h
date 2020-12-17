@@ -10,7 +10,7 @@
 #define BMPBitmovinPlayerView_h
 
 #import <UIKit/UIKit.h>
-#import <BitmovinPlayer/BMPBitmovinPlayer.h>
+#import <BitmovinPlayer/BMPPlayer.h>
 #import <BitmovinPlayer/BMPPlayerView.h>
 #import <BitmovinPlayer/BMPFullscreenHandler.h>
 #import <BitmovinPlayer/BMPUserInterfaceAPI.h>

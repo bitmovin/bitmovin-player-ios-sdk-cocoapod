@@ -118,6 +118,12 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
   @objc override dynamic public init(url URL: Foundation.URL)
   @objc override dynamic public init(playerItem item: AVFoundation.AVPlayerItem?)
 }
+@_inheritsConvenienceInitializers @objcMembers @objc(_BMPStartOffsetCalculator) final public class _StartOffsetCalculator : ObjectiveC.NSObject {
+  @objc(calculateStartOffsetForVoDWithSourceOptions:totalDuration:) public static func calculateStartOffsetForVoD(with sourceOptions: BitmovinPlayer.SourceOptions, totalDuration: Foundation.TimeInterval) -> Foundation.TimeInterval
+  @objc(calculateStartOffsetForLiveWithSourceOptions:maxTimeShift:) public static func calculateStartOffsetForLive(with sourceOptions: BitmovinPlayer.SourceOptions, maxTimeShift: Foundation.TimeInterval) -> Foundation.TimeInterval
+  @objc deinit
+  @objc override dynamic public init()
+}
 @objc(_BMPBufferApiDelegate) public protocol _BufferApiDelegate {
   @objc(bufferAPI_getLevel:) func bufferAPI_getLevel(type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc(bufferAPI_setTargetLevel:) func bufferAPI_setTargetLevel(value: Foundation.TimeInterval)
@@ -184,6 +190,14 @@ public enum _AssetValuesLoaderPreloadingKey : Swift.String {
     get
   }
   public init?(rawValue: Swift.String)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPSeekedEvent) final public class SeekedEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objc(_BMPDeficiencyService) public protocol _DeficiencyService {
   @objc(throwError:) func throwError(code: Swift.Int)
@@ -268,15 +282,48 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
   @objc override dynamic public init()
   @objc deinit
 }
+@objcMembers @objc(BMPTimeShiftEvent) final public class TimeShiftEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let position: Foundation.TimeInterval
+  @objc final public let target: Foundation.TimeInterval
+  @objc final public let timeShift: Foundation.TimeInterval
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(position: Foundation.TimeInterval, target: Foundation.TimeInterval, timeShift: Foundation.TimeInterval)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 @_inheritsConvenienceInitializers @objcMembers @objc(_BMPBitmovinLogger) public class _BitmovinLogger : ObjectiveC.NSObject, BitmovinPlayer._Logger {
   @objc public init(level: BitmovinPlayer._LogLevel)
   @objc override convenience dynamic public init()
   @objc public func log(_ message: Swift.String, level: BitmovinPlayer._LogLevel)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc(_BMPInternalTimeShiftEvent) final public class _InternalTimeShiftEvent : BitmovinPlayer.TimeShiftEvent {
+@objcMembers @objc(BMPSeekEvent) final public class SeekEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let seekTarget: Foundation.TimeInterval
+  @objc final public let position: Foundation.TimeInterval
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(position: Foundation.TimeInterval, seekTarget: Foundation.TimeInterval)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
-  @objc override dynamic public init(position: Foundation.TimeInterval, target: Foundation.TimeInterval, timeShift: Foundation.TimeInterval)
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
+@objcMembers @objc(_BMPInternalTimeShiftEvent) final public class _InternalTimeShiftEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let position: Foundation.TimeInterval
+  @objc final public let target: Foundation.TimeInterval
+  @objc final public let timeShift: Foundation.TimeInterval
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(position: Foundation.TimeInterval, target: Foundation.TimeInterval, timeShift: Foundation.TimeInterval)
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @_inheritsConvenienceInitializers @objc(_BMPInlinePlaylistDecryptionKeyStoreStrategy) public class _InlinePlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObject, BitmovinPlayer._PlaylistDecryptionKeyStoreStrategy {
   @objc public func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?
@@ -344,11 +391,22 @@ extension _DefaultInitializationService {
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+@objc(BMPPlaybackFinishedEvent) @objcMembers final public class PlaybackFinishedEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+}
 @objc(_BMPPlaylistManipulator) public protocol _PlaylistManipulator : AnyObject {
   @objc func replace(decryptionKeyUrl keyUrl: Swift.String, with keyData: Foundation.Data, in playlist: Swift.String, decryptionKeyStoreStrategy keyStoreStrategy: BitmovinPlayer._PlaylistDecryptionKeyStoreStrategy) -> Swift.String
   @objc(replaceManifestUrl:withCustomUrl:in:) func replace(manifestUrl url: Swift.String, with customUrl: Swift.String, in playlist: Swift.String) -> Swift.String
 }
-@_inheritsConvenienceInitializers @objc(_BMPInternalTimeShiftedEvent) final public class _InternalTimeShiftedEvent : BitmovinPlayer.TimeShiftedEvent {
+@_inheritsConvenienceInitializers @objc(_BMPInternalTimeShiftedEvent) final public class _InternalTimeShiftedEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
@@ -510,6 +568,14 @@ extension NSString : BitmovinPlayer._HexConvertible {
 @objc(_BMPPlaylistDecryptionKeyStoreStrategy) public protocol _PlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObjectProtocol {
   @objc func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?
 }
+@objcMembers @objc(_BMPImaAdLogEvent) public class _ImaAdLogEvent : ObjectiveC.NSObject {
+  @objc final public let errorCode: Swift.Int
+  @objc final public let errorMessage: Swift.String
+  @objc final public let type: Swift.String
+  @objc public init(errorCode: Swift.Int, errorMessage: Swift.String, type: Swift.String)
+  @objc deinit
+  @objc override dynamic public init()
+}
 @objc(_BMPRequestMetadata) @objcMembers final public class _RequestMetadata : ObjectiveC.NSObject {
   @objc final public var downloadType: Swift.String
   @objc final public let url: Foundation.URL
@@ -527,6 +593,14 @@ extension NSString : BitmovinPlayer._HexConvertible {
 }
 @objc extension DownloadFinishedEvent {
   @objc convenience dynamic public init(requestMetadata: BitmovinPlayer._RequestMetadata)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPTimeShiftedEvent) final public class TimeShiftedEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objc(BMPDownloadFinishedEvent) @objcMembers final public class DownloadFinishedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let downloadType: Swift.String
@@ -582,6 +656,15 @@ extension _DefaultVideoService : BitmovinPlayer._AVPlayerItemListener {
 @objc(_BMPBackgroundPlaybackLifecycleHandlerDelegate) public protocol _BackgroundPlaybackLifecycleHandlerDelegate {
   @objc func enteringBackground()
   @objc func exitingBackground()
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(_BMPInternalPlayEvent) @objcMembers final public class _InternalPlayEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let time: Foundation.TimeInterval
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(time: Foundation.TimeInterval)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
 }
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}

@@ -13,14 +13,11 @@
 #import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
 #import <BitmovinPlayer/BMPTimeChangedEvent.h>
-#import <BitmovinPlayer/BMPSeekEvent.h>
 #import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPWarningEvent.h>
 #import <BitmovinPlayer/BMPMetadataEvent.h>
 #import <BitmovinPlayer/BMPMetadataParsedEvent.h>
-#import <BitmovinPlayer/BMPPlaybackFinishedEvent.h>
 #import <BitmovinPlayer/BMPRenderFirstFrameEvent.h>
-#import <BitmovinPlayer/BMPSeekedEvent.h>
 #import <BitmovinPlayer/BMPSourceLoadedEvent.h>
 #import <BitmovinPlayer/BMPSourceUnloadedEvent.h>
 #import <BitmovinPlayer/BMPVideoSizeChangedEvent.h>
@@ -38,8 +35,6 @@
 #import <BitmovinPlayer/BMPFullscreenDisabledEvent.h>
 #import <BitmovinPlayer/BMPFullscreenEnterEvent.h>
 #import <BitmovinPlayer/BMPFullscreenExitEvent.h>
-#import <BitmovinPlayer/BMPTimeShiftEvent.h>
-#import <BitmovinPlayer/BMPTimeShiftedEvent.h>
 #import <BitmovinPlayer/BMPDvrWindowExceededEvent.h>
 #import <BitmovinPlayer/BMPStallStartedEvent.h>
 #import <BitmovinPlayer/BMPStallEndedEvent.h>
@@ -80,5 +75,10 @@
 @class BMPDrmDataParsedEvent;
 @class BMPDurationChangedEvent;
 @class BMPDownloadFinishedEvent;
+@class BMPTimeShiftEvent;
+@class BMPTimeShiftedEvent;
+@class BMPPlaybackFinishedEvent;
+@class BMPSeekEvent;
+@class BMPSeekedEvent;
 
 #endif /* BMPWebPlayerEvents_h */

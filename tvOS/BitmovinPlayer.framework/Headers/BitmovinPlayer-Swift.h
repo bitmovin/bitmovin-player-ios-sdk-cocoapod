@@ -379,6 +379,15 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 /// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("PlaybackFinishedEvent")
+@interface BMPPlaybackFinishedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("ReadyEvent")
 @interface BMPReadyEvent : BMPPlayerEvent
 @property (nonatomic, readonly, copy) NSString * _Nonnull name;
@@ -387,6 +396,31 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SeekEvent")
+@interface BMPSeekEvent : BMPPlayerEvent
+/// The seek target time interval in seconds.
+@property (nonatomic, readonly) NSTimeInterval seekTarget;
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position seekTarget:(NSTimeInterval)seekTarget OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SeekedEvent")
+@interface BMPSeekedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class BMPUserInterfaceConfiguration;
 
@@ -418,6 +452,33 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("TimeShiftEvent")
+@interface BMPTimeShiftEvent : BMPPlayerEvent
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+/// The target in seconds.
+@property (nonatomic, readonly) NSTimeInterval target;
+/// The target timeshift value in seconds.
+@property (nonatomic, readonly) NSTimeInterval timeShift;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("TimeShiftedEvent")
+@interface BMPTimeShiftedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 
@@ -784,13 +845,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -841,14 +902,39 @@ SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @end
 
 
+SWIFT_CLASS_NAMED("_InternalPlayEvent")
+@interface _BMPInternalPlayEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval time;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithTime:(NSTimeInterval)time OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
-@interface _BMPInternalTimeShiftEvent : BMPTimeShiftEvent
+@interface _BMPInternalTimeShiftEvent : BMPPlayerEvent
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+/// The target in seconds.
+@property (nonatomic, readonly) NSTimeInterval target;
+/// The target timeshift value in seconds.
+@property (nonatomic, readonly) NSTimeInterval timeShift;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
 - (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftedEvent")
-@interface _BMPInternalTimeShiftedEvent : BMPTimeShiftedEvent
+@interface _BMPInternalTimeShiftedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -925,6 +1011,15 @@ SWIFT_CLASS_NAMED("_RequestMetadata")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@class BMPSourceOptions;
+
+SWIFT_CLASS_NAMED("_StartOffsetCalculator")
+@interface _BMPStartOffsetCalculator : NSObject
++ (NSTimeInterval)calculateStartOffsetForVoDWithSourceOptions:(BMPSourceOptions * _Nonnull)sourceOptions totalDuration:(NSTimeInterval)totalDuration SWIFT_WARN_UNUSED_RESULT;
++ (NSTimeInterval)calculateStartOffsetForLiveWithSourceOptions:(BMPSourceOptions * _Nonnull)sourceOptions maxTimeShift:(NSTimeInterval)maxTimeShift SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_TimeShiftStatus")
@@ -1332,6 +1427,15 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 /// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("PlaybackFinishedEvent")
+@interface BMPPlaybackFinishedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("ReadyEvent")
 @interface BMPReadyEvent : BMPPlayerEvent
 @property (nonatomic, readonly, copy) NSString * _Nonnull name;
@@ -1340,6 +1444,31 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SeekEvent")
+@interface BMPSeekEvent : BMPPlayerEvent
+/// The seek target time interval in seconds.
+@property (nonatomic, readonly) NSTimeInterval seekTarget;
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position seekTarget:(NSTimeInterval)seekTarget OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SeekedEvent")
+@interface BMPSeekedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class BMPUserInterfaceConfiguration;
 
@@ -1371,6 +1500,33 @@ SWIFT_CLASS_NAMED("StyleConfiguration")
 @end
 
 
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("TimeShiftEvent")
+@interface BMPTimeShiftEvent : BMPPlayerEvent
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+/// The target in seconds.
+@property (nonatomic, readonly) NSTimeInterval target;
+/// The target timeshift value in seconds.
+@property (nonatomic, readonly) NSTimeInterval timeShift;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("TimeShiftedEvent")
+@interface BMPTimeShiftedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 
@@ -1737,13 +1893,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1794,14 +1950,39 @@ SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @end
 
 
+SWIFT_CLASS_NAMED("_InternalPlayEvent")
+@interface _BMPInternalPlayEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval time;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (nonnull instancetype)initWithTime:(NSTimeInterval)time OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
 SWIFT_CLASS_NAMED("_InternalTimeShiftEvent")
-@interface _BMPInternalTimeShiftEvent : BMPTimeShiftEvent
+@interface _BMPInternalTimeShiftEvent : BMPPlayerEvent
+/// The position in seconds.
+@property (nonatomic, readonly) NSTimeInterval position;
+/// The target in seconds.
+@property (nonatomic, readonly) NSTimeInterval target;
+/// The target timeshift value in seconds.
+@property (nonatomic, readonly) NSTimeInterval timeShift;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
 - (nonnull instancetype)initWithPosition:(NSTimeInterval)position target:(NSTimeInterval)target timeShift:(NSTimeInterval)timeShift OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS_NAMED("_InternalTimeShiftedEvent")
-@interface _BMPInternalTimeShiftedEvent : BMPTimeShiftedEvent
+@interface _BMPInternalTimeShiftedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -1878,6 +2059,15 @@ SWIFT_CLASS_NAMED("_RequestMetadata")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@class BMPSourceOptions;
+
+SWIFT_CLASS_NAMED("_StartOffsetCalculator")
+@interface _BMPStartOffsetCalculator : NSObject
++ (NSTimeInterval)calculateStartOffsetForVoDWithSourceOptions:(BMPSourceOptions * _Nonnull)sourceOptions totalDuration:(NSTimeInterval)totalDuration SWIFT_WARN_UNUSED_RESULT;
++ (NSTimeInterval)calculateStartOffsetForLiveWithSourceOptions:(BMPSourceOptions * _Nonnull)sourceOptions maxTimeShift:(NSTimeInterval)maxTimeShift SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 SWIFT_CLASS_NAMED("_TimeShiftStatus")

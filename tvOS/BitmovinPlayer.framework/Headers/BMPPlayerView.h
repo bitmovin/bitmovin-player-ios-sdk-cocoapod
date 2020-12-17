@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <BitmovinPlayer/BMPBitmovinPlayer.h>
+#import <BitmovinPlayer/BMPPlayer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(PlayerView)
 @interface BMPPlayerView : UIView
-@property (nullable, nonatomic, strong) BMPBitmovinPlayer *player;
+@property (nullable, nonatomic, strong) BMPPlayer *player;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithPlayer:(BMPBitmovinPlayer *)player frame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPlayer:(BMPPlayer *)player frame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END
