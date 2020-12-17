@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  * player along with an UI please use BMPBitmovinPlayerView.
  */
 NS_SWIFT_NAME(Player)
-@interface BMPPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
+@interface BMPBitmovinPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
 - (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration;
 @end
 
