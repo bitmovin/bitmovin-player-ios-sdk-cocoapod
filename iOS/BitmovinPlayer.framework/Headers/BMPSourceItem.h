@@ -67,6 +67,9 @@ NS_SWIFT_NAME(SourceItem)
  When objects of type AVMetadataItem are passed as values to the metadata dictionary, they are
  set as externalMetadata on the AVPlayerItem on tvOS.
 
+ When SourceItem is used for GoogleCast with V3 receiver,
+ all values must be an instance of NSString.
+
  See `BMPMetadataIdentifier` for more supported attributes.
  */
 @property (nonatomic, copy) NSMutableDictionary<NSString *, id<NSObject, NSCopying>> *metadata;

@@ -447,7 +447,7 @@ extension _DefaultInitializationService {
   @objc deinit
 }
 @objc(_BMPMediaInfoCustomData) @objcMembers final public class _MediaInfoCustomData : ObjectiveC.NSObject {
-  @objc public init(drm: BitmovinPlayer._CafDrmConfig)
+  @objc public init(drm: BitmovinPlayer._CafDrmConfig?, metadata: [Swift.String : Swift.String]?)
   @objc final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
   @objc override dynamic public init()

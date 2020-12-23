@@ -988,7 +988,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -2059,7 +2059,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -3133,7 +3133,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -4204,7 +4204,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nonnull)drm OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
