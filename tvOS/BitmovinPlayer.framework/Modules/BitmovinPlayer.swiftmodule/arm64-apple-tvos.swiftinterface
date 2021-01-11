@@ -6,17 +6,6 @@ import AVFoundation
 import Foundation
 import Swift
 import UIKit
-public enum _AssetValuesLoaderPreloadingKey : Swift.String {
-  case playable
-  case duration
-  case tracks
-  case trackGroups
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
 @_hasMissingDesignatedInitializers @objcMembers @objc(_BMPDefaultInitializationService) public class _DefaultInitializationService : BitmovinPlayer._DefaultService, BitmovinPlayer._InitializationService {
   @objc public var selectedStreamType: BitmovinPlayer.BMPMediaSourceType {
     get
@@ -504,6 +493,7 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc var isCurrentSourceRestrictedToCache: Swift.Bool { get }
   @objc var suppressDefaultCaptionRendering: Swift.Bool { get }
   @objc(updatePlayerConfiguration:) func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @available(*, deprecated)
   @objc(updateSourceConfiguration:) func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
 }
 @objc(_BMPMasterPlaylistLoadedEvent) @objcMembers final public class _MasterPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
@@ -547,6 +537,7 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc override final public func start()
   @objc override final public func stop()
   @objc final public func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @available(*, deprecated)
   @objc final public func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
   @objc final public func onSourceLoaded(_ event: BitmovinPlayer.SourceLoadedEvent)
   @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
@@ -652,9 +643,6 @@ extension _DefaultUrlAssetValuesLoader {
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
 }
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.Equatable {}
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.Hashable {}
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.RawRepresentable {}
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}
 extension BitmovinPlayer._LogLevel : Swift.RawRepresentable {}

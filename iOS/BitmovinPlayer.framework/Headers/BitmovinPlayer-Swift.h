@@ -601,7 +601,7 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 /// additionally fired.
 @property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 @end
 
 @protocol _BMPNamespacedServiceLocator;
@@ -671,7 +671,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 - (void)start;
 - (void)stop;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 - (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -1672,7 +1672,7 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 /// additionally fired.
 @property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 @end
 
 @protocol _BMPNamespacedServiceLocator;
@@ -1742,7 +1742,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 - (void)start;
 - (void)stop;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 - (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -2746,7 +2746,7 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 /// additionally fired.
 @property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 @end
 
 @protocol _BMPNamespacedServiceLocator;
@@ -2816,7 +2816,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 - (void)start;
 - (void)stop;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 - (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -3817,7 +3817,7 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 /// additionally fired.
 @property (nonatomic, readonly) BOOL suppressDefaultCaptionRendering;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 @end
 
 @protocol _BMPNamespacedServiceLocator;
@@ -3887,7 +3887,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 - (void)start;
 - (void)stop;
 - (void)updatePlayerConfiguration:(BMPPlayerConfiguration * _Nonnull)playerConfiguration;
-- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration;
+- (void)updateSourceConfiguration:(BMPSourceConfiguration * _Nonnull)sourceConfiguration SWIFT_DEPRECATED;
 - (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;

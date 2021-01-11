@@ -180,17 +180,6 @@ extension _PlayerBufferApi : BitmovinPlayer.BufferApi {
   @objc dynamic public func getLevel(_ type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc dynamic public func setTargetLevel(_ value: Foundation.TimeInterval)
 }
-public enum _AssetValuesLoaderPreloadingKey : Swift.String {
-  case playable
-  case duration
-  case tracks
-  case trackGroups
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-  public init?(rawValue: Swift.String)
-}
 @_inheritsConvenienceInitializers @objcMembers @objc(BMPSeekedEvent) final public class SeekedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get
@@ -527,6 +516,7 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc var isCurrentSourceRestrictedToCache: Swift.Bool { get }
   @objc var suppressDefaultCaptionRendering: Swift.Bool { get }
   @objc(updatePlayerConfiguration:) func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @available(*, deprecated)
   @objc(updateSourceConfiguration:) func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
 }
 @objc(_BMPDefaultConfigurationService) final public class _DefaultConfigurationService : BitmovinPlayer._DefaultService, BitmovinPlayer._ConfigurationService, BitmovinPlayer.PlayerListener {
@@ -559,6 +549,7 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc override final public func start()
   @objc override final public func stop()
   @objc final public func update(playerConfiguration: BitmovinPlayer.PlayerConfiguration)
+  @available(*, deprecated)
   @objc final public func update(sourceConfiguration: BitmovinPlayer.SourceConfiguration)
   @objc final public func onSourceLoaded(_ event: BitmovinPlayer.SourceLoadedEvent)
   @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
@@ -669,9 +660,6 @@ extension _DefaultVideoService : BitmovinPlayer._AVPlayerItemListener {
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}
 extension BitmovinPlayer._LogLevel : Swift.RawRepresentable {}
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.Equatable {}
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.Hashable {}
-extension BitmovinPlayer._AssetValuesLoaderPreloadingKey : Swift.RawRepresentable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Equatable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Hashable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.RawRepresentable {}

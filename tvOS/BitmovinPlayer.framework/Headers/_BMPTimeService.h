@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 NS_SWIFT_NAME(_TimeService)
 @protocol _BMPTimeService <_BMPService>
 /**
