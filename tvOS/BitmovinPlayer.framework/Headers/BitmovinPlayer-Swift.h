@@ -422,6 +422,38 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class BMPSourceItem;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceLoadedEvent")
+@interface BMPSourceLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPSourceItem * _Nonnull sourceItem;
+@property (nonatomic, readonly) BMPMediaSourceType streamType;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem streamType:(BMPMediaSourceType)streamType OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceUnloadedEvent")
+@interface BMPSourceUnloadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceWillUnloadEvent")
+@interface BMPSourceWillUnloadEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class BMPUserInterfaceConfiguration;
 
 SWIFT_CLASS_NAMED("StyleConfiguration")
@@ -604,7 +636,6 @@ SWIFT_CLASS_NAMED("_DefaultAudioService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class BMPSourceUnloadedEvent;
 
 @interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
@@ -643,7 +674,6 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 @end
 
-@class BMPSourceLoadedEvent;
 
 SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
@@ -722,7 +752,6 @@ SWIFT_CLASS_NAMED("_DefaultEventEmitter")
 - (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
 @end
 
-@class BMPSourceItem;
 
 SWIFT_PROTOCOL_NAMED("_InitializationService")
 @protocol _BMPInitializationService <_BMPService>
@@ -863,6 +892,32 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
+
+SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
+@interface _BMPExternalCaptionHandler : NSObject
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService deficiencyService:(id <_BMPDeficiencyService> _Nonnull)deficiencyService eventEmitter:(id <_BMPEventEmitter> _Nonnull)eventEmitter;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPExternalCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 SWIFT_CLASS_NAMED("_GoogleCastBufferService")
@@ -1470,6 +1525,38 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class BMPSourceItem;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceLoadedEvent")
+@interface BMPSourceLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, strong) BMPSourceItem * _Nonnull sourceItem;
+@property (nonatomic, readonly) BMPMediaSourceType streamType;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem streamType:(BMPMediaSourceType)streamType OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceUnloadedEvent")
+@interface BMPSourceUnloadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("SourceWillUnloadEvent")
+@interface BMPSourceWillUnloadEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class BMPUserInterfaceConfiguration;
 
 SWIFT_CLASS_NAMED("StyleConfiguration")
@@ -1652,7 +1739,6 @@ SWIFT_CLASS_NAMED("_DefaultAudioService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class BMPSourceUnloadedEvent;
 
 @interface _BMPDefaultAudioService (SWIFT_EXTENSION(BitmovinPlayer)) <BMPPlayerListener>
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
@@ -1691,7 +1777,6 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 - (void)onSourceUnloaded:(BMPSourceUnloadedEvent * _Nonnull)event;
 @end
 
-@class BMPSourceLoadedEvent;
 
 SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @interface _BMPDefaultConfigurationService : _BMPDefaultService <BMPPlayerListener, _BMPConfigurationService>
@@ -1770,7 +1855,6 @@ SWIFT_CLASS_NAMED("_DefaultEventEmitter")
 - (void)removePlayerListener:(id <BMPPlayerListener> _Nonnull)listener;
 @end
 
-@class BMPSourceItem;
 
 SWIFT_PROTOCOL_NAMED("_InitializationService")
 @protocol _BMPInitializationService <_BMPService>
@@ -1911,6 +1995,32 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
+
+SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
+@interface _BMPExternalCaptionHandler : NSObject
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService deficiencyService:(id <_BMPDeficiencyService> _Nonnull)deficiencyService eventEmitter:(id <_BMPEventEmitter> _Nonnull)eventEmitter;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPExternalCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 SWIFT_CLASS_NAMED("_GoogleCastBufferService")

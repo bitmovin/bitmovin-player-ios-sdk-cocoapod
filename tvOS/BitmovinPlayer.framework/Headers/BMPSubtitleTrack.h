@@ -65,7 +65,8 @@ NS_SWIFT_NAME(SubtitleTrack)
                       label:(NSString *)label
                  identifier:(NSString *)identifier
              isDefaultTrack:(BOOL)isDefaultTrack NS_UNAVAILABLE;
-
+/// :nodoc:
+- (void)_updateForcedTo:(BOOL)isForced;
 @end
 
 NS_ASSUME_NONNULL_END

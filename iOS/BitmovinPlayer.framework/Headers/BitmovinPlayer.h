@@ -96,6 +96,11 @@
 #import <BitmovinPlayer/_BMPMatcher.h>
 #import <BitmovinPlayer/BMPMediaType.h>
 #import <BitmovinPlayer/_BMPPlaybackService.h>
+#import <BitmovinPlayer/_BMPCaptionHandler.h>
+#import <BitmovinPlayer/_BMPCachingCueProvider.h>
+#import <BitmovinPlayer/_BMPCachingContentProvider.h>
+#import <BitmovinPlayer/_BMPSubtitleContentLoaderFactory.h>
+#import <BitmovinPlayer/_BMPContentLoaderFactory.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>
