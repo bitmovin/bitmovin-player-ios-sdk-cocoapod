@@ -1112,6 +1112,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 @end
 
 
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 @interface _BMPVariantPlaylistLoadedEvent : BMPPlayerEvent
 @property (nonatomic, readonly, copy) NSData * _Nonnull data;
@@ -2235,6 +2243,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 - (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3367,6 +3383,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 @end
 
 
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 @interface _BMPVariantPlaylistLoadedEvent : BMPPlayerEvent
 @property (nonatomic, readonly, copy) NSData * _Nonnull data;
@@ -4490,6 +4514,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 - (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
 @end
 
 

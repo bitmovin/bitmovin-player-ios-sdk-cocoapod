@@ -6,6 +6,12 @@ import AVFoundation
 import Foundation
 import Swift
 import UIKit
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(_BMPUIDeviceVersionHelper) @objcMembers public class _UIDeviceVersionHelper : ObjectiveC.NSObject {
+  @objc override convenience dynamic public init()
+  @objc public func isSystemVersionGreaterThanOrEqual(_ versionToCheck: Swift.Double) -> Swift.Bool
+  @objc public func isSystemVersionLessThan(_ versionToCheck: Swift.Double) -> Swift.Bool
+  @objc deinit
+}
 @objc(_BMPLogLevel) public enum _LogLevel : Swift.Int {
   case verbose = 0
   case info

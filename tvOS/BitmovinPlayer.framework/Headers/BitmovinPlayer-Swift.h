@@ -874,13 +874,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1085,6 +1085,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 - (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1977,13 +1985,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2188,6 +2196,14 @@ SWIFT_CLASS_NAMED("_TimeShiftStatus")
 - (nonnull instancetype)initWithLastTimeShiftOffset:(NSTimeInterval)lastTimeShiftOffset lastTimeShiftReachedTime:(NSTimeInterval)lastTimeShiftReachedTime lastTimeShiftDate:(NSDate * _Nonnull)lastTimeShiftDate OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS_NAMED("_UIDeviceVersionHelper")
+@interface _BMPUIDeviceVersionHelper : NSObject
+- (nonnull instancetype)init;
+- (BOOL)isSystemVersionGreaterThanOrEqual:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isSystemVersionLessThan:(double)versionToCheck SWIFT_WARN_UNUSED_RESULT;
 @end
 
 

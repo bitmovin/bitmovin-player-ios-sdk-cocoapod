@@ -335,6 +335,12 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
 @objc(_BMPEventEmitter) public protocol _EventEmitter : BitmovinPlayer.PlayerEventHandler, BitmovinPlayer._Service {
   @objc(emitEvent:) func emit(event: BitmovinPlayer.PlayerEvent)
 }
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(_BMPUIDeviceVersionHelper) @objcMembers public class _UIDeviceVersionHelper : ObjectiveC.NSObject {
+  @objc override convenience dynamic public init()
+  @objc public func isSystemVersionGreaterThanOrEqual(_ versionToCheck: Swift.Double) -> Swift.Bool
+  @objc public func isSystemVersionLessThan(_ versionToCheck: Swift.Double) -> Swift.Bool
+  @objc deinit
+}
 @objc(BMPPlaybackFinishedEvent) @objcMembers final public class PlaybackFinishedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get
