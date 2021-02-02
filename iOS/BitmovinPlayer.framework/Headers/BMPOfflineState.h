@@ -11,7 +11,6 @@
 /**
  * States a source item can have regarding to offline playback and offline DRM.
  */
-NS_SWIFT_NAME(OfflineState)
 typedef NS_ENUM(NSInteger, BMPOfflineState) {
     /** Indicates that the content is completely downloaded and stored on disk. */
     BMPOfflineStateDownloaded,
@@ -30,4 +29,4 @@ typedef NS_ENUM(NSInteger, BMPOfflineState) {
      * BMPSourceItem is in state BMPOfflineStateNotDownloaded again.
      */
     BMPOfflineStateCanceling
-};
+} NS_SWIFT_NAME(OfflineState);

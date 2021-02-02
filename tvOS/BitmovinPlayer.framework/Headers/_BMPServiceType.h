@@ -17,5 +17,9 @@ typedef NS_ENUM(NSInteger, _BMPServiceType) {
     _BMPServiceTypeCastMessaging,
     _BMPServiceTypeThumbnail,
     _BMPServiceTypePlaylistParser,
-    _BMPServiceTypeBuffer
+    _BMPServiceTypeBuffer,
+    _BMPServiceTypePlaylist,
+    _BMPServiceTypePlaybackFinished,
+    _BMPServiceTypeSeeking,
+    _BMPServiceTypePlaylistTransitioning
 } NS_SWIFT_NAME(_ServiceType);

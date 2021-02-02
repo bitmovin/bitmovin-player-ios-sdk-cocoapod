@@ -174,7 +174,7 @@ NS_SWIFT_NAME(OfflineManager)
  */
 - (void)renewOfflineLicenseForSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(renewOfflineLicense(for:));
 /**
- * Creates and returns a BMPOfflineSourceItem which should be used with a BMPBitmovinPlayer instance when playback of
+ * Creates and returns a BMPOfflineSourceItem which should be used with a BMPPlayer instance when playback of
  * offline content is desired.
  *
  * Note: When intending to create an OfflineSourceItem for DRM protected content,
@@ -183,7 +183,7 @@ NS_SWIFT_NAME(OfflineManager)
  * @param sourceItem A BMPSourceItem instance for which a new BMPOfflineSourceItem instance should be created
  * @param restrictedToAssetCache Whether or not the player should restrict playback only to audio, video and subtitle tracks
  *      which are stored offline on the device. This has to be set to YES if the device has no network access.
- * @return A BMPOfflineSourceItem which can be used with a BMPBitmovinPlayer instance for offline playback.
+ * @return A BMPOfflineSourceItem which can be used with a BMPPlayer instance for offline playback.
  */
 - (nullable BMPOfflineSourceItem *)createOfflineSourceItemForSourceItem:(BMPSourceItem *)sourceItem restrictedToAssetCache:(BOOL)restrictedToAssetCache NS_SWIFT_NAME(createOfflineSourceItem(for:restrictedToAssetCache:));
 /**

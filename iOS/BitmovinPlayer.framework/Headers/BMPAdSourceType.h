@@ -11,7 +11,6 @@
 /**
  * Type of the BMPAdSource
  */
-NS_SWIFT_NAME(AdSourceType)
 typedef NS_ENUM(NSInteger, BMPAdSourceType) {
     /** Missing advertising source type */
     BMPAdSourceTypeNone = 0,
@@ -21,4 +20,4 @@ typedef NS_ENUM(NSInteger, BMPAdSourceType) {
     BMPAdSourceTypeUnknown,
     /** Progressive ad type */
     BMPAdSourceTypeProgressive
-};
+} NS_SWIFT_NAME(AdSourceType);

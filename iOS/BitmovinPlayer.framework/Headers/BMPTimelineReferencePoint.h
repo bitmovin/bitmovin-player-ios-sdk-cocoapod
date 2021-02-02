@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
  Timeline reference point to calculate SourceConfigOptions.startOffset from.
  Default for live: TimelineReferencePoint.End Default for VOD: TimelineReferencePoint.Start.
  */
-NS_SWIFT_NAME(TimelineReferencePoint)
 typedef NS_ENUM(NSInteger, BMPTimelineReferencePoint) {
     /**
      Indicates a not provided reference point.
@@ -29,6 +28,6 @@ typedef NS_ENUM(NSInteger, BMPTimelineReferencePoint) {
      Relative offset will be calculated from the end of the stream or the live edge in case of a live stream with DVR window.
      */
     BMPTimelineReferencePointEnd
-};
+} NS_SWIFT_NAME(TimelineReferencePoint);
 
 NS_ASSUME_NONNULL_END

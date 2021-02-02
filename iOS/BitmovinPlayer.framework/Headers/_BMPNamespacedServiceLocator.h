@@ -10,20 +10,21 @@
 #import "_BMPTimeService.h"
 
 @protocol _BMPLogger;
-@protocol _BMPEventEmitter;
+@protocol _BMPPlayerEventEmitter;
 @protocol _BMPResourceLoaderService;
 @protocol _BMPDeficiencyService;
 @protocol _BMPConfigurationService;
+@protocol _BMPPlaylistService;
 @protocol _BMPBufferService;
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(_NamespacedServiceLocator)
 @protocol _BMPNamespacedServiceLocator <NSObject>
-@property (nullable, nonatomic, strong, readonly) id<_BMPEventEmitter> eventEmitter;
-@property (nonatomic, strong, readonly) id<_BMPResourceLoaderService> resourceLoaderService;
+@property (nullable, nonatomic, strong, readonly) id<_BMPPlayerEventEmitter> eventEmitter;
 @property (nonatomic, strong, readonly) id<_BMPDeficiencyService> deficiencyService;
 @property (nonatomic, strong, readonly) id<_BMPConfigurationService> configurationService;
+@property (nonatomic, strong, readonly) id<_BMPPlaylistService> playlistService;
 @property (nonatomic, strong, readonly) id<_BMPLogger> logger;
 @property (nonatomic, strong, readonly) id<_BMPTimeService> timeService;
 @property (nonatomic, strong, readonly) id<_BMPBufferService> bufferService;

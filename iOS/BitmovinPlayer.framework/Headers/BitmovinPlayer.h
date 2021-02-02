@@ -10,7 +10,7 @@
 
 // In this header, you should import all the public headers of your framework using statements like #import <BitmovinPlayer/PublicHeader.h>
 
-#import <BitmovinPlayer/BMPBitmovinPlayer.h>
+#import <BitmovinPlayer/BMPPlayer.h>
 #import <BitmovinPlayer/BMPPlayerAPI.h>
 #import <BitmovinPlayer/BMPUserInterfaceAPI.h>
 #import <BitmovinPlayer/BMPRemoteControlAPI.h>
@@ -64,6 +64,7 @@
 #import <BitmovinPlayer/_BMPJsonHelper.h>
 #import <BitmovinPlayer/BMPUserInterfaceType.h>
 #import <BitmovinPlayer/BMPScalingMode.h>
+#import <BitmovinPlayer/_BMPPlaylistApiDelegate.h>
 #import <BitmovinPlayer/_BMPPlayerListenerInternal.h>
 #import <BitmovinPlayer/_BMPService.h>
 #import <BitmovinPlayer/_BMPServiceType.h>
@@ -96,11 +97,13 @@
 #import <BitmovinPlayer/_BMPMatcher.h>
 #import <BitmovinPlayer/BMPMediaType.h>
 #import <BitmovinPlayer/_BMPPlaybackService.h>
-#import <BitmovinPlayer/_BMPCaptionHandler.h>
 #import <BitmovinPlayer/_BMPCachingCueProvider.h>
 #import <BitmovinPlayer/_BMPCachingContentProvider.h>
 #import <BitmovinPlayer/_BMPSubtitleContentLoaderFactory.h>
 #import <BitmovinPlayer/_BMPContentLoaderFactory.h>
+#import <BitmovinPlayer/_BMPCaptionHandlerDelegate.h>
+#import <BitmovinPlayer/BMPJsonEncodable.h>
+#import <BitmovinPlayer/BMPJsonDecodable.h>
 #if TARGET_OS_IOS
 #import <BitmovinPlayer/BMPBitmovinUserInterfaceConfiguration.h>
 #import <BitmovinPlayer/BMPOfflineSourceItem.h>

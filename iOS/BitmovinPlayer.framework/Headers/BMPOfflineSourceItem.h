@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Represents a BMPSourceItem which references already downloaded or currently downloading offline content. It can be
- * passed to a BMPBitmovinPlayer instance for playback. Do not create instances of this class on your own, instead
+ * passed to a BMPPlayer instance for playback. Do not create instances of this class on your own, instead
  * use BMPOfflineManager#createOfflineSourceItemForSourceItem:restrictedToAssetCache:.
  */
 NS_SWIFT_NAME(OfflineSourceItem)

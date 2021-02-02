@@ -9,6 +9,7 @@
 #ifndef BMPWebPlayerEvents_h
 #define BMPWebPlayerEvents_h
 
+#import <BitmovinPlayer/BMPEvent.h>
 #import <BitmovinPlayer/BMPPlayerEvent.h>
 #import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
@@ -78,7 +79,11 @@
 @class BMPSeekEvent;
 @class BMPSeekedEvent;
 @class BMPSourceUnloadedEvent;
+@class BMPSourceLoadEvent;
 @class BMPSourceLoadedEvent;
-@class BMPSourceWillUnloadEvent;
+@class BMPSourceUnloadEvent;
+@class BMPPlayerActiveEvent;
+@class BMPPlayerInactiveEvent;
+@class BMPPlaylistTransitionEvent;
 
 #endif /* BMPWebPlayerEvents_h */

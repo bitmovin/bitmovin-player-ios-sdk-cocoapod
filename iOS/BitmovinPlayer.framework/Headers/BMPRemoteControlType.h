@@ -13,10 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Enumerates the different available remote device types.
  */
-NS_SWIFT_NAME(RemoteControlType)
 typedef NS_ENUM(NSInteger, BMPRemoteControlType) {
     /** The remote device is a GoogleCast compatible device. */
     BMPRemoteControlTypeCast
-};
+} NS_SWIFT_NAME(RemoteControlType);
 
 NS_ASSUME_NONNULL_END

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The type of a track object.
  */
-NS_SWIFT_NAME(TrackType)
 typedef NS_ENUM(NSInteger, BMPTrackType) {
     /** Indicates a missing type */
     BMPTrackTypeNone = 0,
@@ -23,6 +22,6 @@ typedef NS_ENUM(NSInteger, BMPTrackType) {
     BMPTrackTypeThumbnail,
     /** Indicates a track containing audio data like the BMPAudioTrack. */
     BMPTrackTypeAudio
-};
+} NS_SWIFT_NAME(TrackType);
 
 NS_ASSUME_NONNULL_END
