@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvents.h>
 
-@class BMPBitmovinPlayerView;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -24,49 +22,43 @@ NS_SWIFT_NAME(UserInterfaceListener)
  * Is called when the player enters fullscreen mode.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onFullscreenEnter:(BMPFullscreenEnterEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onFullscreenEnter:(BMPFullscreenEnterEvent *)event;
 
 /**
  * Is called when the player exits fullscreen mode.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onFullscreenExit:(BMPFullscreenExitEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onFullscreenExit:(BMPFullscreenExitEvent *)event;
 
 /**
  * Is called when a fullscreen handler has been set.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onFullscreenEnabled:(BMPFullscreenEnabledEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onFullscreenEnabled:(BMPFullscreenEnabledEvent *)event;
 
 /**
  * Is called when the current fullscreen handler was removed.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onFullscreenDisabled:(BMPFullscreenDisabledEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onFullscreenDisabled:(BMPFullscreenDisabledEvent *)event;
 
 /**
  * Fires when the UI controls are showing.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onControlsShow:(BMPControlsShowEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onControlsShow:(BMPControlsShowEvent *)event;
 
 /**
  * Fires when the UI controls are hiding.
  *
  * @param event An object holding specific event data.
- * @param view The player view instance which is associated with the emitted event
  */
-- (void)onControlsHide:(BMPControlsHideEvent *)event view:(BMPBitmovinPlayerView *)view;
+- (void)onControlsHide:(BMPControlsHideEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END

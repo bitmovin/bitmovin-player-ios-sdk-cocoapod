@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Specifies how the video content is scaled or stretched.
  */
+NS_SWIFT_NAME(ScalingMode)
 typedef NS_ENUM(NSInteger, BMPScalingMode) {
     /** Specifies that the player should preserve the video’s aspect ratio and fill the container’s bounds. */
     BMPScalingModeZoom,
@@ -20,6 +21,6 @@ typedef NS_ENUM(NSInteger, BMPScalingMode) {
     BMPScalingModeStretch,
     /** Specifies that the player should preserve the video’s aspect ratio and fit the video within the container's bounds (default). */
     BMPScalingModeFit
-} NS_SWIFT_NAME(ScalingMode);
+};
 
 NS_ASSUME_NONNULL_END

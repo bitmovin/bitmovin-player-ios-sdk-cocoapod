@@ -11,6 +11,7 @@
 /**
  * Types of media which can be handled by the Bitmovin Player.
  */
+NS_SWIFT_NAME(MediaSourceType)
 typedef NS_ENUM(NSInteger, BMPMediaSourceType) {
     /** indicates a missing media source type. */
     BMPMediaSourceTypeNone = 0,
@@ -20,4 +21,4 @@ typedef NS_ENUM(NSInteger, BMPMediaSourceType) {
     BMPMediaSourceTypeDASH,
     /** Indicates media of type Progressive MP4. */
     BMPMediaSourceTypeProgressive
-} NS_SWIFT_NAME(MediaSourceType);
+};

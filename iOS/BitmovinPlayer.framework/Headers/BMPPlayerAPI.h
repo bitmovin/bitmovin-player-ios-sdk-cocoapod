@@ -16,10 +16,6 @@
 #import <BitmovinPlayer/BMPBufferApi.h>
 #import <BitmovinPlayer/BMPTimeMode.h>
 
-@protocol BMPPlaylistApi;
-@protocol BMPSource;
-@class BMPPlaylistConfiguration;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -28,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  * concurrently is not guaranteed to result in consistent and stable behavior.
  */
 NS_SWIFT_NAME(PlayerAPI)
-@protocol BMPPlayerAPI <NSObject>
+@protocol BMPPlayerAPI
 /**
  * Flag to indicate if the player is destroyed.
  */
@@ -76,11 +72,6 @@ NS_SWIFT_NAME(PlayerAPI)
  * Returns the current player configuration object of this player instance.
  */
 @property (nonatomic, nonnull, readonly) BMPPlayerConfiguration *config;
-
-/**
- * Returns the currently active source or null if no source is active.
- */
-@property (nonatomic, nullable, readonly) id<BMPSource> source;
 
 /**
  * Returns the limit in seconds for time shift. Is either negative or 0. Is applicable for live streams only.
@@ -182,11 +173,6 @@ NS_SWIFT_NAME(PlayerAPI)
 @property (nonatomic, readonly) id<BMPBufferApi> buffer API_AVAILABLE(ios(10.0), tvos(10.0));
 
 /**
- * Provides access to the playlist API.
- */
-@property (nonatomic, readonly) id<BMPPlaylistApi> playlist;
-
-/**
  * Sets up player instance with the given configuration.
  *
  * @param configuration The configuration used to setup the player
@@ -199,27 +185,12 @@ NS_SWIFT_NAME(PlayerAPI)
  * @param sourceConfiguration The source configuration used to set a new media source.
  */
 - (void)load:(BMPSourceConfiguration *)sourceConfiguration NS_SWIFT_NAME(load(sourceConfiguration:)) __deprecated_msg("Use PlayerApi#load(sourceItem:) instead.");
-
 /**
  * Loads a new media source.
  *
  * @param sourceItem The source item used to set a new media source.
  */
 - (void)loadSourceItem:(BMPSourceItem *)sourceItem NS_SWIFT_NAME(load(sourceItem:));
-
-/**
- * Loads a new media source.
- *
- * @param source The source used to set a new media source.
- */
-- (void)loadSource:(id<BMPSource>)source NS_SWIFT_NAME(load(source:));
-
-/**
- * Sets a queue of playlist sources.
- *
- * @param playlistConfiguration The playlist configuration used to set a queue of media sources.
- */
-- (void)loadPlaylistConfiguration:(BMPPlaylistConfiguration *)playlistConfiguration NS_SWIFT_NAME(load(playlistConfiguration:));
 
 /**
  * Starts preloading the content of the currently loaded source.

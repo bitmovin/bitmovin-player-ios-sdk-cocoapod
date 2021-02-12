@@ -10,7 +10,7 @@
 #define BMPBitmovinPlayerView_h
 
 #import <UIKit/UIKit.h>
-#import <BitmovinPlayer/BMPPlayer.h>
+#import <BitmovinPlayer/BMPBitmovinPlayer.h>
 #import <BitmovinPlayer/BMPPlayerView.h>
 #import <BitmovinPlayer/BMPFullscreenHandler.h>
 #import <BitmovinPlayer/BMPUserInterfaceAPI.h>
@@ -19,12 +19,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * A view containing a BMPPlayer which can be added to the view hierarchy of your view controller. This view
- * needs a BMPPlayer instance to work properly. This instance can be passed to the initializer, or using the
+ * A view containing a BMPBitmovinPlayer which can be added to the view hierarchy of your view controller. This view
+ * needs a BMPBitmovinPlayer instance to work properly. This instance can be passed to the initializer, or using the
  * according property if the view is created using the interface builder.
- * @Note If you are composing the view via the interface builder make sure you use the obj-c class name "BMPBitmovinPlayerView"
  */
-NS_SWIFT_NAME(BitmovinPlayerView)
+// NS_SWIFT_NAME(BitmovinPlayerView)
 @interface BMPBitmovinPlayerView : BMPPlayerView <BMPUserInterfaceAPI, BMPUserInterfaceEventHandler>
 /**
  * Get/set a fullscreen handler for this BMPBitmovinPlayerView. See the documentation of the BMPFullscreenHandler for

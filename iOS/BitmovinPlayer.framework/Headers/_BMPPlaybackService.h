@@ -20,6 +20,7 @@ NS_SWIFT_NAME(_PlaybackService)
 
 - (void)play;
 - (void)pause;
+- (void)seek:(NSTimeInterval)time;
 - (BOOL)isMuted;
 - (BOOL)isPaused;
 - (BOOL)isPlaying;
@@ -27,6 +28,7 @@ NS_SWIFT_NAME(_PlaybackService)
 - (void)mute;
 - (void)unmute;
 - (BOOL)isLive;
+- (void)timeShift:(NSTimeInterval)offset;
 - (BOOL)isAirPlayActive;
 - (BOOL)isAirPlayAvailable;
 @end

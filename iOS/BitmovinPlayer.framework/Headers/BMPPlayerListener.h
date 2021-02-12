@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvents.h>
 
-@class BMPPlayer;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -24,49 +22,43 @@ NS_SWIFT_NAME(PlayerListener)
  * Is called when the player is ready for immediate playback, because initial audio/video has been downloaded.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onReady:(BMPReadyEvent *)event player:(BMPPlayer *)player;
+- (void)onReady:(BMPReadyEvent *)event;
 
 /**
  * Notifies about the intention to start/resume playback.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onPlay:(BMPPlayEvent *)event player:(BMPPlayer *)player;
+- (void)onPlay:(BMPPlayEvent *)event;
 
 /**
  * Is called when playback has been started.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onPlaying:(BMPPlayingEvent *)event player:(BMPPlayer *)player;
+- (void)onPlaying:(BMPPlayingEvent *)event;
 
 /**
  * Is called when the player enters the pause state.
  * 
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onPaused:(BMPPausedEvent *)event player:(BMPPlayer *)player;
+- (void)onPaused:(BMPPausedEvent *)event;
 
 /**
  * Is called when the current playback time has changed.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onTimeChanged:(BMPTimeChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onTimeChanged:(BMPTimeChangedEvent *)event;
 
 /**
  * Is called when the duration of the current played media has changed.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onDurationChanged:(BMPDurationChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onDurationChanged:(BMPDurationChangedEvent *)event;
 
 /**
  * Is called periodically during seeking.
@@ -74,9 +66,8 @@ NS_SWIFT_NAME(PlayerListener)
  * Only applies to VoD streams.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSeek:(BMPSeekEvent *)event player:(BMPPlayer *)player;
+- (void)onSeek:(BMPSeekEvent *)event;
 
 /**
  * Is called when seeking has been finished and data is available to continue playback.
@@ -84,482 +75,339 @@ NS_SWIFT_NAME(PlayerListener)
  * Only applies to VoD streams.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSeeked:(BMPSeekedEvent *)event player:(BMPPlayer *)player;
+- (void)onSeeked:(BMPSeekedEvent *)event;
 
 /**
  * Is called periodically during time shifting. Only applies to live streams, please refer to onSeek for VoD streams.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onTimeShift:(BMPTimeShiftEvent *)event player:(BMPPlayer *)player;
+- (void)onTimeShift:(BMPTimeShiftEvent *)event;
 
 /**
  * Is called when time shifting has been finished and data is available to continue playback. Only applies to live streams, please refer to onSeeked for VoD streams.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onTimeShifted:(BMPTimeShiftedEvent *)event player:(BMPPlayer *)player;
+- (void)onTimeShifted:(BMPTimeShiftedEvent *)event;
 
 /**
  * Is called when the player is paused or in buffering state and the timeShift offset has exceeded the available timeShift window.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onDvrWindowExceeded:(BMPDvrWindowExceededEvent *)event player:(BMPPlayer *)player;
+- (void)onDvrWindowExceeded:(BMPDvrWindowExceededEvent *)event;
 
 /**
  * Is called when the player begins to stall and to buffer due to an empty buffer.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onStallStarted:(BMPStallStartedEvent *)event player:(BMPPlayer *)player;
+- (void)onStallStarted:(BMPStallStartedEvent *)event;
 
 /**
  * Is called when the player ends stalling, due to enough data in the buffer.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onStallEnded:(BMPStallEndedEvent *)event player:(BMPPlayer *)player;
+- (void)onStallEnded:(BMPStallEndedEvent *)event;
 
 /**
  * Is called when the current size of the video content has been changed.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onVideoSizeChanged:(BMPVideoSizeChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onVideoSizeChanged:(BMPVideoSizeChangedEvent *)event;
 
 /**
  * Is called when the playback of the current media has finished.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onPlaybackFinished:(BMPPlaybackFinishedEvent *)event player:(BMPPlayer *)player;
+- (void)onPlaybackFinished:(BMPPlaybackFinishedEvent *)event;
 
 /**
  * Is called when the first frame of the current video is rendered onto the video surface.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onRenderFirstFrame:(BMPRenderFirstFrameEvent *)event player:(BMPPlayer *)player;
+- (void)onRenderFirstFrame:(BMPRenderFirstFrameEvent *)event;
 
 /**
  * Is called when an error is encountered.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onError:(BMPErrorEvent *)event player:(BMPPlayer *)player;
+- (void)onError:(BMPErrorEvent *)event;
 
 /**
  * Is called when a warning occurs.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onWarning:(BMPWarningEvent *)event player:(BMPPlayer *)player;
-
-/**
- * Is called when loading of a new source started. This does not mean that loading of the new manifest has been finished.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
- */
-- (void)onSourceLoad:(BMPSourceLoadEvent *)event player:(BMPPlayer *)player;
+- (void)onWarning:(BMPWarningEvent *)event;
 
 /**
  * Is called when a new source is loaded. This does not mean that loading of the new manifest has been finished.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSourceLoaded:(BMPSourceLoadedEvent *)event player:(BMPPlayer *)player;
+- (void)onSourceLoaded:(BMPSourceLoadedEvent *)event;
 
 /**
  * Is called when the current source will be unloaded.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSourceUnload:(BMPSourceUnloadEvent *)event player:(BMPPlayer *)player;
+- (void)onSourceWillUnload:(BMPSourceWillUnloadEvent *)event;
 
 /**
  * Is called when the current source has been unloaded.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSourceUnloaded:(BMPSourceUnloadedEvent *)event player:(BMPPlayer *)player;
+- (void)onSourceUnloaded:(BMPSourceUnloadedEvent *)event;
 
 /**
  * Is called when the player was destroyed.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onDestroy:(BMPDestroyEvent *)event player:(BMPPlayer *)player;
+- (void)onDestroy:(BMPDestroyEvent *)event;
 
 /**
  * Is called when metadata (i.e. ID3 tags in HLS and EMSG in DASH) are encountered.
  * 
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onMetadata:(BMPMetadataEvent *)event player:(BMPPlayer *)player;
+- (void)onMetadata:(BMPMetadataEvent *)event;
 
 /**
  * Is called when metadata is parsed.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onMetadataParsed:(BMPMetadataParsedEvent *)event player:(BMPPlayer *)player;
+- (void)onMetadataParsed:(BMPMetadataParsedEvent *)event;
 
 /**
  * Is called when casting to another device, such as a ChromeCast, is available.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastAvailable:(BMPCastAvailableEvent *)event player:(BMPPlayer *)player;
+- (void)onCastAvailable:(BMPCastAvailableEvent *)event;
 
 /**
  * Is called when the playback on an cast device has been paused.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastPaused:(BMPCastPausedEvent *)event player:(BMPPlayer *)player;
+- (void)onCastPaused:(BMPCastPausedEvent *)event;
 
 /**
  * Is called when the playback on an cast device has been finished.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastPlaybackFinished:(BMPCastPlaybackFinishedEvent *)event player:(BMPPlayer *)player;
+- (void)onCastPlaybackFinished:(BMPCastPlaybackFinishedEvent *)event;
 
 /**
  * Is called when playback on an cast device has been started.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastPlaying:(BMPCastPlayingEvent *)event player:(BMPPlayer *)player;
+- (void)onCastPlaying:(BMPCastPlayingEvent *)event;
 
 /**
  * Is called when the cast app is launched successfully.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastStarted:(BMPCastStartedEvent *)event player:(BMPPlayer *)player;
+- (void)onCastStarted:(BMPCastStartedEvent *)event;
 
 /**
  * Is called when casting is initiated, but the user still needs to choose which device should be used.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastStart:(BMPCastStartEvent *)event player:(BMPPlayer *)player;
+- (void)onCastStart:(BMPCastStartEvent *)event;
 
 /**
  * Is called when casting to a device is stopped.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastStopped:(BMPCastStoppedEvent *)event player:(BMPPlayer *)player;
+- (void)onCastStopped:(BMPCastStoppedEvent *)event;
 
 /**
  * Is called when the time update from the currently used cast device is received.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastTimeUpdated:(BMPCastTimeUpdatedEvent *)event player:(BMPPlayer *)player;
+- (void)onCastTimeUpdated:(BMPCastTimeUpdatedEvent *)event;
 
 /**
  * Is called when a cast device has been chosen and player is waiting for the device to get ready for playback.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCastWaitingForDevice:(BMPCastWaitingForDeviceEvent *)event player:(BMPPlayer *)player __TVOS_PROHIBITED;
+- (void)onCastWaitingForDevice:(BMPCastWaitingForDeviceEvent *)event __TVOS_PROHIBITED;
 
 /**
  * Is called when the player configuration has been updated by either calling load or setup on the player.
  *
  * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent *)event player:(BMPPlayer *)player;
+- (void)onConfigurationUpdated:(BMPConfigurationUpdatedEvent *)event;
 
 /**
  * Is called when a sideloaded subtitle cue has been parsed.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCueParsed:(BMPCueParsedEvent *)event player:(BMPPlayer *)player;
+- (void)onCueParsed:(BMPCueParsedEvent *)event;
 
 /**
  * Is called when a subtitle entry transitions into the active status.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCueEnter:(BMPCueEnterEvent *)event player:(BMPPlayer *)player;
+- (void)onCueEnter:(BMPCueEnterEvent *)event;
 
 /**
  * Is called when an active subtitle entry transitions into the inactive status.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onCueExit:(BMPCueExitEvent *)event player:(BMPPlayer *)player;
+- (void)onCueExit:(BMPCueExitEvent *)event;
 
 /**
  * Is called when a new BMPSubtitleTrack is added, for example using the BMPPlayerAPI#addSubtitle: call.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSubtitleAdded:(BMPSubtitleAddedEvent *)event player:(BMPPlayer *)player;
+- (void)onSubtitleAdded:(BMPSubtitleAddedEvent *)event;
 
 /**
  * Is called when an external BMPSubtitleTrack has been removed so it is possible to update the controls accordingly.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSubtitleRemoved:(BMPSubtitleRemovedEvent *)event player:(BMPPlayer *)player;
+- (void)onSubtitleRemoved:(BMPSubtitleRemovedEvent *)event;
 
 /**
  * Is called when the active BMPSubtitleTrack is changed.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSubtitleChanged:(BMPSubtitleChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onSubtitleChanged:(BMPSubtitleChangedEvent *)event;
 
 /**
  * Is called when the player is muted.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onMuted:(BMPMutedEvent *)event player:(BMPPlayer *)player;
+- (void)onMuted:(BMPMutedEvent *)event;
 
 /**
  * Is called when the player is unmuted.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onUnmuted:(BMPUnmutedEvent *)event player:(BMPPlayer *)player;
+- (void)onUnmuted:(BMPUnmutedEvent *)event;
 
 /**
  * Is called when an audio track is added.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAudioAdded:(BMPAudioAddedEvent *)event player:(BMPPlayer *)player;
+- (void)onAudioAdded:(BMPAudioAddedEvent *)event;
 
 /**
  * Is called when an audio track is removed.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAudioRemoved:(BMPAudioRemovedEvent *)event player:(BMPPlayer *)player;
+- (void)onAudioRemoved:(BMPAudioRemovedEvent *)event;
 
 /**
  * Is called when the audio track is changed.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAudioChanged:(BMPAudioChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onAudioChanged:(BMPAudioChangedEvent *)event;
 
 /**
  * Is called when the playback of an ad has been started.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdStarted:(BMPAdStartedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdStarted:(BMPAdStartedEvent *)event;
 
 /**
  * Is called when the playback of an ad has been finished.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdFinished:(BMPAdFinishedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdFinished:(BMPAdFinishedEvent *)event;
 
 /**
  * Is fired when the playback of an ad has progressed over a quartile boundary.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdQuartile:(BMPAdQuartileEvent *)event player:(BMPPlayer *)player;
+- (void)onAdQuartile:(BMPAdQuartileEvent *)event;
 
 /**
- * Is called when the playback of an ad break has been started.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
+ * Is called when the playback of an ad break has been started
  */
-- (void)onAdBreakStarted:(BMPAdBreakStartedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdBreakStarted:(BMPAdBreakStartedEvent *)event;
 
 /**
  * Is called when the playback of an ad break has been finished.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdBreakFinished:(BMPAdBreakFinishedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdBreakFinished:(BMPAdBreakFinishedEvent *)event;
 
 /**
  * Is called when an ad manifest was successfully downloaded and parsed and the ad has been added onto the queue.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdScheduled:(BMPAdScheduledEvent *)event player:(BMPPlayer *)player;
+- (void)onAdScheduled:(BMPAdScheduledEvent *)event;
 
 /**
  * Is called when an ad has been skipped.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdSkipped:(BMPAdSkippedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdSkipped:(BMPAdSkippedEvent *)event;
 
 /**
  * Is called when the user clicks on the ad.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdClicked:(BMPAdClickedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdClicked:(BMPAdClickedEvent *)event;
 
 /**
  * Is called when ad playback fails.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdError:(BMPAdErrorEvent *)event player:(BMPPlayer *)player;
+- (void)onAdError:(BMPAdErrorEvent *)event;
 
 /**
- * Is called when the download of an ad manifest is starting.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
+ * Is called when the download of an ad manifest is starting
  */
-- (void)onAdManifestLoad:(BMPAdManifestLoadEvent *)event player:(BMPPlayer *)player;
+- (void)onAdManifestLoad:(BMPAdManifestLoadEvent *)event;
 
 /**
  * Is called when the ad manifest has been successfully loaded.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event player:(BMPPlayer *)player;
+- (void)onAdManifestLoaded:(BMPAdManifestLoadedEvent *)event;
 
 /**
  * Is called when the current video download quality has changed.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onVideoDownloadQualityChanged:(BMPVideoDownloadQualityChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onVideoDownloadQualityChanged:(BMPVideoDownloadQualityChangedEvent *)event;
 
 /**
  * Is called when a web download request has finished.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onDownloadFinished:(BMPDownloadFinishedEvent *)event player:(BMPPlayer *)player;
+- (void)onDownloadFinished:(BMPDownloadFinishedEvent *)event;
 
 /**
  * Is called when AirPlay playback starts or stops.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAirPlayChanged:(BMPAirPlayChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onAirPlayChanged:(BMPAirPlayChangedEvent *)event;
 
 /**
  * Is called when AirPlay is available.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onAirPlayAvailable:(BMPAirPlayAvailableEvent *)event player:(BMPPlayer *)player;
+- (void)onAirPlayAvailable:(BMPAirPlayAvailableEvent *)event;
 
 /**
  * Is called when a source item is loaded which has metadata attached or when setSourceMetadata: is called on the player.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onSourceMetadataChanged:(BMPSourceMetadataChangedEvent *)event player:(BMPPlayer *)player;
+- (void)onSourceMetadataChanged:(BMPSourceMetadataChangedEvent *)event;
 
 /**
  * Is called when DRM data is found in a downloaded manifest file.
  * TweaksConfiguration.nativeHlsParsingEnabled needs to be set to true to receive those events.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onDrmDataParsed:(BMPDrmDataParsedEvent *)event player:(BMPPlayer *)player;
+- (void)onDrmDataParsed:(BMPDrmDataParsedEvent *)event;
 
 /**
  * Is called for each occurring player event.
  *
  * @param event The player event. Use event.name or [event isKindOfClass:] to check the specific event type.
- * @param player The player instance which is associated with the emitted event
  */
-- (void)onEvent:(id <BMPEvent>)event player:(BMPPlayer *)player NS_SWIFT_NAME(onEvent(_:player:));
+- (void)onEvent:(BMPPlayerEvent *)event NS_SWIFT_NAME(onEvent(_:));
 
-/**
- * Is called when a source was loaded into the Player.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
- */
-- (void)onPlayerActive:(BMPPlayerActiveEvent *)event player:(BMPPlayer *)player;
-
-/**
- * Is called when the Player was unloaded.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
- */
-- (void)onPlayerInactive:(BMPPlayerInactiveEvent *)event player:(BMPPlayer *)player;
-
-/**
- * Is called when the player transitions between two sources in a playlist.
- *
- * @param event An object holding specific event data.
- * @param player The player instance which is associated with the emitted event
- */
-- (void)onPlaylistTransition:(BMPPlaylistTransitionEvent *)event player:(BMPPlayer *)player;
 @end
 
 NS_ASSUME_NONNULL_END

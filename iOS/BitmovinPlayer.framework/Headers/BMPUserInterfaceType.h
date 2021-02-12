@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Indicates which type of UI should be used.
  */
+NS_SWIFT_NAME(UserInterfaceType)
 typedef NS_ENUM(NSInteger, BMPUserInterfaceType) {
     /** Indicates that Bitmovins customizable UI should be used. */
     BMPUserInterfaceTypeBitmovin __TVOS_PROHIBITED,
@@ -20,6 +21,6 @@ typedef NS_ENUM(NSInteger, BMPUserInterfaceType) {
     BMPUserInterfaceTypeSystem,
     /** Indicates that only subtitles should be displayed along with the video content */
     BMPUserInterfaceTypeSubtitle
-} NS_SWIFT_NAME(UserInterfaceType);
+};
 
 NS_ASSUME_NONNULL_END

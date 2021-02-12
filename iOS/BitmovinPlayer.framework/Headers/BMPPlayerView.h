@@ -8,23 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <BitmovinPlayer/BMPPlayer.h>
+#import <BitmovinPlayer/BMPBitmovinPlayer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Base class for player user interfaces which should work together with the BMPPlayer. If you want to build your
+ * Base class for player user interfaces which should work together with the BMPBitmovinPlayer. If you want to build your
  * own UI on top of our player, extend this class.
  */
 NS_SWIFT_NAME(PlayerView)
 @interface BMPPlayerView : UIView
-@property (nullable, nonatomic, strong) BMPPlayer *player;
+@property (nullable, nonatomic, strong) BMPBitmovinPlayer *player;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithPlayer:(BMPPlayer *)player frame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPlayer:(BMPBitmovinPlayer *)player frame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
 @end
 
 NS_ASSUME_NONNULL_END

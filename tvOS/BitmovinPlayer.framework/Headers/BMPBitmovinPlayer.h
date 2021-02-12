@@ -21,10 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
  * player along with an UI please use BMPBitmovinPlayerView.
  */
 NS_SWIFT_NAME(Player)
-@interface BMPPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
-- (instancetype)init __deprecated_msg("Use PlayerFactory#create(playerConfig:) instead. (This will be removed in the final release)");
-+ (instancetype)new __deprecated_msg("Use PlayerFactory#create(playerConfig:) instead. (This will be removed in the final release)");
-- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration __deprecated_msg("Use PlayerFactory#create(playerConfig:) instead. (This will be removed in the final release)");
+@interface BMPBitmovinPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
+- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration;
 @end
 
 NS_ASSUME_NONNULL_END

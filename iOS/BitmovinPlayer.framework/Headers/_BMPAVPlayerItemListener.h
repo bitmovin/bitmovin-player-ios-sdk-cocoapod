@@ -22,7 +22,7 @@ NS_SWIFT_NAME(_AVPlayerItemListener)
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangeDuration:(CMTime)oldDuration newDuration:(CMTime)newDuration;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangePlaybackBufferEmpty:(BOOL)playbackBufferEmpty;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangePlaybackLikelyToKeepUp:(BOOL)playbackLikelyToKeepUp;
-- (void)playerItemDidPlayToEnd:(_BMPAVPlayerItem *)playerItem NS_SWIFT_NAME(playerItemDidPlayToEnd(playerItem:));
+- (void)playerItemDidPlayToEnd:(_BMPAVPlayerItem *)playerItem;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didFailToToPlayToEnd:(nullable NSError *)error;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangeTimedMetadata:(NSArray<AVMetadataItem *> *)timedMetadata;
 - (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem *)playerItem;

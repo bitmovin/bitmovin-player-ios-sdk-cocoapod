@@ -10,12 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(MetadataType)
 typedef NS_ENUM(NSInteger, BMPMetadataType) {
     BMPMetadataTypeNone = 0,
     BMPMetadataTypeID3,
     BMPMetadataTypeEMSG,
     BMPMetadataTypeDaterange,
     BMPMetadataTypeScte
-} NS_SWIFT_NAME(MetadataType);
+};
 
 NS_ASSUME_NONNULL_END
