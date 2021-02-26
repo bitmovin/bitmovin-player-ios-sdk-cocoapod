@@ -64,6 +64,14 @@ extension _GoogleCastBufferService : BitmovinPlayer._BufferService {
   @objc dynamic public func getLevel(_ type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc dynamic public func setTargetLevel(_ value: Foundation.TimeInterval)
 }
+@objc @_inheritsConvenienceInitializers final public class PictureInPictureExitedEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 @_inheritsConvenienceInitializers @objcMembers @objc(BMPSourceUnloadedEvent) final public class SourceUnloadedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get
@@ -152,6 +160,14 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
   @objc deinit
   @objc override dynamic public init()
 }
+@objc @_inheritsConvenienceInitializers final public class PictureInPictureExitEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 @objc(_BMPBufferApiDelegate) public protocol _BufferApiDelegate {
   @objc(bufferAPI_getLevel:) func bufferAPI_getLevel(type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc(bufferAPI_setTargetLevel:) func bufferAPI_setTargetLevel(value: Foundation.TimeInterval)
@@ -234,6 +250,23 @@ extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerItemListener {
 extension _DefaultUrlAssetValuesLoader {
   @objc(loadValuesAsynchronouslyForAsset:onComplete:) dynamic public func loadValuesAsynchronously(for asset: AVFoundation.AVURLAsset, onComplete: ((AVFoundation.AVURLAsset, Swift.Bool, Swift.Bool) -> Swift.Void)?)
   @objc(triggerContentKeyRequestForAsset:) dynamic public func triggerContentKeyRequest(for asset: AVFoundation.AVURLAsset)
+}
+@objc(_BMPAVPlayerViewControllerListener) public protocol _AVPlayerViewControllerListener : AnyObject {
+  @objc optional func playerViewControllerWillStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc optional func playerViewControllerDidStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc optional func playerViewControllerWillStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc optional func playerViewControllerDidStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc optional func playerViewControllerFailedToStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc optional func playerViewController(_ playerViewController: AVKit.AVPlayerViewController, willTransitionToVisibilityOfTransportBar visible: Swift.Bool)
+}
+@objc(_BMPDefaultViewHierarchyHandler) @objcMembers public class _DefaultViewHierarchyHandler : ObjectiveC.NSObject, BitmovinPlayer._ViewHierarchyHandler {
+  @objc weak public var shutterView: UIKit.UIView?
+  @objc weak public var posterView: UIKit.UIView?
+  @objc weak public var playerView: UIKit.UIView?
+  @objc public init(parentView: UIKit.UIView)
+  @objc public func handleSubViewOrdering()
+  @objc deinit
+  @objc override dynamic public init()
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(BMPAudioAddedEvent) @objcMembers final public class AudioAddedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let audioTrack: BitmovinPlayer.AudioTrack
@@ -325,6 +358,43 @@ extension ClearKeyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
 extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
   @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
 }
+@objc(_BMPAVPlayerViewControllerProxy) @objcMembers public class _AVPlayerViewControllerProxy : ObjectiveC.NSObject {
+  @objc final public let avPlayerViewController: AVKit.AVPlayerViewController
+  @objc public init(avPlayerViewController: AVKit.AVPlayerViewController)
+  @objc(addListener:) public func add(listener: BitmovinPlayer._AVPlayerViewControllerListener)
+  @objc(removeListener:) public func remove(listener: BitmovinPlayer._AVPlayerViewControllerListener)
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _AVPlayerViewControllerProxy {
+  @objc dynamic public var videoGravity: AVFoundation.AVLayerVideoGravity {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var view: UIKit.UIView {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var showsPlaybackControls: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc(willMoveToParentViewController:) dynamic public func willMove(toParent parent: UIKit.UIViewController?)
+  @objc(removeFromParentViewController) dynamic public func removeFromParent()
+  @objc(didMoveToParentViewController:) dynamic public func didMove(toParent parent: UIKit.UIViewController?)
+}
+extension _AVPlayerViewControllerProxy : AVKit.AVPlayerViewControllerDelegate {
+  @objc dynamic public func playerViewControllerWillStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerDidStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerWillStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerDidStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewController(_ playerViewController: AVKit.AVPlayerViewController, failedToStartPictureInPictureWithError error: Swift.Error)
+}
+@objc(_BMPPictureInPictureService) public protocol _PictureInPictureService : AnyObject {
+  @objc var isPictureInPicture: Swift.Bool { get }
+  @objc func enterPictureInPicture()
+  @objc func exitPictureInPicture()
+}
 @_hasMissingDesignatedInitializers @objcMembers @objc(BMPBufferLevel) public class BufferLevel : ObjectiveC.NSObject {
   @objc final public let level: Foundation.TimeInterval
   @objc final public let targetLevel: Foundation.TimeInterval
@@ -343,6 +413,20 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
 }
 @_inheritsConvenienceInitializers @objcMembers @objc(BMPLiveConfiguration) final public class LiveConfiguration : BitmovinPlayer.Configuration {
   @objc final public var minTimeshiftBufferDepth: Foundation.TimeInterval
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
+@objc(_BMPViewHierarchyHandler) public protocol _ViewHierarchyHandler : AnyObject {
+  @objc var shutterView: UIKit.UIView? { get set }
+  @objc var posterView: UIKit.UIView? { get set }
+  @objc var playerView: UIKit.UIView? { get set }
+  @objc func handleSubViewOrdering()
+}
+@objc @_inheritsConvenienceInitializers final public class PictureInPictureEnteredEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
@@ -507,6 +591,23 @@ extension _DefaultInitializationService {
   @objc deinit
   @objc override dynamic public init()
 }
+@objc(_BMPSystemUiPictureInPictureService) @objcMembers public class _SystemUiPictureInPictureService : ObjectiveC.NSObject, BitmovinPlayer._PictureInPictureService {
+  @objc public var isPictureInPicture: Swift.Bool {
+    get
+  }
+  @objc public init(avPlayerViewControllerProxy: BitmovinPlayer._AVPlayerViewControllerProxy, uiEventEmitter: BitmovinPlayer.UserInterfaceListener, logger: BitmovinPlayer._Logger)
+  @objc public func enterPictureInPicture()
+  @objc public func exitPictureInPicture()
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _SystemUiPictureInPictureService : BitmovinPlayer._AVPlayerViewControllerListener {
+  @objc dynamic public func playerViewControllerWillStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerDidStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerWillStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerDidStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+  @objc dynamic public func playerViewControllerFailedToStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
+}
 @_hasMissingDesignatedInitializers @objcMembers @objc(_BMPExternalCaptionHandler) final public class _ExternalCaptionHandler : ObjectiveC.NSObject {
   @objc weak final public var delegate: BitmovinPlayer._CaptionHandlerDelegate?
   @objc final public var activeSubtitleTrack: BitmovinPlayer.SubtitleTrack? {
@@ -531,6 +632,30 @@ extension _ExternalCaptionHandler : BitmovinPlayer._CaptionHandler {
   @objc final public func contains(subtitleTrack: BitmovinPlayer.SubtitleTrack) -> Swift.Bool
   @objc final public func clearSubtitleTracks()
   @objc final public func forcedSubtitleTrack(forLanguage language: Swift.String) -> BitmovinPlayer.SubtitleTrack?
+}
+@objc(_BMPDefaultPictureInPictureService) @objcMembers public class _DefaultPictureInPictureService : ObjectiveC.NSObject, BitmovinPlayer._PictureInPictureService {
+  @objc public var isPictureInPicture: Swift.Bool {
+    @objc get
+  }
+  @objc public init(pictureInPictureController: AVKit.AVPictureInPictureController, uiEventEmitter: BitmovinPlayer.UserInterfaceListener)
+  @objc public func enterPictureInPicture()
+  @objc public func exitPictureInPicture()
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _DefaultPictureInPictureService : AVKit.AVPictureInPictureControllerDelegate {
+  @objc dynamic public func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc dynamic public func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc dynamic public func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc dynamic public func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+}
+@objc @_inheritsConvenienceInitializers final public class PictureInPictureEnterEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+  @objc deinit
 }
 @objc(_BMPCafDrmConfig) @objcMembers final public class _CafDrmConfig : ObjectiveC.NSObject {
   public enum ProtectionSystem : Swift.String {
