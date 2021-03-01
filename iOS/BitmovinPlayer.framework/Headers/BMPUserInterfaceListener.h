@@ -9,11 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvents.h>
 
-@class PictureInPictureEnterEvent;
-@class PictureInPictureEnteredEvent;
-@class PictureInPictureExitEvent;
-@class PictureInPictureExitedEvent;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -64,34 +59,6 @@ NS_SWIFT_NAME(UserInterfaceListener)
  * @param event An object holding specific event data.
  */
 - (void)onControlsHide:(BMPControlsHideEvent *)event;
-
-/**
- * Is called when the PlayerView is about to enter Picture in Picture mode.
- *
- * @param event An object holding specific event data.
- */
-- (void)onPictureInPictureEnter:(PictureInPictureEnterEvent *)event NS_SWIFT_NAME(onPictureInPictureEnter(_:));
-
-/**
- * Is called when the PlayerView finished entering Picture in Picture mode.
- *
- * @param event An object holding specific event data.
- */
-- (void)onPictureInPictureEntered:(PictureInPictureEnteredEvent *)event NS_SWIFT_NAME(onPictureInPictureEntered(_:));
-
-/**
- * Is called when the PlayerView is about to exit Picture in Picture mode.
- *
- * @param event An object holding specific event data.
- */
-- (void)onPictureInPictureExit:(PictureInPictureExitEvent *)event NS_SWIFT_NAME(onPictureInPictureExit(_:));
-
-/**
- * Is called when the PlayerView finished exiting Picture in Picture mode.
- *
- * @param event An object holding specific event data.
- */
-- (void)onPictureInPictureExited:(PictureInPictureExitedEvent *)event NS_SWIFT_NAME(onPictureInPictureExited(_:));
 @end
 
 NS_ASSUME_NONNULL_END

@@ -30,10 +30,6 @@ NS_SWIFT_NAME(PlaybackConfiguration)
  */
 @property (nonatomic, getter=isBackgroundPlaybackEnabled) BOOL backgroundPlaybackEnabled;
 /**
- * Whether Picture-In-Picture option is enabled or not. Default is NO.
- */
-@property (nonatomic, getter=isPictureInPictureEnabled) BOOL pictureInPictureEnabled;
-/**
  * Determines if the subtitle should be selected by the player per default and kept in sync with the selected audio language.
  * The subtitle will not appear in availableSubtitles and can't be deactivated or activated through the API.
  *
