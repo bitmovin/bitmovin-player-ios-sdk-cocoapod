@@ -20,7 +20,6 @@
 #import <BitmovinPlayer/BMPBufferConfiguration.h>
 
 @class BMPStyleConfiguration;
-@class BMPLiveConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,8 +61,6 @@ NS_SWIFT_NAME(PlayerConfiguration)
 @property (nonatomic, nonnull, strong) BMPTweaksConfiguration *tweaksConfiguration;
 /** The BMPBufferConfiguration of this BMPPlayerConfiguration. */
 @property (nonatomic, nonnull, strong) BMPBufferConfiguration *bufferConfiguration API_AVAILABLE(ios(10.0), tvos(10.0));
-/** The BMPLiveConfiguration of this BMPPlayerConfiguration. */
-@property (nonatomic, nonnull, strong) BMPLiveConfiguration *liveConfiguration;
 
 /**
  * Get/Set a source item for this PlayerConfiguration. When a source item is set, also a new new SourceConfiguration

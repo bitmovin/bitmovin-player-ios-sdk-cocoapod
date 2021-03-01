@@ -352,18 +352,6 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
-SWIFT_CLASS_NAMED("LiveConfiguration")
-@interface BMPLiveConfiguration : BMPConfiguration
-/// The minimum buffer depth of a stream needed to enable time shifting.
-/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
-/// disabled. That means Player.maxTimeShift returns 0 in that case.
-/// This value should always be non-positive value, default value is -40
-@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
-- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -543,71 +531,8 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
-@protocol _BMPConfigurationService;
-@class _BMPAVPlayer;
-
-SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
-@interface _BMPAVPlayerCaptionHandler : NSObject
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
 @class _BMPAVPlayerItem;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
-@class AVMediaSelectionOption;
-@class AVMediaSelectionGroup;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
-@end
-
-
-SWIFT_PROTOCOL_NAMED("_CaptionHandler")
-@protocol _BMPCaptionHandler
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-/// note:
-/// no-op when the passed subtitle is already active
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-/// note:
-/// no-op when no subtitle is currently active
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
+@protocol _BMPAVPlayerObserver;
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -682,7 +607,6 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
-
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -695,6 +619,10 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -764,6 +692,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -957,13 +886,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -976,6 +905,8 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject
@@ -1555,18 +1486,6 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
-SWIFT_CLASS_NAMED("LiveConfiguration")
-@interface BMPLiveConfiguration : BMPConfiguration
-/// The minimum buffer depth of a stream needed to enable time shifting.
-/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
-/// disabled. That means Player.maxTimeShift returns 0 in that case.
-/// This value should always be non-positive value, default value is -40
-@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
-- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -1746,71 +1665,8 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
-@protocol _BMPConfigurationService;
-@class _BMPAVPlayer;
-
-SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
-@interface _BMPAVPlayerCaptionHandler : NSObject
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
 @class _BMPAVPlayerItem;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
-@class AVMediaSelectionOption;
-@class AVMediaSelectionGroup;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
-@end
-
-
-SWIFT_PROTOCOL_NAMED("_CaptionHandler")
-@protocol _BMPCaptionHandler
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-/// note:
-/// no-op when the passed subtitle is already active
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-/// note:
-/// no-op when no subtitle is currently active
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
+@protocol _BMPAVPlayerObserver;
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -1885,7 +1741,6 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
-
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -1898,6 +1753,10 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -1967,6 +1826,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -2160,13 +2020,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2179,6 +2039,8 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject
@@ -2761,18 +2623,6 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
-SWIFT_CLASS_NAMED("LiveConfiguration")
-@interface BMPLiveConfiguration : BMPConfiguration
-/// The minimum buffer depth of a stream needed to enable time shifting.
-/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
-/// disabled. That means Player.maxTimeShift returns 0 in that case.
-/// This value should always be non-positive value, default value is -40
-@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
-- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -2952,71 +2802,8 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
-@protocol _BMPConfigurationService;
-@class _BMPAVPlayer;
-
-SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
-@interface _BMPAVPlayerCaptionHandler : NSObject
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
 @class _BMPAVPlayerItem;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
-@class AVMediaSelectionOption;
-@class AVMediaSelectionGroup;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
-@end
-
-
-SWIFT_PROTOCOL_NAMED("_CaptionHandler")
-@protocol _BMPCaptionHandler
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-/// note:
-/// no-op when the passed subtitle is already active
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-/// note:
-/// no-op when no subtitle is currently active
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
+@protocol _BMPAVPlayerObserver;
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -3091,7 +2878,6 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
-
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -3104,6 +2890,10 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -3173,6 +2963,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -3366,13 +3157,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -3385,6 +3176,8 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject
@@ -3964,18 +3757,6 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
-SWIFT_CLASS_NAMED("LiveConfiguration")
-@interface BMPLiveConfiguration : BMPConfiguration
-/// The minimum buffer depth of a stream needed to enable time shifting.
-/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
-/// disabled. That means Player.maxTimeShift returns 0 in that case.
-/// This value should always be non-positive value, default value is -40
-@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
-- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
@@ -4155,71 +3936,8 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
-@protocol _BMPConfigurationService;
-@class _BMPAVPlayer;
-
-SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
-@interface _BMPAVPlayerCaptionHandler : NSObject
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
 @class _BMPAVPlayerItem;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
-@class AVMediaSelectionOption;
-@class AVMediaSelectionGroup;
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
-- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
-@end
-
-
-SWIFT_PROTOCOL_NAMED("_CaptionHandler")
-@protocol _BMPCaptionHandler
-@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
-@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-/// note:
-/// no-op when the passed subtitle is already active
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-/// note:
-/// no-op when no subtitle is currently active
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
-@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
-- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
-- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
-- (void)disableActiveSubtitleTrack;
-- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
-- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
-- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
-- (void)clearSubtitleTracks;
-- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
-@end
-
+@protocol _BMPAVPlayerObserver;
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -4294,7 +4012,6 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
-
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -4307,6 +4024,10 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+/// The threshold value for TimeService.getMaxTimeShift.
+/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
+/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -4376,6 +4097,7 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
+@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -4569,13 +4291,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -4588,6 +4310,8 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 
 
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject

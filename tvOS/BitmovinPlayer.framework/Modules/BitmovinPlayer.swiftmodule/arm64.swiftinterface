@@ -115,20 +115,6 @@ public protocol _HexConvertible {
   @objc override dynamic public init()
   @objc deinit
 }
-@objc(_BMPCaptionHandler) public protocol _CaptionHandler {
-  @objc weak var delegate: BitmovinPlayer._CaptionHandlerDelegate? { get set }
-  @objc var availableSubtitleTracks: [BitmovinPlayer.SubtitleTrack] { get }
-  @objc var activeSubtitleTrack: BitmovinPlayer.SubtitleTrack? { get }
-  @objc var defaultSubtitleTrack: BitmovinPlayer.SubtitleTrack? { get }
-  @objc(initializeSubtitleTracksWithSourceItem:) func initializeSubtitleTracks(with sourceItem: BitmovinPlayer.SourceItem)
-  @objc func enableSubtitleTrack(byId subtitleTrackId: Swift.String?)
-  @objc func disableActiveSubtitleTrack()
-  @objc(addSubtitleTrack:) func add(subtitleTrack: BitmovinPlayer.SubtitleTrack)
-  @objc func removeSubtitleTrack(byId subtitleTrackId: Swift.String)
-  @objc(containsSubtitleTrack:) func contains(subtitleTrack: BitmovinPlayer.SubtitleTrack) -> Swift.Bool
-  @objc func clearSubtitleTracks()
-  @objc func forcedSubtitleTrack(forLanguage language: Swift.String) -> BitmovinPlayer.SubtitleTrack?
-}
 @_inheritsConvenienceInitializers @objc(_BMPDefaultEventEmitter) public class _DefaultEventEmitter : BitmovinPlayer._DefaultService, BitmovinPlayer._EventEmitter {
   @objc override dynamic public var type: BitmovinPlayer._ServiceType {
     @objc get
@@ -201,12 +187,6 @@ extension _GoogleCastBufferService : BitmovinPlayer._BufferService {
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
-}
-@_inheritsConvenienceInitializers @objcMembers @objc(BMPLiveConfiguration) final public class LiveConfiguration : BitmovinPlayer.Configuration {
-  @objc final public var minTimeshiftBufferDepth: Foundation.TimeInterval
-  @objc deinit
-  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
-  @objc override dynamic public init()
 }
 @objc(_BMPVariantPlaylistLoadedEvent) @objcMembers final public class _VariantPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let data: Foundation.Data
@@ -329,40 +309,6 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
   @objc dynamic public func onReady(_ event: BitmovinPlayer.ReadyEvent)
   @objc dynamic public func onConfigurationUpdated(_ event: BitmovinPlayer.ConfigurationUpdatedEvent)
   @objc dynamic public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
-}
-@_hasMissingDesignatedInitializers @objcMembers @objc(_BMPAVPlayerCaptionHandler) final public class _AVPlayerCaptionHandler : ObjectiveC.NSObject {
-  @objc weak final public var delegate: BitmovinPlayer._CaptionHandlerDelegate?
-  @objc final public var activeSubtitleTrack: BitmovinPlayer.SubtitleTrack? {
-    get
-  }
-  @objc final public var availableSubtitleTracks: [BitmovinPlayer.SubtitleTrack] {
-    get
-  }
-  @objc convenience public init(configurationService: BitmovinPlayer._ConfigurationService, player: BitmovinPlayer._BMPAVPlayer)
-  @objc deinit
-  @objc override dynamic public init()
-}
-extension _AVPlayerCaptionHandler : BitmovinPlayer._CaptionHandler {
-  @objc final public var defaultSubtitleTrack: BitmovinPlayer.SubtitleTrack? {
-    @objc get
-  }
-  @objc final public func initializeSubtitleTracks(with sourceItem: BitmovinPlayer.SourceItem)
-  @objc final public func enableSubtitleTrack(byId subtitleTrackId: Swift.String?)
-  @objc final public func disableActiveSubtitleTrack()
-  @objc final public func add(subtitleTrack: BitmovinPlayer.SubtitleTrack)
-  @objc final public func removeSubtitleTrack(byId subtitleTrackId: Swift.String)
-  @objc final public func contains(subtitleTrack: BitmovinPlayer.SubtitleTrack) -> Swift.Bool
-  @objc final public func clearSubtitleTracks()
-  @objc final public func forcedSubtitleTrack(forLanguage language: Swift.String) -> BitmovinPlayer.SubtitleTrack?
-}
-extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerObserver {
-  @objc final public func player(_ player: BitmovinPlayer._BMPAVPlayer, didChangeCurrentItem oldItem: BitmovinPlayer._BMPAVPlayerItem?, newItem: BitmovinPlayer._BMPAVPlayerItem?)
-}
-extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerItemListener {
-  @objc final public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, willChangeMediaOptionFrom from: AVFoundation.AVMediaSelectionOption?, to: AVFoundation.AVMediaSelectionOption?, in mediaSelectionGroup: AVFoundation.AVMediaSelectionGroup)
-  @objc final public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, didChangeMediaOptionFrom from: AVFoundation.AVMediaSelectionOption?, to: AVFoundation.AVMediaSelectionOption?, in mediaSelectionGroup: AVFoundation.AVMediaSelectionGroup)
-  @objc final public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, willSeekToTargetTime seekTarget: CoreMedia.CMTime)
-  @objc final public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, didSeekWithSuccess finished: Swift.Bool)
 }
 @objcMembers @objc(BMPSeekEvent) final public class SeekEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let seekTarget: Foundation.TimeInterval
@@ -600,6 +546,7 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc var licenseKey: Swift.String? { get }
   @objc var sdkVersion: Swift.String? { get }
   @objc var packageName: Swift.String? { get }
+  @objc var maxTimeShiftThreshold: Foundation.TimeInterval { get }
   @objc var playerConfiguration: BitmovinPlayer.PlayerConfiguration { get }
   @objc var isCurrentSourceRestrictedToCache: Swift.Bool { get }
   @objc var suppressDefaultCaptionRendering: Swift.Bool { get }
@@ -626,6 +573,9 @@ extension NSString : BitmovinPlayer._HexConvertible {
     get
   }
   @objc final public var packageName: Swift.String? {
+    get
+  }
+  @objc final public var maxTimeShiftThreshold: Foundation.TimeInterval {
     get
   }
   @objc final public var playerConfiguration: BitmovinPlayer.PlayerConfiguration {
