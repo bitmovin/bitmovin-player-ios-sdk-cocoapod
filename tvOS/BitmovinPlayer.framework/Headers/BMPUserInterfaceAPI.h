@@ -16,21 +16,55 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(UserInterfaceAPI)
 @protocol BMPUserInterfaceAPI <NSObject>
 /**
- * Returns true if the player is currently in fullscreen mode.
+ * Returns YES if the player is currently in fullscreen mode.
  *
- * @return True if the player is currently in fullscreen mode.
+ * @return YES if the player is currently in fullscreen mode.
  */
 @property (nonatomic, readonly, getter=isFullscreen) BOOL fullscreen;
 
 /**
- * Returns true if the players playback controls are currently shown, false if they are hidden.
+ * Returns YES if the players playback controls are currently shown, NO if they are hidden.
  *
- * @return True if the players playback controls are currently shown, false if they are hidden.
+ * @return YES if the players playback controls are currently shown, NO if they are hidden.
  */
 @property (nonatomic, readonly, getter=areControlsShown) BOOL controlsShown;
 
 /**
- * The player enters fullscreen mode. Has no effect if already in fullscreen.
+ * Returns if Picture-In-Picture is available.
+ * Picture in Picture-In-Picture in the following use-cases:
+ * - on iPhone using iOS 14.2 and above. (We disabled PiP on iOS 14.0 and 14.1 due to an underlying iOS bug)
+ * - on iPads using iOS 9 and above.
+ * - if not explicitly disabled through BMPPlaybackConfiguration#isPictureInPictureEnabled (default is disabled)
+ *
+ * @return YES if the Picture-In-Picture is available.
+ */
+@property (nonatomic, readonly, getter=isPictureInPictureAvailable) BOOL pictureInPictureAvailable;
+
+/**
+ * Returns YES  if player is currently in Picture-in-Picture (PiP) mode.
+ *
+ * @return YES if Picture-In-Picture is active, NO otherwise.
+ */
+@property (nonatomic, readonly, getter=isPictureInPicture) BOOL pictureInPicture;
+
+/**
+ * The player enters Picture-In-Picture mode. Has no effects if already in picture in picture.
+ *
+ * @note:
+ * - Starting Picture-In-Picture during casting is not supported and will result in a no-op.
+ * - This has no effect when using system UI.
+ */
+- (void)enterPictureInPicture;
+
+/**
+ * The player exits Picture-In-Picture mode. Has no effect if not in Picture-In-Picture mode.
+ *
+ * @note: This has no effect when using system UI.
+ */
+- (void)exitPictureInPicture;
+
+/**
+ * The player enters fullscreen mode. Has no effect if in fullscreen.
  */
 - (void)enterFullscreen;
 

@@ -191,6 +191,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AVFoundation;
+@import AVKit;
 @import CoreMedia;
 @import Foundation;
 @import ObjectiveC;
@@ -350,11 +351,59 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+SWIFT_CLASS_NAMED("LiveConfiguration")
+@interface BMPLiveConfiguration : BMPConfiguration
+/// The minimum buffer depth of a stream needed to enable time shifting.
+/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
+/// disabled. That means Player.maxTimeShift returns 0 in that case.
+/// This value should always be non-positive value, default value is -40
+@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
 - (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
 - (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
+@interface PictureInPictureEnterEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer28PictureInPictureEnteredEvent")
+@interface PictureInPictureEnteredEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer25PictureInPictureExitEvent")
+@interface PictureInPictureExitEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer27PictureInPictureExitedEvent")
+@interface PictureInPictureExitedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -519,8 +568,120 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
+@protocol _BMPConfigurationService;
+@class _BMPAVPlayer;
+
+SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
+@interface _BMPAVPlayerCaptionHandler : NSObject
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class _BMPAVPlayerItem;
-@protocol _BMPAVPlayerObserver;
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
+@class AVMediaSelectionOption;
+@class AVMediaSelectionGroup;
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_CaptionHandler")
+@protocol _BMPCaptionHandler
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+/// note:
+/// no-op when the passed subtitle is already active
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+/// note:
+/// no-op when no subtitle is currently active
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class AVPlayerViewController;
+
+SWIFT_PROTOCOL_NAMED("_AVPlayerViewControllerListener")
+@protocol _BMPAVPlayerViewControllerListener
+@optional
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible;
+@end
+
+
+/// Helper class to map the single delegate pattern to a multi listener pattern
+SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
+@interface _BMPAVPlayerViewControllerProxy : NSObject
+@property (nonatomic, readonly, strong) AVPlayerViewController * _Nonnull avPlayerViewController;
+- (nonnull instancetype)initWithAvPlayerViewController:(AVPlayerViewController * _Nonnull)avPlayerViewController OBJC_DESIGNATED_INITIALIZER;
+- (void)addListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
+- (void)removeListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@protocol AVPlayerViewControllerAnimationCoordinator;
+
+@interface _BMPAVPlayerViewControllerProxy (SWIFT_EXTENSION(BitmovinPlayer)) <AVPlayerViewControllerDelegate>
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController failedToStartPictureInPictureWithError:(NSError * _Nonnull)error;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible withAnimationCoordinator:(id <AVPlayerViewControllerAnimationCoordinator> _Nonnull)coordinator;
+@end
+
+@class UIView;
+@class UIViewController;
+
+@interface _BMPAVPlayerViewControllerProxy (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable allowedSubtitleOptionLanguages;
+@property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
+@property (nonatomic, strong) UIView * _Nonnull view;
+@property (nonatomic) BOOL showsPlaybackControls;
+- (void)willMoveToParentViewController:(UIViewController * _Nullable)parent;
+- (void)removeFromParentViewController;
+- (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
+@end
+
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -595,6 +756,7 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
+
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -607,10 +769,6 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
-/// The threshold value for TimeService.getMaxTimeShift.
-/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
-/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
-@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -680,7 +838,6 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
-@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -874,13 +1031,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -892,9 +1049,41 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+/// Helper class to handle view ordering when needed
+/// Desired view hierarchy is: (top to bottom)
+/// <ul>
+///   <li>
+///     PlayerView (BitmovinPlayer UI or System UI)
+///   </li>
+///   <li>
+///     PosterView (only available on iOS)
+///   </li>
+///   <li>
+///     ShutterView (only available on iOS)
+///   </li>
+/// </ul>
+SWIFT_PROTOCOL_NAMED("_ViewHierarchyHandler")
+@protocol _BMPViewHierarchyHandler
+@property (nonatomic, strong) UIView * _Nullable shutterView;
+@property (nonatomic, strong) UIView * _Nullable posterView;
+@property (nonatomic, strong) UIView * _Nullable playerView;
+- (void)handleSubViewOrdering;
+@end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
+
+SWIFT_CLASS_NAMED("_DefaultViewHierarchyHandler")
+@interface _BMPDefaultViewHierarchyHandler : NSObject <_BMPViewHierarchyHandler>
+@property (nonatomic, weak) UIView * _Nullable shutterView;
+@property (nonatomic, weak) UIView * _Nullable posterView;
+@property (nonatomic, weak) UIView * _Nullable playerView;
+- (nonnull instancetype)initWithParentView:(UIView * _Nonnull)parentView OBJC_DESIGNATED_INITIALIZER;
+- (void)handleSubViewOrdering;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject
@@ -1035,6 +1224,14 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 @end
 
 
+SWIFT_PROTOCOL_NAMED("_PictureInPictureService")
+@protocol _BMPPictureInPictureService
+@property (nonatomic, readonly) BOOL isPictureInPicture;
+- (void)enterPictureInPicture;
+- (void)exitPictureInPicture;
+@end
+
+
 SWIFT_CLASS_NAMED("_PlayerBufferApi")
 @interface _BMPPlayerBufferApi : NSObject
 - (nonnull instancetype)initWithDelegate:(id <_BMPBufferApiDelegate> _Nonnull)delegate OBJC_DESIGNATED_INITIALIZER;
@@ -1076,6 +1273,27 @@ SWIFT_CLASS_NAMED("_StartOffsetCalculator")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@protocol BMPUserInterfaceListener;
+
+SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
+@interface _BMPSystemUiPictureInPictureService : NSObject <_BMPPictureInPictureService>
+@property (nonatomic, readonly) BOOL isPictureInPicture;
+- (nonnull instancetype)initWithAvPlayerViewControllerProxy:(_BMPAVPlayerViewControllerProxy * _Nonnull)avPlayerViewControllerProxy uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter logger:(id <_BMPLogger> _Nonnull)logger OBJC_DESIGNATED_INITIALIZER;
+- (void)enterPictureInPicture;
+- (void)exitPictureInPicture;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPSystemUiPictureInPictureService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerViewControllerListener>
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+@end
+
 
 SWIFT_CLASS_NAMED("_TimeShiftStatus")
 @interface _BMPTimeShiftStatus : NSObject
@@ -1106,6 +1324,7 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
 
 
 #if __has_attribute(external_source_symbol)
@@ -1302,6 +1521,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AVFoundation;
+@import AVKit;
 @import CoreMedia;
 @import Foundation;
 @import ObjectiveC;
@@ -1461,11 +1681,59 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+SWIFT_CLASS_NAMED("LiveConfiguration")
+@interface BMPLiveConfiguration : BMPConfiguration
+/// The minimum buffer depth of a stream needed to enable time shifting.
+/// When the internal value for the maximal possible timeshift is lower than this value, timeshifting should be
+/// disabled. That means Player.maxTimeShift returns 0 in that case.
+/// This value should always be non-positive value, default value is -40
+@property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 
 
 @interface NSURLRequest (SWIFT_EXTENSION(BitmovinPlayer))
 - (BMPHttpRequest * _Nullable)_toBitmovinHttpRequest SWIFT_WARN_UNUSED_RESULT;
 - (BMPDrmRequest * _Nullable)_toBitmovinDrmRequestWithSkdUri:(NSString * _Nonnull)skdUri SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
+@interface PictureInPictureEnterEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer28PictureInPictureEnteredEvent")
+@interface PictureInPictureEnteredEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer25PictureInPictureExitEvent")
+@interface PictureInPictureExitEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS("_TtC14BitmovinPlayer27PictureInPictureExitedEvent")
+@interface PictureInPictureExitedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -1630,8 +1898,120 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 - (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@protocol _BMPCaptionHandlerDelegate;
+@class BMPSubtitleTrack;
+@protocol _BMPConfigurationService;
+@class _BMPAVPlayer;
+
+SWIFT_CLASS_NAMED("_AVPlayerCaptionHandler")
+@interface _BMPAVPlayerCaptionHandler : NSObject
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+- (nonnull instancetype)initWithConfigurationService:(id <_BMPConfigurationService> _Nonnull)configurationService player:(_BMPAVPlayer * _Nonnull)player;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class _BMPAVPlayerItem;
-@protocol _BMPAVPlayerObserver;
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
+@class AVMediaSelectionOption;
+@class AVMediaSelectionGroup;
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeMediaOptionFrom:(AVMediaSelectionOption * _Nullable)from to:(AVMediaSelectionOption * _Nullable)to inMediaSelectionGroup:(AVMediaSelectionGroup * _Nonnull)mediaSelectionGroup;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem willSeekToTargetTime:(CMTime)seekTarget;
+- (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didSeekWithSuccess:(BOOL)finished;
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_CaptionHandler")
+@protocol _BMPCaptionHandler
+@property (nonatomic, weak) id <_BMPCaptionHandlerDelegate> _Nullable delegate;
+@property (nonatomic, readonly, copy) NSArray<BMPSubtitleTrack *> * _Nonnull availableSubtitleTracks;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable activeSubtitleTrack;
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+/// note:
+/// no-op when the passed subtitle is already active
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+/// note:
+/// no-op when no subtitle is currently active
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+@interface _BMPAVPlayerCaptionHandler (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCaptionHandler>
+@property (nonatomic, readonly, strong) BMPSubtitleTrack * _Nullable defaultSubtitleTrack;
+- (void)initializeSubtitleTracksWithSourceItem:(BMPSourceItem * _Nonnull)sourceItem;
+- (void)enableSubtitleTrackById:(NSString * _Nullable)subtitleTrackId;
+- (void)disableActiveSubtitleTrack;
+- (void)addSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack;
+- (void)removeSubtitleTrackById:(NSString * _Nonnull)subtitleTrackId;
+- (BOOL)containsSubtitleTrack:(BMPSubtitleTrack * _Nonnull)subtitleTrack SWIFT_WARN_UNUSED_RESULT;
+- (void)clearSubtitleTracks;
+- (BMPSubtitleTrack * _Nullable)forcedSubtitleTrackForLanguage:(NSString * _Nonnull)language SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@class AVPlayerViewController;
+
+SWIFT_PROTOCOL_NAMED("_AVPlayerViewControllerListener")
+@protocol _BMPAVPlayerViewControllerListener
+@optional
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible;
+@end
+
+
+/// Helper class to map the single delegate pattern to a multi listener pattern
+SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
+@interface _BMPAVPlayerViewControllerProxy : NSObject
+@property (nonatomic, readonly, strong) AVPlayerViewController * _Nonnull avPlayerViewController;
+- (nonnull instancetype)initWithAvPlayerViewController:(AVPlayerViewController * _Nonnull)avPlayerViewController OBJC_DESIGNATED_INITIALIZER;
+- (void)addListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
+- (void)removeListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@protocol AVPlayerViewControllerAnimationCoordinator;
+
+@interface _BMPAVPlayerViewControllerProxy (SWIFT_EXTENSION(BitmovinPlayer)) <AVPlayerViewControllerDelegate>
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController failedToStartPictureInPictureWithError:(NSError * _Nonnull)error;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible withAnimationCoordinator:(id <AVPlayerViewControllerAnimationCoordinator> _Nonnull)coordinator;
+@end
+
+@class UIView;
+@class UIViewController;
+
+@interface _BMPAVPlayerViewControllerProxy (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable allowedSubtitleOptionLanguages;
+@property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
+@property (nonatomic, strong) UIView * _Nonnull view;
+@property (nonatomic) BOOL showsPlaybackControls;
+- (void)willMoveToParentViewController:(UIViewController * _Nullable)parent;
+- (void)removeFromParentViewController;
+- (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
+@end
+
 @class AVPlayerItem;
 
 SWIFT_CLASS("_TtC14BitmovinPlayer12_BMPAVPlayer")
@@ -1706,6 +2086,7 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 @end
 
 
+
 @class BMPPlayerConfiguration;
 @class BMPSourceConfiguration;
 
@@ -1718,10 +2099,6 @@ SWIFT_PROTOCOL_NAMED("_ConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 /// The package name of the Application.
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
-/// The threshold value for TimeService.getMaxTimeShift.
-/// When the internal value for the maximal possible timeshift is lower than this threshold, timeshifting should be
-/// disabled. That means TimeService.getMaxTimeShift returns 0 in that case.
-@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 /// Holds a reference to the current player configuration.
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 /// Returns false if the currently loaded SourceItem is not a OfflineSourceItem, else it returns the value of the
@@ -1791,7 +2168,6 @@ SWIFT_CLASS_NAMED("_DefaultConfigurationService")
 @property (nonatomic, readonly, copy) NSString * _Nullable licenseKey;
 @property (nonatomic, readonly, copy) NSString * _Nullable sdkVersion;
 @property (nonatomic, readonly, copy) NSString * _Nullable packageName;
-@property (nonatomic, readonly) NSTimeInterval maxTimeShiftThreshold;
 @property (nonatomic, readonly, strong) BMPPlayerConfiguration * _Nonnull playerConfiguration;
 @property (nonatomic, readonly) _BMPServiceType type;
 @property (nonatomic, readonly) BOOL isCurrentSourceRestrictedToCache;
@@ -1985,13 +2361,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2003,9 +2379,41 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
+/// Helper class to handle view ordering when needed
+/// Desired view hierarchy is: (top to bottom)
+/// <ul>
+///   <li>
+///     PlayerView (BitmovinPlayer UI or System UI)
+///   </li>
+///   <li>
+///     PosterView (only available on iOS)
+///   </li>
+///   <li>
+///     ShutterView (only available on iOS)
+///   </li>
+/// </ul>
+SWIFT_PROTOCOL_NAMED("_ViewHierarchyHandler")
+@protocol _BMPViewHierarchyHandler
+@property (nonatomic, strong) UIView * _Nullable shutterView;
+@property (nonatomic, strong) UIView * _Nullable posterView;
+@property (nonatomic, strong) UIView * _Nullable playerView;
+- (void)handleSubViewOrdering;
+@end
 
-@protocol _BMPCaptionHandlerDelegate;
-@class BMPSubtitleTrack;
+
+SWIFT_CLASS_NAMED("_DefaultViewHierarchyHandler")
+@interface _BMPDefaultViewHierarchyHandler : NSObject <_BMPViewHierarchyHandler>
+@property (nonatomic, weak) UIView * _Nullable shutterView;
+@property (nonatomic, weak) UIView * _Nullable posterView;
+@property (nonatomic, weak) UIView * _Nullable playerView;
+- (nonnull instancetype)initWithParentView:(UIView * _Nonnull)parentView OBJC_DESIGNATED_INITIALIZER;
+- (void)handleSubViewOrdering;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
 
 SWIFT_CLASS_NAMED("_ExternalCaptionHandler")
 @interface _BMPExternalCaptionHandler : NSObject
@@ -2146,6 +2554,14 @@ SWIFT_CLASS_NAMED("_MetadataMessage")
 @end
 
 
+SWIFT_PROTOCOL_NAMED("_PictureInPictureService")
+@protocol _BMPPictureInPictureService
+@property (nonatomic, readonly) BOOL isPictureInPicture;
+- (void)enterPictureInPicture;
+- (void)exitPictureInPicture;
+@end
+
+
 SWIFT_CLASS_NAMED("_PlayerBufferApi")
 @interface _BMPPlayerBufferApi : NSObject
 - (nonnull instancetype)initWithDelegate:(id <_BMPBufferApiDelegate> _Nonnull)delegate OBJC_DESIGNATED_INITIALIZER;
@@ -2187,6 +2603,27 @@ SWIFT_CLASS_NAMED("_StartOffsetCalculator")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@protocol BMPUserInterfaceListener;
+
+SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
+@interface _BMPSystemUiPictureInPictureService : NSObject <_BMPPictureInPictureService>
+@property (nonatomic, readonly) BOOL isPictureInPicture;
+- (nonnull instancetype)initWithAvPlayerViewControllerProxy:(_BMPAVPlayerViewControllerProxy * _Nonnull)avPlayerViewControllerProxy uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter logger:(id <_BMPLogger> _Nonnull)logger OBJC_DESIGNATED_INITIALIZER;
+- (void)enterPictureInPicture;
+- (void)exitPictureInPicture;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPSystemUiPictureInPictureService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerViewControllerListener>
+- (void)playerViewControllerWillStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+- (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+@end
+
 
 SWIFT_CLASS_NAMED("_TimeShiftStatus")
 @interface _BMPTimeShiftStatus : NSObject
@@ -2217,6 +2654,7 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
 
 
 #if __has_attribute(external_source_symbol)
