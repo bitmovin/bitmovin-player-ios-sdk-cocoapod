@@ -17,6 +17,7 @@
 @class _BMPInternalTimeShiftEvent;
 @class _BMPInternalTimeShiftedEvent;
 @class _BMPInternalPlayEvent;
+@class _BMPInternalCastReadyEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -82,6 +83,13 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
  * @param event An object holding specific event data.
  */
 - (void)onInternalTimeShifted:(_BMPInternalTimeShiftedEvent *)event;
+
+/**
+ * Is called when the cast receiver is ready for immediate playback.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onInternalCastReady:(_BMPInternalCastReadyEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END

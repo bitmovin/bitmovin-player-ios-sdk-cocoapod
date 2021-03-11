@@ -865,6 +865,14 @@ extension _DefaultUrlAssetValuesLoader {
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
 }
+@_inheritsConvenienceInitializers @objc(_BMPInternalCastReadyEvent) final public class _InternalCastReadyEvent : BitmovinPlayer.PlayerEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}
 extension BitmovinPlayer._LogLevel : Swift.RawRepresentable {}

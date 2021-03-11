@@ -1069,13 +1069,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1192,6 +1192,15 @@ SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
 SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
 - (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("_InternalCastReadyEvent")
+@interface _BMPInternalCastReadyEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -2440,13 +2449,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2563,6 +2572,15 @@ SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
 SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
 - (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("_InternalCastReadyEvent")
+@interface _BMPInternalCastReadyEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -3814,13 +3832,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -3937,6 +3955,15 @@ SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
 SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
 - (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("_InternalCastReadyEvent")
+@interface _BMPInternalCastReadyEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -5185,13 +5212,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -5308,6 +5335,15 @@ SWIFT_PROTOCOL_NAMED("_PlaylistDecryptionKeyStoreStrategy")
 SWIFT_CLASS_NAMED("_InlinePlaylistDecryptionKeyStoreStrategy")
 @interface _BMPInlinePlaylistDecryptionKeyStoreStrategy : NSObject <_BMPPlaylistDecryptionKeyStoreStrategy>
 - (NSString * _Nullable)uriFor:(NSString * _Nonnull)keyUrl decryptionKeyData:(NSData * _Nonnull)keyData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("_InternalCastReadyEvent")
+@interface _BMPInternalCastReadyEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
