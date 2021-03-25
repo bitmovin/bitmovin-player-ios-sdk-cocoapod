@@ -250,16 +250,17 @@ SWIFT_CLASS_NAMED("BufferLevel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class BMPRemoteControlConfiguration;
 @class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
 @protocol _BMPCafDrmConfigConvertible
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -425,7 +426,7 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 @interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -577,7 +578,7 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 
 
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @protocol _BMPCaptionHandlerDelegate;
@@ -764,6 +765,14 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_CLASS_NAMED("_CafSourceOptions")
+@interface _BMPCafSourceOptions : NSObject
+- (nonnull instancetype)initWithSendManifestRequestsWithCredentials:(BOOL)sendManifestRequestsWithCredentials sendSegmentRequestsWithCredentials:(BOOL)sendSegmentRequestsWithCredentials OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 
 @class BMPPlayerConfiguration;
@@ -1069,13 +1078,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1267,7 +1276,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata options:(_BMPCafSourceOptions * _Nonnull)options OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -1630,16 +1639,17 @@ SWIFT_CLASS_NAMED("BufferLevel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class BMPRemoteControlConfiguration;
 @class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
 @protocol _BMPCafDrmConfigConvertible
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1805,7 +1815,7 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 @interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1957,7 +1967,7 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 
 
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @protocol _BMPCaptionHandlerDelegate;
@@ -2144,6 +2154,14 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_CLASS_NAMED("_CafSourceOptions")
+@interface _BMPCafSourceOptions : NSObject
+- (nonnull instancetype)initWithSendManifestRequestsWithCredentials:(BOOL)sendManifestRequestsWithCredentials sendSegmentRequestsWithCredentials:(BOOL)sendSegmentRequestsWithCredentials OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 
 @class BMPPlayerConfiguration;
@@ -2449,13 +2467,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2647,7 +2665,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata options:(_BMPCafSourceOptions * _Nonnull)options OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -3013,16 +3031,17 @@ SWIFT_CLASS_NAMED("BufferLevel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class BMPRemoteControlConfiguration;
 @class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
 @protocol _BMPCafDrmConfigConvertible
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3188,7 +3207,7 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 @interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -3340,7 +3359,7 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 
 
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @protocol _BMPCaptionHandlerDelegate;
@@ -3527,6 +3546,14 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_CLASS_NAMED("_CafSourceOptions")
+@interface _BMPCafSourceOptions : NSObject
+- (nonnull instancetype)initWithSendManifestRequestsWithCredentials:(BOOL)sendManifestRequestsWithCredentials sendSegmentRequestsWithCredentials:(BOOL)sendSegmentRequestsWithCredentials OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 
 @class BMPPlayerConfiguration;
@@ -3832,13 +3859,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -4030,7 +4057,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata options:(_BMPCafSourceOptions * _Nonnull)options OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -4393,16 +4420,17 @@ SWIFT_CLASS_NAMED("BufferLevel")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class BMPRemoteControlConfiguration;
 @class _BMPCafDrmConfig;
 
 SWIFT_PROTOCOL_NAMED("_CafDrmConfigConvertible")
 @protocol _BMPCafDrmConfigConvertible
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
 @interface BMPClearKeyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -4568,7 +4596,7 @@ SWIFT_CLASS_NAMED("PlayEvent")
 
 
 @interface BMPPlayReadyConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -4720,7 +4748,7 @@ SWIFT_CLASS_NAMED("TimeShiftedEvent")
 
 
 @interface BMPWidevineConfiguration (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPCafDrmConfigConvertible>
-- (_BMPCafDrmConfig * _Nullable)toCafDrmConfig SWIFT_WARN_UNUSED_RESULT;
+- (_BMPCafDrmConfig * _Nullable)toCafDrmConfigWithRemoteControlConfig:(BMPRemoteControlConfiguration * _Nonnull)remoteControlConfig SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @protocol _BMPCaptionHandlerDelegate;
@@ -4907,6 +4935,14 @@ SWIFT_CLASS_NAMED("_CafDrmConfig")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+
+SWIFT_CLASS_NAMED("_CafSourceOptions")
+@interface _BMPCafSourceOptions : NSObject
+- (nonnull instancetype)initWithSendManifestRequestsWithCredentials:(BOOL)sendManifestRequestsWithCredentials sendSegmentRequestsWithCredentials:(BOOL)sendSegmentRequestsWithCredentials OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 
 @class BMPPlayerConfiguration;
@@ -5212,13 +5248,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -5410,7 +5446,7 @@ SWIFT_CLASS_NAMED("_MasterPlaylistLoadedEvent")
 
 SWIFT_CLASS_NAMED("_MediaInfoCustomData")
 @interface _BMPMediaInfoCustomData : NSObject
-- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDrm:(_BMPCafDrmConfig * _Nullable)drm metadata:(NSDictionary<NSString *, NSString *> * _Nullable)metadata options:(_BMPCafSourceOptions * _Nonnull)options OBJC_DESIGNATED_INITIALIZER;
 - (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");

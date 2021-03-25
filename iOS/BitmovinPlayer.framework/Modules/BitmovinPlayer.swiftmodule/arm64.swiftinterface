@@ -347,16 +347,16 @@ public protocol _HexConvertible {
   @objc override dynamic public init()
 }
 @objc(_BMPCafDrmConfigConvertible) public protocol _CafDrmConfigConvertible {
-  @objc func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension WidevineConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension ClearKeyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 @objc(_BMPAVPlayerViewControllerProxy) @objcMembers public class _AVPlayerViewControllerProxy : ObjectiveC.NSObject {
   @objc final public let avPlayerViewController: AVKit.AVPlayerViewController
@@ -668,12 +668,12 @@ extension _DefaultPictureInPictureService : AVKit.AVPictureInPictureControllerDe
       get
     }
   }
-  public init(protectionSystem: BitmovinPlayer._CafDrmConfig.ProtectionSystem, licenseUrl: Foundation.URL, headers: [Swift.String : Swift.String]?)
+  public init(protectionSystem: BitmovinPlayer._CafDrmConfig.ProtectionSystem, licenseUrl: Foundation.URL, headers: [Swift.String : Swift.String]?, withCredentials: Swift.Bool)
   @objc override dynamic public init()
   @objc deinit
 }
 @objc(_BMPMediaInfoCustomData) @objcMembers final public class _MediaInfoCustomData : ObjectiveC.NSObject {
-  @objc public init(drm: BitmovinPlayer._CafDrmConfig?, metadata: [Swift.String : Swift.String]?)
+  @objc public init(drm: BitmovinPlayer._CafDrmConfig?, metadata: [Swift.String : Swift.String]?, options: BitmovinPlayer._CafSourceOptions)
   @objc final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
   @objc override dynamic public init()
@@ -896,6 +896,11 @@ extension _DefaultVideoService : BitmovinPlayer._AVPlayerItemListener {
   }
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
+@objc(_BMPCafSourceOptions) @objcMembers final public class _CafSourceOptions : ObjectiveC.NSObject {
+  @objc public init(sendManifestRequestsWithCredentials: Swift.Bool, sendSegmentRequestsWithCredentials: Swift.Bool)
+  @objc deinit
   @objc override dynamic public init()
 }
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}

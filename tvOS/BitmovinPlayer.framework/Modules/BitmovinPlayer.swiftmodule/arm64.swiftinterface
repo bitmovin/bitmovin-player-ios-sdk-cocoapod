@@ -542,16 +542,16 @@ extension _ExternalCaptionHandler : BitmovinPlayer._CaptionHandler {
   @objc final public func forcedSubtitleTrack(forLanguage language: Swift.String) -> BitmovinPlayer.SubtitleTrack?
 }
 @objc(_BMPCafDrmConfigConvertible) public protocol _CafDrmConfigConvertible {
-  @objc func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension WidevineConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension ClearKeyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
-  @objc dynamic public func toCafDrmConfig() -> BitmovinPlayer._CafDrmConfig?
+  @objc dynamic public func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
 }
 @objc @_inheritsConvenienceInitializers final public class PictureInPictureEnterEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
@@ -621,15 +621,9 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
       get
     }
   }
-  public init(protectionSystem: BitmovinPlayer._CafDrmConfig.ProtectionSystem, licenseUrl: Foundation.URL, headers: [Swift.String : Swift.String]?)
+  public init(protectionSystem: BitmovinPlayer._CafDrmConfig.ProtectionSystem, licenseUrl: Foundation.URL, headers: [Swift.String : Swift.String]?, withCredentials: Swift.Bool)
   @objc override dynamic public init()
   @objc deinit
-}
-@objc(_BMPMediaInfoCustomData) @objcMembers final public class _MediaInfoCustomData : ObjectiveC.NSObject {
-  @objc public init(drm: BitmovinPlayer._CafDrmConfig?, metadata: [Swift.String : Swift.String]?)
-  @objc final public func toJsonData() -> [Swift.AnyHashable : Any]
-  @objc deinit
-  @objc override dynamic public init()
 }
 extension String : BitmovinPlayer._HexConvertible {
   public var hexadecimal: Foundation.Data? {

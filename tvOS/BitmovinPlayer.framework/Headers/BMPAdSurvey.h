@@ -11,17 +11,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * URI to any resource relating to an integrated survey. Specified in `InLine.Survey` in the VAST response.
+ * A string representation of a URI to any resource relating to an integrated survey. Specified in `InLine.Survey` in the VAST response.
  */
 NS_SWIFT_NAME(AdSurvey)
 @interface BMPAdSurvey : NSObject <BMPJsonable>
 
 /**
- * A URI to any resource relating to an integrated survey.
+ * A string representation of a URI to any resource relating to an integrated survey.
  *
- * @return A URI to any resource relating to an integrated survey.
+ * @return A string representation of a URI  to any resource relating to an integrated survey.
  */
-@property (nonatomic, readonly) NSURL *uri;
+@property (nonatomic, readonly) NSString *uri;
 
 /**
  * The MIME type of the resource being served.
@@ -32,7 +32,7 @@ NS_SWIFT_NAME(AdSurvey)
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithUri:(NSURL *)uri
+- (instancetype)initWithUri:(NSString *)uri
                        type:(nullable NSString *)type NS_DESIGNATED_INITIALIZER;
 
 @end

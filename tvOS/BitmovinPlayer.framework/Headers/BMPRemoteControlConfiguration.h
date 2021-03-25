@@ -38,5 +38,27 @@ NS_SWIFT_NAME(RemoteControlConfiguration)
  * NOTE: This is only supported with AirPlay.
  */
 @property (nonatomic, assign) BOOL usesExternalPlaybackWhileExternalScreenIsActive;
+
+/**
+ * Indicates whether cookies and credentials will be sent along manifest requests on the Cast receiver
+ *
+ * Default value is NO.
+ * NOTE: This is only supported with CAF (v3) receivers.
+ */
+@property (nonatomic, assign) BOOL sendManifestRequestsWithCredentials;
+/**
+ * Indicates whether cookies and credentials will be sent along segment requests on the Cast receiver
+ *
+ * Default value is NO.
+ * NOTE: This is only supported with CAF (v3) receivers.
+ */
+@property (nonatomic, assign) BOOL sendSegmentRequestsWithCredentials;
+/**
+ * Indicates whether cookies and credentials will be sent along DRM licence requests on the Cast receiver
+ *
+ * Default value is NO.
+ * NOTE: This is only supported with CAF (v3) receivers.
+ */
+@property (nonatomic, assign) BOOL sendDrmLicenseRequestsWithCredentials;
 @end
 NS_ASSUME_NONNULL_END
