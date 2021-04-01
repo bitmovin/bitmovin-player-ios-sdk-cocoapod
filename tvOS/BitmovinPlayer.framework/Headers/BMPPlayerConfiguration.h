@@ -16,11 +16,11 @@
 #import <BitmovinPlayer/BMPRemoteControlConfiguration.h>
 #import <BitmovinPlayer/BMPAdaptationConfiguration.h>
 #import <BitmovinPlayer/BMPNetworkConfiguration.h>
-#import <BitmovinPlayer/BMPTweaksConfiguration.h>
 #import <BitmovinPlayer/BMPBufferConfiguration.h>
 
 @class BMPStyleConfiguration;
 @class BMPLiveConfiguration;
+@class BMPTweaksConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 

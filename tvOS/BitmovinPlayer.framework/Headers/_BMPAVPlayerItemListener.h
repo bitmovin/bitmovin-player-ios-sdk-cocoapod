@@ -28,6 +28,7 @@ NS_SWIFT_NAME(_AVPlayerItemListener)
 - (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem *)playerItem;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem willSeekToTargetTime:(CMTime)seekTarget;
 - (void)playerItem:(_BMPAVPlayerItem *)playerItem didSeekWithSuccess:(BOOL)finished;
+- (void)playerItem:(_BMPAVPlayerItem *)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> *)loadedTimeRanges;
 @end
 
 NS_ASSUME_NONNULL_END
