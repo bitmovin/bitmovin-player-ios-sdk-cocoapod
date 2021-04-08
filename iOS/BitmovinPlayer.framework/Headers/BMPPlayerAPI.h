@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  * concurrently is not guaranteed to result in consistent and stable behavior.
  */
 NS_SWIFT_NAME(PlayerAPI)
-@protocol BMPPlayerAPI
+@protocol BMPPlayerAPI <NSObject>
 /**
  * Flag to indicate if the player is destroyed.
  */

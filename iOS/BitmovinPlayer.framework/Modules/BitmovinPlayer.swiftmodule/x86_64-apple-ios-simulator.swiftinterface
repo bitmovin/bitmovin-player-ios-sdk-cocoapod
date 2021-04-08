@@ -28,6 +28,15 @@ import UIKit
 @objc(_BMPLogger) public protocol _Logger {
   @objc func log(_ message: Swift.String, level: BitmovinPlayer._LogLevel)
 }
+@objc(BMPUnstallingBehaviour) public enum UnstallingBehaviour : Swift.UInt {
+  case relaxed = 0
+  case aggressive = 1
+  public typealias RawValue = Swift.UInt
+  public init?(rawValue: Swift.UInt)
+  public var rawValue: Swift.UInt {
+    get
+  }
+}
 @_hasMissingDesignatedInitializers @objc(_BMPDefaultResourceLoaderService) @objcMembers final public class _DefaultResourceLoaderService : BitmovinPlayer._DefaultService, BitmovinPlayer._ResourceLoaderService {
   @objc override final public var type: BitmovinPlayer._ServiceType {
     @objc get
@@ -64,7 +73,8 @@ extension _GoogleCastBufferService : BitmovinPlayer._BufferService {
   @objc dynamic public func getLevel(_ type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc dynamic public func setTargetLevel(_ value: Foundation.TimeInterval)
 }
-@_inheritsConvenienceInitializers @objc(_BMPInternalMediaBufferChangedEvent) final public class _InternalMediaBufferChangedEvent : BitmovinPlayer.PlayerEvent {
+@_hasMissingDesignatedInitializers @objcMembers @objc(_BMPInternalBufferLevelChangedEvent) final public class _InternalBufferLevelChangedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let forwardBufferLevel: BitmovinPlayer.BufferLevel
   @objc override final public var name: Swift.String {
     @objc get
   }
@@ -112,6 +122,12 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
   @objc dynamic public func onReady(_ event: BitmovinPlayer.ReadyEvent)
   @objc dynamic public func onConfigurationUpdated(_ event: BitmovinPlayer.ConfigurationUpdatedEvent)
   @objc dynamic public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
+}
+extension _DefaultBufferService : BitmovinPlayer._AVPlayerObserver {
+  @objc dynamic public func player(_ player: BitmovinPlayer._BMPAVPlayer, didChangeCurrentItem oldItem: BitmovinPlayer._BMPAVPlayerItem?, newItem: BitmovinPlayer._BMPAVPlayerItem?)
+}
+extension _DefaultBufferService : BitmovinPlayer._AVPlayerItemListener {
+  @objc dynamic public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, didChangeLoadedTimeRanges loadedTimeRanges: [Foundation.NSValue])
 }
 @objc(_BMPVariantPlaylistLoadedEvent) @objcMembers final public class _VariantPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let data: Foundation.Data
@@ -175,6 +191,8 @@ extension _DefaultBufferService : BitmovinPlayer.PlayerListener {
   @objc final public var customHlsLoadingEnabled: Swift.Bool
   @objc final public var timeChangedInterval: Foundation.TimeInterval
   @objc final public var disableSubtitleTracksWhileSeeking: Swift.Bool
+  @objc final public var playbackStartBehaviour: BitmovinPlayer.PlaybackStartBehaviour
+  @objc final public var unstallingBehaviour: BitmovinPlayer.UnstallingBehaviour
   @objc override dynamic public init()
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
@@ -240,6 +258,15 @@ extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerItemListener {
   @objc(setup:) func setup(playerConfig: BitmovinPlayer.PlayerConfiguration)
   @objc(loadSourceItem:) func load(sourceItem: BitmovinPlayer.SourceItem)
   @objc func unload()
+}
+@objc(BMPPlaybackStartBehaviour) public enum PlaybackStartBehaviour : Swift.UInt {
+  case relaxed = 0
+  case aggressive = 1
+  public typealias RawValue = Swift.UInt
+  public init?(rawValue: Swift.UInt)
+  public var rawValue: Swift.UInt {
+    get
+  }
 }
 @objc(_BMPVideoService) public protocol _VideoService {
   @objc var availableVideoQualities: [BitmovinPlayer.VideoQuality] { get }
@@ -545,11 +572,11 @@ extension _DefaultAudioService : BitmovinPlayer._AudioService {
   @objc final public var audio: BitmovinPlayer.AudioTrack? {
     @objc get
   }
-  @objc final public func setupAudioTracks()
   @objc final public func setAudioWithIdentifier(_ audioTrackID: Swift.String)
 }
-extension _DefaultAudioService : BitmovinPlayer.PlayerListener {
+extension _DefaultAudioService : BitmovinPlayer._PlayerListenerInternal {
   @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
+  @objc final public func onInternalReady(_ event: BitmovinPlayer._InternalReadyEvent)
 }
 @_hasMissingDesignatedInitializers @objcMembers @objc(_BMPDefaultInitializationService) public class _DefaultInitializationService : BitmovinPlayer._DefaultService, BitmovinPlayer._InitializationService {
   @objc public var selectedStreamType: BitmovinPlayer.BMPMediaSourceType {
@@ -931,33 +958,28 @@ extension _DefaultVideoService : BitmovinPlayer._AVPlayerItemListener {
 }
 @objc(_BMPAutoPlayHandler) public protocol _AutoPlayHandler : AnyObject {
 }
-@objc(_BMPAutoPlayHandlerBehaviour) public enum _AutoPlayHandlerBehaviour : Swift.UInt {
-  case relaxed = 0
-  case aggressive = 1
-  public typealias RawValue = Swift.UInt
-  public init?(rawValue: Swift.UInt)
-  public var rawValue: Swift.UInt {
-    get
-  }
-}
 @objc(_BMPDefaultAutoPlayHandler) @objcMembers final public class _DefaultAutoPlayHandler : ObjectiveC.NSObject, BitmovinPlayer._AutoPlayHandler {
-  @objc public init(player: BitmovinPlayer.PlayerAPI, eventHandler: BitmovinPlayer.PlayerEventHandler, remoteControl: BitmovinPlayer.BMPRemoteControlAPI, configurationService: BitmovinPlayer._ConfigurationService, behaviour: BitmovinPlayer._AutoPlayHandlerBehaviour)
+  @objc public init(player: BitmovinPlayer.PlayerAPI, eventHandler: BitmovinPlayer.PlayerEventHandler, remoteControl: BitmovinPlayer.BMPRemoteControlAPI, configurationService: BitmovinPlayer._ConfigurationService, playbackStartBehaviour: BitmovinPlayer.PlaybackStartBehaviour)
   @objc deinit
   @objc override dynamic public init()
 }
 extension _DefaultAutoPlayHandler : BitmovinPlayer._PlayerListenerInternal {
   @objc final public func onInternalReady(_ event: BitmovinPlayer._InternalReadyEvent)
-  @objc final public func onInternalMediaBufferChanged(_ event: BitmovinPlayer._InternalMediaBufferChangedEvent)
+  @objc final public func onInternalBufferLevelChanged(_ event: BitmovinPlayer._InternalBufferLevelChangedEvent)
+  @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
 }
 extension BitmovinPlayer._LogLevel : Swift.Equatable {}
 extension BitmovinPlayer._LogLevel : Swift.Hashable {}
 extension BitmovinPlayer._LogLevel : Swift.RawRepresentable {}
+extension BitmovinPlayer.UnstallingBehaviour : Swift.Equatable {}
+extension BitmovinPlayer.UnstallingBehaviour : Swift.Hashable {}
+extension BitmovinPlayer.UnstallingBehaviour : Swift.RawRepresentable {}
+extension BitmovinPlayer.PlaybackStartBehaviour : Swift.Equatable {}
+extension BitmovinPlayer.PlaybackStartBehaviour : Swift.Hashable {}
+extension BitmovinPlayer.PlaybackStartBehaviour : Swift.RawRepresentable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Equatable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.Hashable {}
 extension BitmovinPlayer._CafDrmConfig.ProtectionSystem : Swift.RawRepresentable {}
 extension BitmovinPlayer.DrmData.DrmDataType : Swift.Equatable {}
 extension BitmovinPlayer.DrmData.DrmDataType : Swift.Hashable {}
 extension BitmovinPlayer.DrmData.DrmDataType : Swift.RawRepresentable {}
-extension BitmovinPlayer._AutoPlayHandlerBehaviour : Swift.Equatable {}
-extension BitmovinPlayer._AutoPlayHandlerBehaviour : Swift.Hashable {}
-extension BitmovinPlayer._AutoPlayHandlerBehaviour : Swift.RawRepresentable {}

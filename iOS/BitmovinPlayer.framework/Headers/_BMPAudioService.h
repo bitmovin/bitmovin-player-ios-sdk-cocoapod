@@ -17,7 +17,6 @@ NS_SWIFT_NAME(_AudioService)
 @property (nonatomic, readonly) NSArray<BMPAudioTrack *> *availableAudio;
 @property (nonatomic, readonly, nullable) BMPAudioTrack *audio;
 
-- (void)setupAudioTracks;
 - (void)setAudioWithIdentifier:(NSString *)audioTrackID;
 @end
 

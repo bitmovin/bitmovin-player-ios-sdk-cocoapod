@@ -18,7 +18,7 @@
 @class _BMPInternalTimeShiftedEvent;
 @class _BMPInternalPlayEvent;
 @class _BMPInternalCastReadyEvent;
-@class _BMPInternalMediaBufferChangedEvent;
+@class _BMPInternalBufferLevelChangedEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -91,8 +91,12 @@ NS_SWIFT_NAME(_PlayerListenerInternal)
  * @param event An object holding specific event data.
  */
 - (void)onInternalCastReady:(_BMPInternalCastReadyEvent *)event;
-// TODO
-- (void)onInternalMediaBufferChanged:(_BMPInternalMediaBufferChangedEvent *)event;
+/**
+ * Called when the `BufferLevel` changed.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onInternalBufferLevelChanged:(_BMPInternalBufferLevelChangedEvent *)event;
 @end
 
 NS_ASSUME_NONNULL_END
