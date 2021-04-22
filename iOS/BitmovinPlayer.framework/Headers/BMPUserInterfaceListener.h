@@ -13,6 +13,7 @@
 @class PictureInPictureEnteredEvent;
 @class PictureInPictureExitEvent;
 @class PictureInPictureExitedEvent;
+@class BMPScalingModeChangedEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -92,6 +93,13 @@ NS_SWIFT_NAME(UserInterfaceListener)
  * @param event An object holding specific event data.
  */
 - (void)onPictureInPictureExited:(PictureInPictureExitedEvent *)event NS_SWIFT_NAME(onPictureInPictureExited(_:));
+
+/**
+ * Is called when the `ScalingMode` of the `PlayerView` changed.
+ *
+ * @param event An object holding specific event data.
+ */
+- (void)onScalingModeChanged:(BMPScalingModeChangedEvent *)event NS_SWIFT_NAME(onScalingModeChanged(_:));
 @end
 
 NS_ASSUME_NONNULL_END

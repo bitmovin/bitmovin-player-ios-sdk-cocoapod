@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPTrack.h>
 #import <BitmovinPlayer/BMPSubtitleTrackController.h>
+#import <BitmovinPlayer/BMPSubtitleFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(SubtitleTrack)
 @interface BMPSubtitleTrack : BMPTrack
+/**
+ Type of the SubtitleTrack.
+ Default is WebVTT.
+ */
+@property (nonatomic, readonly) BMPSubtitleFormat format;
 /** The IETF BCP 47 language tag associated with the subtitle track. */
 @property (nonatomic, nullable, copy, readonly) NSString *language;
 /** The subtitle track controller for this track. */
@@ -43,6 +49,43 @@ NS_SWIFT_NAME(SubtitleTrack)
                    language:(nullable NSString *)language;
 /**
  Creates a new subtitle track based on the given URL and provided metadata.
+
+ @param url The URL to the timed file, e.g. WebVTT file.
+ @param format Type of the subtitle track file, WebVTT or TTML.
+ @param label The label for this track.
+ @param identifier The unique identifier for this track.
+ @param isDefaultTrack If set to YES, this track would be considered as default.
+ @param language The IETF BCP 47 language tag associated with this track
+ @return A new subtitle track initialized with the given subtitle URL and the provided metadata.
+ */
+- (instancetype)initWithUrl:(nullable NSURL *)url
+                     format:(BMPSubtitleFormat)format
+                      label:(NSString *)label
+                 identifier:(NSString *)identifier
+             isDefaultTrack:(BOOL)isDefaultTrack
+                   language:(nullable NSString *)language;
+/**
+ Creates a new subtitle track based on the given URL and provided metadata.
+
+ @param url The URL to the timed file, e.g. WebVTT file.
+ @param format Type of the subtitle track file, WebVTT or TTML.
+ @param label The label for this track.
+ @param identifier The unique identifier for this track.
+ @param isDefaultTrack If set to YES, this track would be considered as default.
+ @param language The IETF BCP 47 language tag associated with this track
+ @param forced If set to YES, this track would be considered as forced subtitle track.
+ @return A new subtitle track initialized with the given subtitle URL and the provided metadata.
+ */
+- (instancetype)initWithUrl:(nullable NSURL *)url
+                     format:(BMPSubtitleFormat)format
+                      label:(NSString *)label
+                 identifier:(NSString *)identifier
+             isDefaultTrack:(BOOL)isDefaultTrack
+                   language:(nullable NSString *)language
+                     forced:(BOOL)forced NS_DESIGNATED_INITIALIZER;
+
+/**
+ Creates a new subtitle track based on the given URL and provided metadata.
  
  @param url The URL to the timed file, e.g. WebVTT file.
  @param label The label for this track.
@@ -51,13 +94,13 @@ NS_SWIFT_NAME(SubtitleTrack)
  @param language The IETF BCP 47 language tag associated with this track
  @param forced If set to YES, this track would be considered as forced subtitle track.
  @return A new subtitle track initialized with the given subtitle URL and the provided metadata.
-*/
+ */
 - (instancetype)initWithUrl:(nullable NSURL *)url
                       label:(NSString *)label
                  identifier:(NSString *)identifier
              isDefaultTrack:(BOOL)isDefaultTrack
                    language:(nullable NSString *)language
-                     forced:(BOOL)forced NS_DESIGNATED_INITIALIZER;
+                     forced:(BOOL)forced;
 
 /// :nodoc:
 - (instancetype)initWithUrl:(nullable NSURL *)url

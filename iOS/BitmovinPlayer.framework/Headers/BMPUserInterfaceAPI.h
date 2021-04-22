@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BitmovinPlayer/BMPScalingMode.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,6 +47,14 @@ NS_SWIFT_NAME(UserInterfaceAPI)
  * @return YES if Picture-In-Picture is active, NO otherwise.
  */
 @property (nonatomic, readonly, getter=isPictureInPicture) BOOL pictureInPicture;
+
+/**
+ * A value defining how the video is displayed within the parent container's bounds.
+ * Possible values are defined in `ScalingMode`.
+ *
+ * When a value was set before the `Player` was added to the view, it will have precedence over the value configured in `StyleConfig.scalingMode`
+ */
+@property (nonatomic) BMPScalingMode scalingMode;
 
 /**
  * The player enters Picture-In-Picture mode. Has no effects if already in picture in picture.

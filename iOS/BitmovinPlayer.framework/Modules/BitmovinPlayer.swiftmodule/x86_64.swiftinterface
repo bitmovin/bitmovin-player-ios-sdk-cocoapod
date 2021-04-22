@@ -12,6 +12,21 @@ import UIKit
   @objc public func isSystemVersionLessThan(_ versionToCheck: Swift.Double) -> Swift.Bool
   @objc deinit
 }
+@objcMembers @objc(_BMPShutterController) final public class _ShutterController : ObjectiveC.NSObject {
+  @objc unowned final public var player: (BitmovinPlayer.PlayerAPI & BitmovinPlayer.PlayerEventHandler) {
+    @objc get
+    @objc set
+  }
+  @objc final public let shutterView: UIKit.UIView
+  @objc public init(player: (BitmovinPlayer.PlayerAPI & BitmovinPlayer.PlayerEventHandler))
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _ShutterController : BitmovinPlayer._PlayerListenerInternal {
+  @objc final public func onUnseen(_ unseenEvents: [BitmovinPlayer.PlayerEvent])
+  @objc final public func onPlaying(_ event: BitmovinPlayer.PlayingEvent)
+  @objc final public func onSourceLoaded(_ event: BitmovinPlayer.SourceLoadedEvent)
+}
 @objc(_BMPLogLevel) public enum _LogLevel : Swift.Int {
   case verbose = 0
   case info
@@ -128,6 +143,16 @@ extension _DefaultBufferService : BitmovinPlayer._AVPlayerObserver {
 }
 extension _DefaultBufferService : BitmovinPlayer._AVPlayerItemListener {
   @objc dynamic public func playerItem(_ playerItem: BitmovinPlayer._BMPAVPlayerItem, didChangeLoadedTimeRanges loadedTimeRanges: [Foundation.NSValue])
+}
+@_hasMissingDesignatedInitializers @objcMembers @objc(BMPScalingModeChangedEvent) final public class ScalingModeChangedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let from: BitmovinPlayer.BMPScalingMode
+  @objc final public let to: BitmovinPlayer.BMPScalingMode
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objc(_BMPVariantPlaylistLoadedEvent) @objcMembers final public class _VariantPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let data: Foundation.Data
@@ -311,6 +336,7 @@ extension _DefaultUrlAssetValuesLoader {
   @objc optional func playerViewControllerDidStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
   @objc optional func playerViewControllerFailedToStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
   @objc optional func playerViewController(_ playerViewController: AVKit.AVPlayerViewController, willTransitionToVisibilityOfTransportBar visible: Swift.Bool)
+  @objc optional func playerViewController(_ playerViewController: AVKit.AVPlayerViewController, didChangeVideoGravity oldVideoGravity: AVFoundation.AVLayerVideoGravity, newVideoGravity: AVFoundation.AVLayerVideoGravity)
 }
 @objc(_BMPDefaultViewHierarchyHandler) @objcMembers public class _DefaultViewHierarchyHandler : ObjectiveC.NSObject, BitmovinPlayer._ViewHierarchyHandler {
   @objc weak public var shutterView: UIKit.UIView?
@@ -320,6 +346,9 @@ extension _DefaultUrlAssetValuesLoader {
   @objc public func handleSubViewOrdering()
   @objc deinit
   @objc override dynamic public init()
+}
+@objc(_BMPScalingModeService) public protocol _ScalingModeService : AnyObject {
+  @objc var scalingMode: BitmovinPlayer.BMPScalingMode { get set }
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(BMPAudioAddedEvent) @objcMembers final public class AudioAddedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let audioTrack: BitmovinPlayer.AudioTrack
@@ -414,6 +443,7 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
 @objc(_BMPAVPlayerViewControllerProxy) @objcMembers public class _AVPlayerViewControllerProxy : ObjectiveC.NSObject {
   @objc final public let avPlayerViewController: AVKit.AVPlayerViewController
   @objc public init(avPlayerViewController: AVKit.AVPlayerViewController)
+  @objc override dynamic public func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
   @objc(addListener:) public func add(listener: BitmovinPlayer._AVPlayerViewControllerListener)
   @objc(removeListener:) public func remove(listener: BitmovinPlayer._AVPlayerViewControllerListener)
   @objc deinit
@@ -554,6 +584,20 @@ extension _AVPlayerViewControllerProxy : AVKit.AVPlayerViewControllerDelegate {
 extension _DefaultEventEmitter : BitmovinPlayer.PlayerEventHandler {
   @objc dynamic public func add(listener: BitmovinPlayer.PlayerListener)
   @objc dynamic public func remove(listener: BitmovinPlayer.PlayerListener)
+}
+@objcMembers @objc(_BMPSystemUiScalingModeService) public class _SystemUiScalingModeService : ObjectiveC.NSObject {
+  @objc public init(avPlayerViewControllerProxy: BitmovinPlayer._AVPlayerViewControllerProxy, uiEventEmitter: BitmovinPlayer.UserInterfaceListener)
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _SystemUiScalingModeService : BitmovinPlayer._ScalingModeService {
+  @objc dynamic public var scalingMode: BitmovinPlayer.BMPScalingMode {
+    @objc get
+    @objc set
+  }
+}
+extension _SystemUiScalingModeService : BitmovinPlayer._AVPlayerViewControllerListener {
+  @objc dynamic public func playerViewController(_ playerViewController: AVKit.AVPlayerViewController, didChangeVideoGravity oldVideoGravity: AVFoundation.AVLayerVideoGravity, newVideoGravity: AVFoundation.AVLayerVideoGravity)
 }
 @objc(_BMPDefaultAudioService) @objcMembers final public class _DefaultAudioService : BitmovinPlayer._DefaultService {
   @objc override final public var type: BitmovinPlayer._ServiceType {
@@ -709,6 +753,17 @@ extension _DefaultPictureInPictureService : AVKit.AVPictureInPictureControllerDe
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
   @objc deinit
+}
+@objc(_BMPDefaultScalingModeService) @objcMembers public class _DefaultScalingModeService : ObjectiveC.NSObject {
+  @objc public init(avPlayerLayer: AVFoundation.AVPlayerLayer, uiEventEmitter: BitmovinPlayer.UserInterfaceListener)
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension _DefaultScalingModeService : BitmovinPlayer._ScalingModeService {
+  @objc dynamic public var scalingMode: BitmovinPlayer.BMPScalingMode {
+    @objc get
+    @objc set
+  }
 }
 @objc(_BMPCafDrmConfig) @objcMembers final public class _CafDrmConfig : ObjectiveC.NSObject {
   public enum ProtectionSystem : Swift.String {

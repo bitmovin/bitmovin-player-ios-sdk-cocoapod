@@ -18,6 +18,7 @@ NS_SWIFT_NAME(_PlaybackService)
 @property (nonatomic) NSUInteger maxSelectableBitrate;
 @property (nonatomic, readonly) float currentVideoFrameRate;
 @property (nonatomic, readonly, getter=isSeeking) BOOL seeking;
+@property (nonatomic, readonly) BOOL isWaiting;
 
 - (void)play;
 - (void)pause;

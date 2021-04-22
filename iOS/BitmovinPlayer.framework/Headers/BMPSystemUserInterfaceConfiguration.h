@@ -25,6 +25,13 @@ NS_SWIFT_NAME(SystemUserInterfaceConfiguration)
  @note This flag is only available on tvOS
  */
 @property (nonatomic) BOOL showAutoSubtitleOption API_UNAVAILABLE(ios) API_AVAILABLE(tvos(9.0));
+/**
+ When set to YES the first frame of the main content will not be rendered before playback starts
+ Default: NO
+
+ @note To reliably hide the first frame before a pre-roll ad, please ensure that you are using the AdvertisingConfiguration to schedule ads and not the scheduleAd API call
+ */
+@property (nonatomic) BOOL hideFirstFrame;
 @end
 
 NS_ASSUME_NONNULL_END

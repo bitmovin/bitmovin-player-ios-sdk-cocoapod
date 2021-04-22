@@ -460,6 +460,20 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 
 
 
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ScalingModeChangedEvent")
+@interface BMPScalingModeChangedEvent : BMPPlayerEvent
+/// The old scaling mode value
+@property (nonatomic, readonly) BMPScalingMode from;
+/// The new scaling mode value
+@property (nonatomic, readonly) BMPScalingMode to;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SeekEvent")
 @interface BMPSeekEvent : BMPPlayerEvent
@@ -713,6 +727,7 @@ SWIFT_PROTOCOL_NAMED("_AVPlayerViewControllerListener")
 - (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController didChangeVideoGravity:(AVLayerVideoGravity _Nonnull)oldVideoGravity newVideoGravity:(AVLayerVideoGravity _Nonnull)newVideoGravity;
 @end
 
 
@@ -721,6 +736,7 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 @interface _BMPAVPlayerViewControllerProxy : NSObject
 @property (nonatomic, readonly, strong) AVPlayerViewController * _Nonnull avPlayerViewController;
 - (nonnull instancetype)initWithAvPlayerViewController:(AVPlayerViewController * _Nonnull)avPlayerViewController OBJC_DESIGNATED_INITIALIZER;
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 - (void)addListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
 - (void)removeListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -913,15 +929,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -1103,6 +1119,27 @@ SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 - (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
 @end
 
+@class AVPlayerLayer;
+@protocol BMPUserInterfaceListener;
+
+SWIFT_CLASS_NAMED("_DefaultScalingModeService")
+@interface _BMPDefaultScalingModeService : NSObject
+- (nonnull instancetype)initWithAvPlayerLayer:(AVPlayerLayer * _Nonnull)avPlayerLayer uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_ScalingModeService")
+@protocol _BMPScalingModeService
+@property (nonatomic) BMPScalingMode scalingMode;
+@end
+
+
+@interface _BMPDefaultScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPScalingModeService>
+@property (nonatomic) BMPScalingMode scalingMode;
+@end
+
 
 SWIFT_CLASS_NAMED("_DefaultUrlAssetValuesLoader")
 @interface _BMPDefaultUrlAssetValuesLoader : NSObject
@@ -1137,13 +1174,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1381,6 +1418,25 @@ SWIFT_CLASS_NAMED("_RequestMetadata")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("_ShutterController")
+@interface _BMPShutterController : NSObject
+@property (nonatomic, unsafe_unretained) id <BMPPlayerAPI, BMPPlayerEventHandler> _Nonnull player;
+@property (nonatomic, readonly, strong) UIView * _Nonnull shutterView;
+- (nonnull instancetype)initWithPlayer:(id <BMPPlayerAPI, BMPPlayerEventHandler> _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPPlayingEvent;
+
+@interface _BMPShutterController (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPPlayerListenerInternal>
+- (void)onUnseen:(NSArray<BMPPlayerEvent *> * _Nonnull)unseenEvents;
+- (void)onPlaying:(BMPPlayingEvent * _Nonnull)event;
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+@end
+
 @class BMPSourceOptions;
 
 SWIFT_CLASS_NAMED("_StartOffsetCalculator")
@@ -1390,7 +1446,6 @@ SWIFT_CLASS_NAMED("_StartOffsetCalculator")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@protocol BMPUserInterfaceListener;
 
 SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
 @interface _BMPSystemUiPictureInPictureService : NSObject <_BMPPictureInPictureService>
@@ -1409,6 +1464,24 @@ SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
 - (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+@end
+
+
+SWIFT_CLASS_NAMED("_SystemUiScalingModeService")
+@interface _BMPSystemUiScalingModeService : NSObject
+- (nonnull instancetype)initWithAvPlayerViewControllerProxy:(_BMPAVPlayerViewControllerProxy * _Nonnull)avPlayerViewControllerProxy uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPSystemUiScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerViewControllerListener>
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController didChangeVideoGravity:(AVLayerVideoGravity _Nonnull)oldVideoGravity newVideoGravity:(AVLayerVideoGravity _Nonnull)newVideoGravity;
+@end
+
+
+@interface _BMPSystemUiScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPScalingModeService>
+@property (nonatomic) BMPScalingMode scalingMode;
 @end
 
 
@@ -1907,6 +1980,20 @@ SWIFT_CLASS_NAMED("ReadyEvent")
 
 
 
+/// See BMPUserInterfaceListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ScalingModeChangedEvent")
+@interface BMPScalingModeChangedEvent : BMPPlayerEvent
+/// The old scaling mode value
+@property (nonatomic, readonly) BMPScalingMode from;
+/// The new scaling mode value
+@property (nonatomic, readonly) BMPScalingMode to;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SeekEvent")
 @interface BMPSeekEvent : BMPPlayerEvent
@@ -2160,6 +2247,7 @@ SWIFT_PROTOCOL_NAMED("_AVPlayerViewControllerListener")
 - (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController willTransitionToVisibilityOfTransportBar:(BOOL)visible;
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController didChangeVideoGravity:(AVLayerVideoGravity _Nonnull)oldVideoGravity newVideoGravity:(AVLayerVideoGravity _Nonnull)newVideoGravity;
 @end
 
 
@@ -2168,6 +2256,7 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 @interface _BMPAVPlayerViewControllerProxy : NSObject
 @property (nonatomic, readonly, strong) AVPlayerViewController * _Nonnull avPlayerViewController;
 - (nonnull instancetype)initWithAvPlayerViewController:(AVPlayerViewController * _Nonnull)avPlayerViewController OBJC_DESIGNATED_INITIALIZER;
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 - (void)addListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
 - (void)removeListener:(id <_BMPAVPlayerViewControllerListener> _Nonnull)listener;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -2360,15 +2449,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -2550,6 +2639,27 @@ SWIFT_CLASS_NAMED("_DefaultResourceLoaderService")
 - (void)bitmovinResourceLoader:(_BMPBitmovinResourceLoader * _Nonnull)sender didFinishLoadingAesKeyWithError:(NSError * _Nonnull)error;
 @end
 
+@class AVPlayerLayer;
+@protocol BMPUserInterfaceListener;
+
+SWIFT_CLASS_NAMED("_DefaultScalingModeService")
+@interface _BMPDefaultScalingModeService : NSObject
+- (nonnull instancetype)initWithAvPlayerLayer:(AVPlayerLayer * _Nonnull)avPlayerLayer uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_PROTOCOL_NAMED("_ScalingModeService")
+@protocol _BMPScalingModeService
+@property (nonatomic) BMPScalingMode scalingMode;
+@end
+
+
+@interface _BMPDefaultScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPScalingModeService>
+@property (nonatomic) BMPScalingMode scalingMode;
+@end
+
 
 SWIFT_CLASS_NAMED("_DefaultUrlAssetValuesLoader")
 @interface _BMPDefaultUrlAssetValuesLoader : NSObject
@@ -2584,13 +2694,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2828,6 +2938,25 @@ SWIFT_CLASS_NAMED("_RequestMetadata")
 @end
 
 
+
+
+SWIFT_CLASS_NAMED("_ShutterController")
+@interface _BMPShutterController : NSObject
+@property (nonatomic, unsafe_unretained) id <BMPPlayerAPI, BMPPlayerEventHandler> _Nonnull player;
+@property (nonatomic, readonly, strong) UIView * _Nonnull shutterView;
+- (nonnull instancetype)initWithPlayer:(id <BMPPlayerAPI, BMPPlayerEventHandler> _Nonnull)player OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPPlayingEvent;
+
+@interface _BMPShutterController (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPPlayerListenerInternal>
+- (void)onUnseen:(NSArray<BMPPlayerEvent *> * _Nonnull)unseenEvents;
+- (void)onPlaying:(BMPPlayingEvent * _Nonnull)event;
+- (void)onSourceLoaded:(BMPSourceLoadedEvent * _Nonnull)event;
+@end
+
 @class BMPSourceOptions;
 
 SWIFT_CLASS_NAMED("_StartOffsetCalculator")
@@ -2837,7 +2966,6 @@ SWIFT_CLASS_NAMED("_StartOffsetCalculator")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@protocol BMPUserInterfaceListener;
 
 SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
 @interface _BMPSystemUiPictureInPictureService : NSObject <_BMPPictureInPictureService>
@@ -2856,6 +2984,24 @@ SWIFT_CLASS_NAMED("_SystemUiPictureInPictureService")
 - (void)playerViewControllerWillStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerDidStopPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
 - (void)playerViewControllerFailedToStartPictureInPicture:(AVPlayerViewController * _Nonnull)playerViewController;
+@end
+
+
+SWIFT_CLASS_NAMED("_SystemUiScalingModeService")
+@interface _BMPSystemUiScalingModeService : NSObject
+- (nonnull instancetype)initWithAvPlayerViewControllerProxy:(_BMPAVPlayerViewControllerProxy * _Nonnull)avPlayerViewControllerProxy uiEventEmitter:(id <BMPUserInterfaceListener> _Nonnull)uiEventEmitter OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface _BMPSystemUiScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerViewControllerListener>
+- (void)playerViewController:(AVPlayerViewController * _Nonnull)playerViewController didChangeVideoGravity:(AVLayerVideoGravity _Nonnull)oldVideoGravity newVideoGravity:(AVLayerVideoGravity _Nonnull)newVideoGravity;
+@end
+
+
+@interface _BMPSystemUiScalingModeService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPScalingModeService>
+@property (nonatomic) BMPScalingMode scalingMode;
 @end
 
 
