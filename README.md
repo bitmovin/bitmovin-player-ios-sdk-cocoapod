@@ -1,3 +1,5 @@
+# **DEPRECATED** - New releases (`>= 3.0.0`) are only available in the new [spec-repo](https://github.com/bitmovin/cocoapod-specs)!
+
 # bitmovin-player-ios-sdk-cocoapod
 This repository contains all released versions of the Bitmovin Player iOS SDK.
 
