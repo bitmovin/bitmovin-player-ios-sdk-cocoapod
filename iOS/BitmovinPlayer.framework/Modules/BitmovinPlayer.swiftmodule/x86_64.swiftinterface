@@ -214,13 +214,6 @@ extension _DefaultBufferService : BitmovinPlayer._AVPlayerItemListener {
   @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
   @objc deinit
 }
-extension _Xml {
-  public enum XmlError : Swift.Error {
-    case failToEncodeString
-    case interruptedParseError(rawError: Swift.Error)
-    case accessError(description: Swift.String)
-  }
-}
 @objcMembers @objc public class _BMPAVPlayer : AVFoundation.AVPlayer {
   @objc override dynamic public var currentItem: BitmovinPlayer._BMPAVPlayerItem? {
     @objc get
@@ -273,21 +266,6 @@ extension _Xml {
 @objc(_BMPBufferApiDelegate) public protocol _BufferApiDelegate {
   @objc(bufferAPI_getLevel:) func bufferAPI_getLevel(type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc(bufferAPI_setTargetLevel:) func bufferAPI_setTargetLevel(value: Foundation.TimeInterval)
-}
-extension _Xml {
-  @_hasMissingDesignatedInitializers @dynamicMemberLookup @objc(_BMPXmlAccessor) @objcMembers public class Accessor : ObjectiveC.NSObject {
-    @objc public var name: Swift.String? {
-      @objc get
-    }
-    @objc public var text: Swift.String? {
-      @objc get
-    }
-    @objc public subscript(key: Swift.String) -> BitmovinPlayer._Xml.Accessor {
-      @objc get
-    }
-    @objc deinit
-    @objc override dynamic public init()
-  }
 }
 @objcMembers @objc(BMPAdErrorEvent) final public class AdErrorEvent : BitmovinPlayer.ErrorEvent {
   @objc final public let adItem: BitmovinPlayer.AdItem?
@@ -1068,11 +1046,6 @@ extension NSString : BitmovinPlayer._HexConvertible {
   @objc final public func onSourceUnloaded(_ event: BitmovinPlayer.SourceUnloadedEvent)
   @objc deinit
   @objc override dynamic public init()
-}
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers @objc(_BMPXml) public class _Xml : ObjectiveC.NSObject {
-  @objc public static func parse(data: Foundation.Data) -> BitmovinPlayer._Xml.Accessor
-  @objc public static func parse(string: Swift.String) throws -> BitmovinPlayer._Xml.Accessor
-  @objc deinit
 }
 @objc(_BMPPlaylistDecryptionKeyStoreStrategy) public protocol _PlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObjectProtocol {
   @objc func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?

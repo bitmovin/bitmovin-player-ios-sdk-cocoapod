@@ -1417,13 +1417,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -1771,37 +1771,6 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-
-@class _BMPXmlAccessor;
-
-/// Generic entry point for all XML related operations
-SWIFT_CLASS_NAMED("_Xml")
-@interface _BMPXml : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-+ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
-+ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
-
-@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
-@end
-
-
-SWIFT_CLASS_NAMED("Accessor")
-@interface _BMPXmlAccessor : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable name;
-@property (nonatomic, readonly, copy) NSString * _Nullable text;
-- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
 
 
 
@@ -3224,13 +3193,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -3578,37 +3547,6 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-
-@class _BMPXmlAccessor;
-
-/// Generic entry point for all XML related operations
-SWIFT_CLASS_NAMED("_Xml")
-@interface _BMPXml : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-+ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
-+ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
-
-@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
-@end
-
-
-SWIFT_CLASS_NAMED("Accessor")
-@interface _BMPXmlAccessor : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable name;
-@property (nonatomic, readonly, copy) NSString * _Nullable text;
-- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
 
 
 
@@ -5034,13 +4972,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -5388,37 +5326,6 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-
-@class _BMPXmlAccessor;
-
-/// Generic entry point for all XML related operations
-SWIFT_CLASS_NAMED("_Xml")
-@interface _BMPXml : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-+ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
-+ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
-
-@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
-@end
-
-
-SWIFT_CLASS_NAMED("Accessor")
-@interface _BMPXmlAccessor : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable name;
-@property (nonatomic, readonly, copy) NSString * _Nullable text;
-- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
 
 
 
@@ -6841,13 +6748,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -7195,37 +7102,6 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-
-@class _BMPXmlAccessor;
-
-/// Generic entry point for all XML related operations
-SWIFT_CLASS_NAMED("_Xml")
-@interface _BMPXml : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-+ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
-+ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-
-
-@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
-@end
-
-
-SWIFT_CLASS_NAMED("Accessor")
-@interface _BMPXmlAccessor : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable name;
-@property (nonatomic, readonly, copy) NSString * _Nullable text;
-- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
 
 
 
