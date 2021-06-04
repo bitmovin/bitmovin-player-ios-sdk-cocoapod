@@ -13,7 +13,6 @@
 #import <BitmovinPlayer/BMPPlayingEvent.h>
 #import <BitmovinPlayer/BMPPausedEvent.h>
 #import <BitmovinPlayer/BMPTimeChangedEvent.h>
-#import <BitmovinPlayer/BMPErrorEvent.h>
 #import <BitmovinPlayer/BMPWarningEvent.h>
 #import <BitmovinPlayer/BMPMetadataEvent.h>
 #import <BitmovinPlayer/BMPMetadataParsedEvent.h>
@@ -46,16 +45,7 @@
 #import <BitmovinPlayer/BMPMutedEvent.h>
 #import <BitmovinPlayer/BMPUnmutedEvent.h>
 #import <BitmovinPlayer/BMPAudioChangedEvent.h>
-#import <BitmovinPlayer/BMPAdClickedEvent.h>
-#import <BitmovinPlayer/BMPAdErrorEvent.h>
-#import <BitmovinPlayer/BMPAdFinishedEvent.h>
-#import <BitmovinPlayer/BMPAdManifestLoadEvent.h>
-#import <BitmovinPlayer/BMPAdManifestLoadedEvent.h>
-#import <BitmovinPlayer/BMPAdBreakFinishedEvent.h>
-#import <BitmovinPlayer/BMPAdBreakStartedEvent.h>
 #import <BitmovinPlayer/BMPAdScheduledEvent.h>
-#import <BitmovinPlayer/BMPAdSkippedEvent.h>
-#import <BitmovinPlayer/BMPAdStartedEvent.h>
 #import <BitmovinPlayer/BMPVideoDownloadQualityChangedEvent.h>
 #import <BitmovinPlayer/BMPControlsShowEvent.h>
 #import <BitmovinPlayer/BMPControlsHideEvent.h>
@@ -80,5 +70,15 @@
 @class BMPSourceUnloadedEvent;
 @class BMPSourceLoadedEvent;
 @class BMPSourceWillUnloadEvent;
+@class BMPAdManifestLoadEvent;
+@class BMPAdManifestLoadedEvent;
+@class BMPAdErrorEvent;
+@class BMPErrorEvent;
+@class BMPAdClickedEvent;
+@class BMPAdBreakFinishedEvent;
+@class BMPAdBreakStartedEvent;
+@class BMPAdFinishedEvent;
+@class BMPAdSkippedEvent;
+@class BMPAdStartedEvent;
 
 #endif /* BMPWebPlayerEvents_h */

@@ -217,6 +217,167 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol BMPAdBreak;
+
+/// Base class for ad break related event classes.
+SWIFT_CLASS_NAMED("AdBreakEvent")
+@interface BMPAdBreakEvent : BMPPlayerEvent
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nonnull adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakFinishedEvent")
+@interface BMPAdBreakFinishedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakStartedEvent")
+@interface BMPAdBreakStartedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdClickedEvent")
+@interface BMPAdClickedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ErrorEvent")
+@interface BMPErrorEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSUInteger code;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPAdItem;
+@protocol BMPAdConfig;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdErrorEvent")
+@interface BMPAdErrorEvent : BMPErrorEvent
+@property (nonatomic, readonly, strong) BMPAdItem * _Nullable adItem;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdItem:(BMPAdItem * _Nullable)adItem code:(NSUInteger)code message:(NSString * _Nonnull)message adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message SWIFT_UNAVAILABLE;
+@end
+
+@protocol BMPAd;
+
+/// Base class for ad related event classes.
+SWIFT_CLASS_NAMED("AdEvent")
+@interface BMPAdEvent : BMPPlayerEvent
+/// Returns the <code>Ad</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAd> _Nonnull ad;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdFinishedEvent")
+@interface BMPAdFinishedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadEvent")
+@interface BMPAdManifestLoadEvent : BMPPlayerEvent
+/// Returns the <code>AdConfig</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdConfig:(id <BMPAdConfig> _Nullable)adConfig adBreak:(id <BMPAdBreak> _Nullable)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadedEvent")
+@interface BMPAdManifestLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDownloadTime:(NSTimeInterval)downloadTime adBreak:(id <BMPAdBreak> _Nullable)adBreak adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdSkippedEvent")
+@interface BMPAdSkippedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdStartedEvent")
+@interface BMPAdStartedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly) BMPAdSourceType clientType;
+@property (nonatomic, readonly) NSUInteger indexInQueue;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) NSTimeInterval timeOffset;
+@property (nonatomic, readonly) NSTimeInterval skipOffset;
+@property (nonatomic, readonly, copy) NSString * _Nullable position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl clientType:(BMPAdSourceType)clientType indexInQueue:(NSUInteger)indexInQueue duration:(NSTimeInterval)duration timeOffset:(NSTimeInterval)timeOffset skipOffset:(NSTimeInterval)skipOffset position:(NSString * _Nullable)position ad:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad SWIFT_UNAVAILABLE;
+@end
+
 @class BMPAudioTrack;
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -354,6 +515,9 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -363,6 +527,11 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NSString (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, strong) NSString * _Nonnull bmp_md5;
 @end
 
 
@@ -500,7 +669,13 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class BMPSourceItem;
+
+@interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
+@property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
+@property (nonatomic, readonly) BOOL bmp_canBeDownloaded;
+@end
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SourceLoadedEvent")
@@ -776,6 +951,29 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 - (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
 @end
 
+@class _BMPPersistentArchive;
+
+/// Handles the interaction with the archive where we store metadata about the offline content.
+/// In addition it provides URLs which are needed from time to time.
+SWIFT_PROTOCOL_NAMED("_ArchiveHelper")
+@protocol _BMPArchiveHelper
+@property (nonatomic, readonly, strong) _BMPPersistentArchive * _Nullable archive;
+/// The URL to the directory where the archive / plist file is stored
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentDirectoryUrl;
+/// The URL to the MOVPKG aka the downloaded video / content
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentUrl;
+/// Convenience method to check if we have stored content
+@property (nonatomic, readonly) BOOL isStored;
+@end
+
+@protocol _BMPLogger;
+
+SWIFT_CLASS_NAMED("_ArchiveHelperFactory")
+@interface _BMPArchiveHelperFactory : NSObject
++ (id <_BMPArchiveHelper> _Nonnull)createForSourceItem:(BMPSourceItem * _Nonnull)sourceItem withLogger:(id <_BMPLogger> _Nonnull)logger SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// <code>_AutoPlayHandler</code> is responsible of handling auto play when it is configured
 SWIFT_PROTOCOL_NAMED("_AutoPlayHandler")
@@ -946,15 +1144,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
-@end
-
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -1573,6 +1771,37 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+@class _BMPXmlAccessor;
+
+/// Generic entry point for all XML related operations
+SWIFT_CLASS_NAMED("_Xml")
+@interface _BMPXml : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
++ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
++ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
+@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
+@end
+
+
+SWIFT_CLASS_NAMED("Accessor")
+@interface _BMPXmlAccessor : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 
 
@@ -1795,6 +2024,167 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol BMPAdBreak;
+
+/// Base class for ad break related event classes.
+SWIFT_CLASS_NAMED("AdBreakEvent")
+@interface BMPAdBreakEvent : BMPPlayerEvent
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nonnull adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakFinishedEvent")
+@interface BMPAdBreakFinishedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakStartedEvent")
+@interface BMPAdBreakStartedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdClickedEvent")
+@interface BMPAdClickedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ErrorEvent")
+@interface BMPErrorEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSUInteger code;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPAdItem;
+@protocol BMPAdConfig;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdErrorEvent")
+@interface BMPAdErrorEvent : BMPErrorEvent
+@property (nonatomic, readonly, strong) BMPAdItem * _Nullable adItem;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdItem:(BMPAdItem * _Nullable)adItem code:(NSUInteger)code message:(NSString * _Nonnull)message adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message SWIFT_UNAVAILABLE;
+@end
+
+@protocol BMPAd;
+
+/// Base class for ad related event classes.
+SWIFT_CLASS_NAMED("AdEvent")
+@interface BMPAdEvent : BMPPlayerEvent
+/// Returns the <code>Ad</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAd> _Nonnull ad;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdFinishedEvent")
+@interface BMPAdFinishedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadEvent")
+@interface BMPAdManifestLoadEvent : BMPPlayerEvent
+/// Returns the <code>AdConfig</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdConfig:(id <BMPAdConfig> _Nullable)adConfig adBreak:(id <BMPAdBreak> _Nullable)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadedEvent")
+@interface BMPAdManifestLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDownloadTime:(NSTimeInterval)downloadTime adBreak:(id <BMPAdBreak> _Nullable)adBreak adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdSkippedEvent")
+@interface BMPAdSkippedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdStartedEvent")
+@interface BMPAdStartedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly) BMPAdSourceType clientType;
+@property (nonatomic, readonly) NSUInteger indexInQueue;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) NSTimeInterval timeOffset;
+@property (nonatomic, readonly) NSTimeInterval skipOffset;
+@property (nonatomic, readonly, copy) NSString * _Nullable position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl clientType:(BMPAdSourceType)clientType indexInQueue:(NSUInteger)indexInQueue duration:(NSTimeInterval)duration timeOffset:(NSTimeInterval)timeOffset skipOffset:(NSTimeInterval)skipOffset position:(NSString * _Nullable)position ad:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad SWIFT_UNAVAILABLE;
+@end
+
 @class BMPAudioTrack;
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -1932,6 +2322,9 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -1941,6 +2334,11 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NSString (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, strong) NSString * _Nonnull bmp_md5;
 @end
 
 
@@ -2078,7 +2476,13 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class BMPSourceItem;
+
+@interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
+@property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
+@property (nonatomic, readonly) BOOL bmp_canBeDownloaded;
+@end
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SourceLoadedEvent")
@@ -2354,6 +2758,29 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 - (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
 @end
 
+@class _BMPPersistentArchive;
+
+/// Handles the interaction with the archive where we store metadata about the offline content.
+/// In addition it provides URLs which are needed from time to time.
+SWIFT_PROTOCOL_NAMED("_ArchiveHelper")
+@protocol _BMPArchiveHelper
+@property (nonatomic, readonly, strong) _BMPPersistentArchive * _Nullable archive;
+/// The URL to the directory where the archive / plist file is stored
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentDirectoryUrl;
+/// The URL to the MOVPKG aka the downloaded video / content
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentUrl;
+/// Convenience method to check if we have stored content
+@property (nonatomic, readonly) BOOL isStored;
+@end
+
+@protocol _BMPLogger;
+
+SWIFT_CLASS_NAMED("_ArchiveHelperFactory")
+@interface _BMPArchiveHelperFactory : NSObject
++ (id <_BMPArchiveHelper> _Nonnull)createForSourceItem:(BMPSourceItem * _Nonnull)sourceItem withLogger:(id <_BMPLogger> _Nonnull)logger SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// <code>_AutoPlayHandler</code> is responsible of handling auto play when it is configured
 SWIFT_PROTOCOL_NAMED("_AutoPlayHandler")
@@ -2524,15 +2951,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
-@end
-
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -3151,6 +3578,37 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+@class _BMPXmlAccessor;
+
+/// Generic entry point for all XML related operations
+SWIFT_CLASS_NAMED("_Xml")
+@interface _BMPXml : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
++ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
++ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
+@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
+@end
+
+
+SWIFT_CLASS_NAMED("Accessor")
+@interface _BMPXmlAccessor : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 
 
@@ -3376,6 +3834,167 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol BMPAdBreak;
+
+/// Base class for ad break related event classes.
+SWIFT_CLASS_NAMED("AdBreakEvent")
+@interface BMPAdBreakEvent : BMPPlayerEvent
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nonnull adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakFinishedEvent")
+@interface BMPAdBreakFinishedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakStartedEvent")
+@interface BMPAdBreakStartedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdClickedEvent")
+@interface BMPAdClickedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ErrorEvent")
+@interface BMPErrorEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSUInteger code;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPAdItem;
+@protocol BMPAdConfig;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdErrorEvent")
+@interface BMPAdErrorEvent : BMPErrorEvent
+@property (nonatomic, readonly, strong) BMPAdItem * _Nullable adItem;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdItem:(BMPAdItem * _Nullable)adItem code:(NSUInteger)code message:(NSString * _Nonnull)message adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message SWIFT_UNAVAILABLE;
+@end
+
+@protocol BMPAd;
+
+/// Base class for ad related event classes.
+SWIFT_CLASS_NAMED("AdEvent")
+@interface BMPAdEvent : BMPPlayerEvent
+/// Returns the <code>Ad</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAd> _Nonnull ad;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdFinishedEvent")
+@interface BMPAdFinishedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadEvent")
+@interface BMPAdManifestLoadEvent : BMPPlayerEvent
+/// Returns the <code>AdConfig</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdConfig:(id <BMPAdConfig> _Nullable)adConfig adBreak:(id <BMPAdBreak> _Nullable)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadedEvent")
+@interface BMPAdManifestLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDownloadTime:(NSTimeInterval)downloadTime adBreak:(id <BMPAdBreak> _Nullable)adBreak adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdSkippedEvent")
+@interface BMPAdSkippedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdStartedEvent")
+@interface BMPAdStartedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly) BMPAdSourceType clientType;
+@property (nonatomic, readonly) NSUInteger indexInQueue;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) NSTimeInterval timeOffset;
+@property (nonatomic, readonly) NSTimeInterval skipOffset;
+@property (nonatomic, readonly, copy) NSString * _Nullable position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl clientType:(BMPAdSourceType)clientType indexInQueue:(NSUInteger)indexInQueue duration:(NSTimeInterval)duration timeOffset:(NSTimeInterval)timeOffset skipOffset:(NSTimeInterval)skipOffset position:(NSString * _Nullable)position ad:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad SWIFT_UNAVAILABLE;
+@end
+
 @class BMPAudioTrack;
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -3513,6 +4132,9 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -3522,6 +4144,11 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NSString (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, strong) NSString * _Nonnull bmp_md5;
 @end
 
 
@@ -3659,7 +4286,13 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class BMPSourceItem;
+
+@interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
+@property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
+@property (nonatomic, readonly) BOOL bmp_canBeDownloaded;
+@end
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SourceLoadedEvent")
@@ -3935,6 +4568,29 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 - (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
 @end
 
+@class _BMPPersistentArchive;
+
+/// Handles the interaction with the archive where we store metadata about the offline content.
+/// In addition it provides URLs which are needed from time to time.
+SWIFT_PROTOCOL_NAMED("_ArchiveHelper")
+@protocol _BMPArchiveHelper
+@property (nonatomic, readonly, strong) _BMPPersistentArchive * _Nullable archive;
+/// The URL to the directory where the archive / plist file is stored
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentDirectoryUrl;
+/// The URL to the MOVPKG aka the downloaded video / content
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentUrl;
+/// Convenience method to check if we have stored content
+@property (nonatomic, readonly) BOOL isStored;
+@end
+
+@protocol _BMPLogger;
+
+SWIFT_CLASS_NAMED("_ArchiveHelperFactory")
+@interface _BMPArchiveHelperFactory : NSObject
++ (id <_BMPArchiveHelper> _Nonnull)createForSourceItem:(BMPSourceItem * _Nonnull)sourceItem withLogger:(id <_BMPLogger> _Nonnull)logger SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// <code>_AutoPlayHandler</code> is responsible of handling auto play when it is configured
 SWIFT_PROTOCOL_NAMED("_AutoPlayHandler")
@@ -4105,15 +4761,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
-@end
-
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -4732,6 +5388,37 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+@class _BMPXmlAccessor;
+
+/// Generic entry point for all XML related operations
+SWIFT_CLASS_NAMED("_Xml")
+@interface _BMPXml : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
++ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
++ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
+@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
+@end
+
+
+SWIFT_CLASS_NAMED("Accessor")
+@interface _BMPXmlAccessor : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 
 
@@ -4954,6 +5641,167 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol BMPAdBreak;
+
+/// Base class for ad break related event classes.
+SWIFT_CLASS_NAMED("AdBreakEvent")
+@interface BMPAdBreakEvent : BMPPlayerEvent
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nonnull adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakFinishedEvent")
+@interface BMPAdBreakFinishedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdBreakStartedEvent")
+@interface BMPAdBreakStartedEvent : BMPAdBreakEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdBreak:(id <BMPAdBreak> _Nonnull)adBreak OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdClickedEvent")
+@interface BMPAdClickedEvent : BMPPlayerEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("ErrorEvent")
+@interface BMPErrorEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSUInteger code;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class BMPAdItem;
+@protocol BMPAdConfig;
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdErrorEvent")
+@interface BMPAdErrorEvent : BMPErrorEvent
+@property (nonatomic, readonly, strong) BMPAdItem * _Nullable adItem;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdItem:(BMPAdItem * _Nullable)adItem code:(NSUInteger)code message:(NSString * _Nonnull)message adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithCode:(NSUInteger)code message:(NSString * _Nonnull)message SWIFT_UNAVAILABLE;
+@end
+
+@protocol BMPAd;
+
+/// Base class for ad related event classes.
+SWIFT_CLASS_NAMED("AdEvent")
+@interface BMPAdEvent : BMPPlayerEvent
+/// Returns the <code>Ad</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAd> _Nonnull ad;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdFinishedEvent")
+@interface BMPAdFinishedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadEvent")
+@interface BMPAdManifestLoadEvent : BMPPlayerEvent
+/// Returns the <code>AdConfig</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAdConfig:(id <BMPAdConfig> _Nullable)adConfig adBreak:(id <BMPAdBreak> _Nullable)adBreak OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdManifestLoadedEvent")
+@interface BMPAdManifestLoadedEvent : BMPPlayerEvent
+@property (nonatomic, readonly) NSTimeInterval downloadTime;
+@property (nonatomic, readonly, strong) id <BMPAdConfig> _Nullable adConfig;
+/// Returns the <code>AdBreak</code> this event is related to.
+@property (nonatomic, readonly, strong) id <BMPAdBreak> _Nullable adBreak;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithDownloadTime:(NSTimeInterval)downloadTime adBreak:(id <BMPAdBreak> _Nullable)adBreak adConfig:(id <BMPAdConfig> _Nullable)adConfig OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdSkippedEvent")
+@interface BMPAdSkippedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// See BMPPlayerListener.h for more information on this event.
+SWIFT_CLASS_NAMED("AdStartedEvent")
+@interface BMPAdStartedEvent : BMPAdEvent
+@property (nonatomic, readonly, copy) NSURL * _Nullable clickThroughUrl;
+@property (nonatomic, readonly) BMPAdSourceType clientType;
+@property (nonatomic, readonly) NSUInteger indexInQueue;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly) NSTimeInterval timeOffset;
+@property (nonatomic, readonly) NSTimeInterval skipOffset;
+@property (nonatomic, readonly, copy) NSString * _Nullable position;
+@property (nonatomic, readonly, copy) NSString * _Nonnull name;
+- (nonnull instancetype)initWithClickThroughUrl:(NSURL * _Nullable)clickThroughUrl clientType:(BMPAdSourceType)clientType indexInQueue:(NSUInteger)indexInQueue duration:(NSTimeInterval)duration timeOffset:(NSTimeInterval)timeOffset skipOffset:(NSTimeInterval)skipOffset position:(NSString * _Nullable)position ad:(id <BMPAd> _Nonnull)ad OBJC_DESIGNATED_INITIALIZER;
+- (NSDictionary * _Nonnull)toJsonData SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithAd:(id <BMPAd> _Nonnull)ad SWIFT_UNAVAILABLE;
+@end
+
 @class BMPAudioTrack;
 
 /// See BMPPlayerListener.h for more information on this event.
@@ -5091,6 +5939,9 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -5100,6 +5951,11 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @property (nonatomic) NSTimeInterval minTimeshiftBufferDepth;
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NSString (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, strong) NSString * _Nonnull bmp_md5;
 @end
 
 
@@ -5237,7 +6093,13 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class BMPSourceItem;
+
+@interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
+@property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
+@property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
+@property (nonatomic, readonly) BOOL bmp_canBeDownloaded;
+@end
+
 
 /// See BMPPlayerListener.h for more information on this event.
 SWIFT_CLASS_NAMED("SourceLoadedEvent")
@@ -5513,6 +6375,29 @@ SWIFT_CLASS_NAMED("_AVPlayerViewControllerProxy")
 - (void)didMoveToParentViewController:(UIViewController * _Nullable)parent;
 @end
 
+@class _BMPPersistentArchive;
+
+/// Handles the interaction with the archive where we store metadata about the offline content.
+/// In addition it provides URLs which are needed from time to time.
+SWIFT_PROTOCOL_NAMED("_ArchiveHelper")
+@protocol _BMPArchiveHelper
+@property (nonatomic, readonly, strong) _BMPPersistentArchive * _Nullable archive;
+/// The URL to the directory where the archive / plist file is stored
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentDirectoryUrl;
+/// The URL to the MOVPKG aka the downloaded video / content
+@property (nonatomic, readonly, copy) NSURL * _Nullable offlineContentUrl;
+/// Convenience method to check if we have stored content
+@property (nonatomic, readonly) BOOL isStored;
+@end
+
+@protocol _BMPLogger;
+
+SWIFT_CLASS_NAMED("_ArchiveHelperFactory")
+@interface _BMPArchiveHelperFactory : NSObject
++ (id <_BMPArchiveHelper> _Nonnull)createForSourceItem:(BMPSourceItem * _Nonnull)sourceItem withLogger:(id <_BMPLogger> _Nonnull)logger SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// <code>_AutoPlayHandler</code> is responsible of handling auto play when it is configured
 SWIFT_PROTOCOL_NAMED("_AutoPlayHandler")
@@ -5683,15 +6568,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@end
+
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
-@end
-
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -6310,6 +7195,37 @@ SWIFT_CLASS_NAMED("_VariantPlaylistLoadedEvent")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+
+
+@class _BMPXmlAccessor;
+
+/// Generic entry point for all XML related operations
+SWIFT_CLASS_NAMED("_Xml")
+@interface _BMPXml : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
++ (_BMPXmlAccessor * _Nonnull)parseWithData:(NSData * _Nonnull)data SWIFT_WARN_UNUSED_RESULT;
++ (_BMPXmlAccessor * _Nullable)parseWithString:(NSString * _Nonnull)string error:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+
+
+@interface _BMPXml (SWIFT_EXTENSION(BitmovinPlayer))
+@end
+
+
+SWIFT_CLASS_NAMED("Accessor")
+@interface _BMPXmlAccessor : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+- (_BMPXmlAccessor * _Nonnull)objectForKeyedSubscript:(NSString * _Nonnull)key SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 
 

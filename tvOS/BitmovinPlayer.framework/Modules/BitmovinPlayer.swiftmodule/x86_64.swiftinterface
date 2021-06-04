@@ -3,6 +3,7 @@
 // swift-module-flags: -target x86_64-apple-tvos10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BitmovinPlayer
 import AVFoundation
 @_exported import BitmovinPlayer
+import CommonCrypto
 import Foundation
 import Swift
 import UIKit
@@ -81,6 +82,14 @@ extension _DefaultInitializationService {
   @objc var availableVideoQualities: [BitmovinPlayer.VideoQuality] { get }
   @objc var videoQuality: BitmovinPlayer.VideoQuality? { get }
 }
+@objcMembers @objc(BMPAdEvent) public class AdEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let ad: BitmovinPlayer.Ad
+  @objc public init(ad: BitmovinPlayer.Ad)
+  @objc override dynamic public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 public protocol _HexConvertible {
   var hexadecimal: Foundation.Data? { get }
   var normalizedHexString: Swift.String { get }
@@ -133,6 +142,17 @@ public protocol _HexConvertible {
   @objc deinit
   @objc override dynamic public init()
 }
+@objcMembers @objc(BMPAdErrorEvent) final public class AdErrorEvent : BitmovinPlayer.ErrorEvent {
+  @objc final public let adItem: BitmovinPlayer.AdItem?
+  @objc final public let adConfig: BitmovinPlayer.AdConfig?
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(adItem: BitmovinPlayer.AdItem?, code: Swift.UInt, message: Swift.String, adConfig: BitmovinPlayer.AdConfig?)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override public init(code: Swift.UInt, message: Swift.String)
+}
 @_hasMissingDesignatedInitializers @objcMembers @objc(_BMPInternalBufferLevelChangedEvent) final public class _InternalBufferLevelChangedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let forwardBufferLevel: BitmovinPlayer.BufferLevel
   @objc override final public var name: Swift.String {
@@ -178,6 +198,11 @@ extension _SystemUiPictureInPictureService : BitmovinPlayer._AVPlayerViewControl
   @objc dynamic public func playerViewControllerDidStopPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
   @objc dynamic public func playerViewControllerFailedToStartPictureInPicture(_ playerViewController: AVKit.AVPlayerViewController)
 }
+extension NSString {
+  @objc dynamic public var bmp_md5: Foundation.NSString {
+    @objc get
+  }
+}
 @objc(_BMPCaptionHandler) public protocol _CaptionHandler {
   @objc weak var delegate: BitmovinPlayer._CaptionHandlerDelegate? { get set }
   @objc var availableSubtitleTracks: [BitmovinPlayer.SubtitleTrack] { get }
@@ -203,6 +228,18 @@ extension _SystemUiPictureInPictureService : BitmovinPlayer._AVPlayerViewControl
 extension _DefaultEventEmitter : BitmovinPlayer.PlayerEventHandler {
   @objc dynamic public func add(listener: BitmovinPlayer.PlayerListener)
   @objc dynamic public func remove(listener: BitmovinPlayer.PlayerListener)
+}
+@objcMembers @objc(BMPErrorEvent) public class ErrorEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let code: Swift.UInt
+  @objc final public let message: Swift.String
+  @objc override dynamic public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(code: Swift.UInt, message: Swift.String)
+  @objc override dynamic public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+  @objc deinit
 }
 @_inheritsConvenienceInitializers @objc(_BMPGoogleCastBufferService) public class _GoogleCastBufferService : BitmovinPlayer._DefaultService {
   @objc override dynamic public var type: BitmovinPlayer._ServiceType {
@@ -305,6 +342,17 @@ extension _SystemUiScalingModeService : BitmovinPlayer._AVPlayerViewControllerLi
   @objc deinit
   @objc override dynamic public init()
 }
+@objcMembers @objc(BMPAdBreakEvent) public class AdBreakEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let adBreak: BitmovinPlayer.AdBreak
+  @objc override dynamic public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(adBreak: BitmovinPlayer.AdBreak)
+  @objc override dynamic public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
+}
 @objcMembers @objc(BMPSourceLoadedEvent) final public class SourceLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let sourceItem: BitmovinPlayer.SourceItem
   @objc final public let streamType: BitmovinPlayer.BMPMediaSourceType
@@ -315,6 +363,18 @@ extension _SystemUiScalingModeService : BitmovinPlayer._AVPlayerViewControllerLi
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
   @objc deinit
+}
+@objcMembers @objc(BMPAdManifestLoadEvent) final public class AdManifestLoadEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let adConfig: BitmovinPlayer.AdConfig?
+  @objc final public let adBreak: BitmovinPlayer.AdBreak?
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(adConfig: BitmovinPlayer.AdConfig?, adBreak: BitmovinPlayer.AdBreak?)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objcMembers @objc(_BMPInitialTimeShiftContext) final public class _InitialTimeShiftContext : ObjectiveC.NSObject {
   @objc final public let initialTimestamp: Foundation.TimeInterval
@@ -340,6 +400,13 @@ extension _SystemUiScalingModeService : BitmovinPlayer._AVPlayerViewControllerLi
 }
 @objc(_BMPResourceLoaderService) public protocol _ResourceLoaderService {
   @objc(setupResourceLoadersWithSourceItem:asset:) func setupResourceLoaders(with sourceItem: BitmovinPlayer.SourceItem, asset: AVFoundation.AVURLAsset)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPAdFinishedEvent) final public class AdFinishedEvent : BitmovinPlayer.AdEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init(ad: BitmovinPlayer.Ad)
 }
 @objcMembers @objc(_BMPShutterController) final public class _ShutterController : ObjectiveC.NSObject {
   @objc unowned final public var player: (BitmovinPlayer.PlayerAPI & BitmovinPlayer.PlayerEventHandler) {
@@ -380,6 +447,13 @@ extension _DefaultResourceLoaderService : BitmovinPlayer._BitmovinResourceLoader
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingPlaylistWithError error: Swift.Error)
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingAesKeyData keyData: Foundation.Data, requestMetadata: BitmovinPlayer._RequestMetadata)
   @objc final public func bitmovinResourceLoader(_ sender: BitmovinPlayer._BitmovinResourceLoader, didFinishLoadingAesKeyWithError error: Swift.Error)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPAdBreakStartedEvent) final public class AdBreakStartedEvent : BitmovinPlayer.AdBreakEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init(adBreak: BitmovinPlayer.AdBreak)
 }
 @_inheritsConvenienceInitializers @objcMembers @objc(BMPSourceUnloadedEvent) final public class SourceUnloadedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
@@ -568,6 +642,22 @@ extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerItemListener {
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
 }
+@objcMembers @objc(BMPAdStartedEvent) final public class AdStartedEvent : BitmovinPlayer.AdEvent {
+  @objc final public let clickThroughUrl: Foundation.URL?
+  @objc final public let clientType: BitmovinPlayer.BMPAdSourceType
+  @objc final public let indexInQueue: Swift.UInt
+  @objc final public let duration: Foundation.TimeInterval
+  @objc final public let timeOffset: Foundation.TimeInterval
+  @objc final public let skipOffset: Foundation.TimeInterval
+  @objc final public let position: Swift.String?
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(clickThroughUrl: Foundation.URL?, clientType: BitmovinPlayer.BMPAdSourceType, indexInQueue: Swift.UInt, duration: Foundation.TimeInterval, timeOffset: Foundation.TimeInterval, skipOffset: Foundation.TimeInterval, position: Swift.String?, ad: BitmovinPlayer.Ad)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override public init(ad: BitmovinPlayer.Ad)
+}
 @objc(_BMPPlaylistDecryptionKeyStoreStrategy) public protocol _PlaylistDecryptionKeyStoreStrategy : ObjectiveC.NSObjectProtocol {
   @objc func uri(for keyUrl: Swift.String, decryptionKeyData keyData: Foundation.Data) -> Swift.String?
 }
@@ -586,6 +676,19 @@ extension _AVPlayerCaptionHandler : BitmovinPlayer._AVPlayerItemListener {
   @objc final public let type: BitmovinPlayer.BufferType
   @objc override dynamic public init()
   @objc deinit
+}
+@objcMembers @objc(BMPAdManifestLoadedEvent) final public class AdManifestLoadedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let downloadTime: Foundation.TimeInterval
+  @objc final public let adConfig: BitmovinPlayer.AdConfig?
+  @objc final public let adBreak: BitmovinPlayer.AdBreak?
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(downloadTime: Foundation.TimeInterval, adBreak: BitmovinPlayer.AdBreak?, adConfig: BitmovinPlayer.AdConfig?)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objc(_BMPScalingModeService) public protocol _ScalingModeService : AnyObject {
   @objc var scalingMode: BitmovinPlayer.BMPScalingMode { get set }
@@ -629,6 +732,24 @@ extension _ExternalCaptionHandler : BitmovinPlayer._CaptionHandler {
   @objc final public func contains(subtitleTrack: BitmovinPlayer.SubtitleTrack) -> Swift.Bool
   @objc final public func clearSubtitleTracks()
   @objc final public func forcedSubtitleTrack(forLanguage language: Swift.String) -> BitmovinPlayer.SubtitleTrack?
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPAdSkippedEvent) final public class AdSkippedEvent : BitmovinPlayer.AdEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init(ad: BitmovinPlayer.Ad)
+}
+@objcMembers @objc(BMPAdClickedEvent) final public class AdClickedEvent : BitmovinPlayer.PlayerEvent {
+  @objc final public let clickThroughUrl: Foundation.URL?
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc public init(clickThroughUrl: Foundation.URL?)
+  @objc override final public func toJsonData() -> [Swift.AnyHashable : Any]
+  @objc deinit
+  @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
+  @objc override dynamic public init()
 }
 @objc(_BMPCafDrmConfigConvertible) public protocol _CafDrmConfigConvertible {
   @objc func toCafDrmConfig(remoteControlConfig: BitmovinPlayer.RemoteControlConfiguration) -> BitmovinPlayer._CafDrmConfig?
@@ -700,6 +821,13 @@ extension PlayReadyConfiguration : BitmovinPlayer._CafDrmConfigConvertible {
   @objc deinit
   @objc override dynamic public init(url URL: Foundation.URL)
   @objc override dynamic public init(playerItem item: AVFoundation.AVPlayerItem?)
+}
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPAdBreakFinishedEvent) final public class AdBreakFinishedEvent : BitmovinPlayer.AdBreakEvent {
+  @objc override final public var name: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  @objc override public init(adBreak: BitmovinPlayer.AdBreak)
 }
 @_inheritsConvenienceInitializers @objc(_BMPInternalTimeShiftedEvent) final public class _InternalTimeShiftedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {

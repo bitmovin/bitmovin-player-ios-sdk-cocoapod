@@ -112,4 +112,7 @@
 #import <BitmovinPlayer/BMPOfflineTrackSelection.h>
 #import <BitmovinPlayer/BMPOfflineTrack.h>
 #import <BitmovinPlayer/BMPOfflineTrackAction.h>
+#import <BitmovinPlayer/_BMPPersistentArchive.h>
+#import <BitmovinPlayer/_BMPPersistenceManager.h>
+#import <BitmovinPlayer/_BMPHashProvider.h>
 #endif

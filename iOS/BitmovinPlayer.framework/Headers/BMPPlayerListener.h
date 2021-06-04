@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <BitmovinPlayer/BMPPlayerEvents.h>
+@class BMPAdBreakStartedEvent;
+@class BMPAdBreakFinishedEvent;
+@class BMPAdStartedEvent;
+@class BMPAdFinishedEvent;
+@class BMPAdSkippedEvent;
 
 NS_ASSUME_NONNULL_BEGIN
 
