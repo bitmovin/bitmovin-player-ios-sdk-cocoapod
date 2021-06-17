@@ -518,6 +518,11 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+@interface NSFileManager (SWIFT_EXTENSION(BitmovinPlayer))
+- (NSArray<NSString *> * _Nonnull)_bmp_findPlaylistsAtContentLocation:(NSURL * _Nonnull)contentLocation SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -1417,13 +1422,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2294,6 +2299,11 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+@interface NSFileManager (SWIFT_EXTENSION(BitmovinPlayer))
+- (NSArray<NSString *> * _Nonnull)_bmp_findPlaylistsAtContentLocation:(NSURL * _Nonnull)contentLocation SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -3193,13 +3203,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -4073,6 +4083,11 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+@interface NSFileManager (SWIFT_EXTENSION(BitmovinPlayer))
+- (NSArray<NSString *> * _Nonnull)_bmp_findPlaylistsAtContentLocation:(NSURL * _Nonnull)contentLocation SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -4972,13 +4987,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -5849,6 +5864,11 @@ SWIFT_CLASS_NAMED("DurationChangedEvent")
 
 
 
+@interface NSFileManager (SWIFT_EXTENSION(BitmovinPlayer))
+- (NSArray<NSString *> * _Nonnull)_bmp_findPlaylistsAtContentLocation:(NSURL * _Nonnull)contentLocation SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS_NAMED("LiveConfiguration")
 @interface BMPLiveConfiguration : BMPConfiguration
 /// The minimum buffer depth of a stream needed to enable time shifting.
@@ -6748,13 +6768,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;

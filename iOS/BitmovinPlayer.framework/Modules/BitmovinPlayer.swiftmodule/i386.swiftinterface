@@ -180,6 +180,9 @@ extension _DefaultBufferService : BitmovinPlayer._AVPlayerItemListener {
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+extension FileManager {
+  @objc(_bmp_findPlaylistsAtContentLocation:) dynamic public func _bmp_findPlaylists(contentLocation: Foundation.URL) -> [Swift.String]
+}
 @objc(_BMPVariantPlaylistLoadedEvent) @objcMembers final public class _VariantPlaylistLoadedEvent : BitmovinPlayer.PlayerEvent {
   @objc final public let data: Foundation.Data
   @objc final public let url: Foundation.URL
