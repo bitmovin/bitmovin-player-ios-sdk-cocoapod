@@ -787,6 +787,9 @@ extension _DefaultInitializationService {
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+extension SourceItem {
+  public func withOfflineContent(atPath offlineContentPath: Foundation.URL, restrictedToAssetCache: Swift.Bool = true, offlineDRMLicense: Foundation.Data? = nil) -> BitmovinPlayer.OfflineSourceItem
+}
 @objc(BMPPlaybackFinishedEvent) @objcMembers final public class PlaybackFinishedEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get

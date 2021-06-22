@@ -675,6 +675,8 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 @end
 
 
+
+
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
 @property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
 @property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
@@ -1149,15 +1151,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -1422,13 +1424,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2456,6 +2458,8 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 @end
 
 
+
+
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
 @property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
 @property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
@@ -2930,15 +2934,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -3203,13 +3207,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -4240,6 +4244,8 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 @end
 
 
+
+
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
 @property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
 @property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
@@ -4714,15 +4720,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -4987,13 +4993,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -6021,6 +6027,8 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 @end
 
 
+
+
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
 @property (nonatomic, readonly, copy) NSString * _Nullable bmp_uniqueIdentifier;
 @property (nonatomic, readonly, copy) NSURL * _Nullable bmp_sourceUrlForDownload;
@@ -6495,15 +6503,15 @@ SWIFT_CLASS_NAMED("_DefaultBufferService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
-@end
-
 @class NSValue;
 
 @interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
 - (void)playerItem:(_BMPAVPlayerItem * _Nonnull)playerItem didChangeLoadedTimeRanges:(NSArray<NSValue *> * _Nonnull)loadedTimeRanges;
+@end
+
+
+@interface _BMPDefaultBufferService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
@@ -6768,13 +6776,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;

@@ -32,6 +32,11 @@ NS_SWIFT_NAME(OfflineSourceItem)
 - (instancetype)initWithAdaptiveSource:(BMPAdaptiveSource *)adaptiveSource NS_UNAVAILABLE;
 - (instancetype)initWithProgressiveSource:(BMPProgressiveSource *)progressiveSource NS_UNAVAILABLE;
 - (instancetype)initWithProgressiveSources:(NSArray<BMPProgressiveSource *> *)progressiveSources NS_UNAVAILABLE;
+
++ (instancetype)_makeWithURLAsset:(AVURLAsset *)urlAsset
+                       sourceItem:(BMPSourceItem *)sourceItem
+           restrictedToAssetCache:(BOOL)restrictedToAssetCache
+                offlineDRMLicense:(nullable NSData *)offlineDRMLicense;
 @end
 
 NS_ASSUME_NONNULL_END
