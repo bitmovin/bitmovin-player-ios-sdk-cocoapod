@@ -17,6 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// :nodoc:
 NS_SWIFT_NAME(_PersistentArchive)
 @interface _BMPPersistentArchive : NSObject
 @property (nonatomic, nonnull, strong, readonly) NSURL *archiveURL;
