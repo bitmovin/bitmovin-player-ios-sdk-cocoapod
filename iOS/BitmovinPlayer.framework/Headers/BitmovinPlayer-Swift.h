@@ -548,6 +548,16 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @end
 
 
+SWIFT_CLASS_NAMED("OfflineConfiguration")
+@interface BMPOfflineConfiguration : NSObject
+/// Specifies if an active WiFi connection is required for downloading media for offline playback
+/// Default value is <code>false</code>
+@property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// See BMPUserInterfaceListener.h for more information on this event.
 SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
 @interface PictureInPictureEnterEvent : BMPPlayerEvent
@@ -673,8 +683,6 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
@@ -2331,6 +2339,16 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @end
 
 
+SWIFT_CLASS_NAMED("OfflineConfiguration")
+@interface BMPOfflineConfiguration : NSObject
+/// Specifies if an active WiFi connection is required for downloading media for offline playback
+/// Default value is <code>false</code>
+@property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// See BMPUserInterfaceListener.h for more information on this event.
 SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
 @interface PictureInPictureEnterEvent : BMPPlayerEvent
@@ -2456,8 +2474,6 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
@@ -4117,6 +4133,16 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @end
 
 
+SWIFT_CLASS_NAMED("OfflineConfiguration")
+@interface BMPOfflineConfiguration : NSObject
+/// Specifies if an active WiFi connection is required for downloading media for offline playback
+/// Default value is <code>false</code>
+@property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// See BMPUserInterfaceListener.h for more information on this event.
 SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
 @interface PictureInPictureEnterEvent : BMPPlayerEvent
@@ -4242,8 +4268,6 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))
@@ -5900,6 +5924,16 @@ SWIFT_CLASS_NAMED("LiveConfiguration")
 @end
 
 
+SWIFT_CLASS_NAMED("OfflineConfiguration")
+@interface BMPOfflineConfiguration : NSObject
+/// Specifies if an active WiFi connection is required for downloading media for offline playback
+/// Default value is <code>false</code>
+@property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
+- (nonnull instancetype)init;
+- (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// See BMPUserInterfaceListener.h for more information on this event.
 SWIFT_CLASS("_TtC14BitmovinPlayer26PictureInPictureEnterEvent")
 @interface PictureInPictureEnterEvent : BMPPlayerEvent
@@ -6025,8 +6059,6 @@ SWIFT_CLASS_NAMED("SeekedEvent")
 - (nullable instancetype)initWithJsonData:(NSDictionary * _Nonnull)jsonData error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 @interface BMPSourceItem (SWIFT_EXTENSION(BitmovinPlayer))

@@ -14,6 +14,8 @@
 #import <BitmovinPlayer/BMPDrmLicenseInformation.h>
 #import <BitmovinPlayer/BMPDownloadConfiguration.h>
 
+@class BMPOfflineConfiguration;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -56,6 +58,15 @@ NS_SWIFT_NAME(OfflineManager)
  * Default value is 500Mb.
  */
 @property (class, nonatomic) NSUInteger minimumAvailableSpaceThreshold;
+/**
+ * Indicates if the OfflineManager is initialized.
+ */
+@property (class, readonly) BOOL isOfflineManagerInitialized;
+/**
+ * Specifies if an active WiFi connection is required for downloading media for offline playback.
+ * Default is `NO`.
+ */
+@property (nonatomic, assign) BOOL restrictMediaDownloadsToWiFi;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -64,10 +75,22 @@ NS_SWIFT_NAME(OfflineManager)
  */
 + (instancetype)sharedInstance __TVOS_PROHIBITED;
 /**
- * Has to be called in your AppDelegate's application(application:didFinishLaunchingWithOptions:) method to initialize
+ * Has to be called in your AppDelegate's `application(application:didFinishLaunchingWithOptions:)` method to initialize
  * handling of offline content.
+ *
+ * If the shared instance is already initialized, this method will not have any effect.
  */
 + (void)initializeOfflineManager __TVOS_PROHIBITED;
+/**
+ * Has to be called in your AppDelegate's `application(application:didFinishLaunchingWithOptions:)` method to initialize
+ * handling of offline content.
+ *
+ * Initializes the shared instance with a given `OfflineConfiguration`.
+ * If the shared instance is already initialized, this method will not have any effect.
+ *
+ * @param offlineConfiguration The `OfflineConfiguration`
+ */
++ (void)initializeOfflineManagerWithOfflineConfiguration:(BMPOfflineConfiguration *)offlineConfiguration NS_SWIFT_NAME(initializeOfflineManager(offlineConfiguration:)) __TVOS_PROHIBITED;
 /**
  * Returns the offline state for the given BMPSourceItem.
  *
