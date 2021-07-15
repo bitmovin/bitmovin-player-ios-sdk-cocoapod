@@ -32,6 +32,22 @@ NS_SWIFT_NAME(SystemUserInterfaceConfiguration)
  @note To reliably hide the first frame before a pre-roll ad, please ensure that you are using the AdvertisingConfiguration to schedule ads and not the scheduleAd API call
  */
 @property (nonatomic) BOOL hideFirstFrame;
+/**
+ Indicates whether to show the seek bar and related controls during user interaction.
+ Default is YES.
+
+ @note Set this property to NO to selectively prevent the seek bar from being displayed during user interaction.
+ This flag is only available on tvOS.
+ */
+@property (nonatomic) BOOL showSeekBar API_UNAVAILABLE(ios) API_AVAILABLE(tvos(11.0));
+/**
+ Indicates whether to show the views for video metadata, navigation markers and playback settings when requested by the user.
+ Default is YES.
+
+ @note Set this property to NO to selectively prevent the information and setting panels from being displayed.
+ This flag is only available on tvOS.
+ */
+@property (nonatomic) BOOL showInfoViews API_UNAVAILABLE(ios) API_AVAILABLE(tvos(11.0));
 @end
 
 NS_ASSUME_NONNULL_END
