@@ -34,6 +34,13 @@
         }
         body {
             font-size: 1.2em;
+            /**
+             * Disabling text-size-adjust inside the WebView in order to keep the text size
+             * independent from the viewport.
+             * See the description of https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust
+             * for more information.
+             */
+            -webkit-text-size-adjust: none;
         }
         /* Respect safe area insets to avoid UI element collision. */
         .bmpui-ui-uicontainer .bmpui-ui-controlbar {
