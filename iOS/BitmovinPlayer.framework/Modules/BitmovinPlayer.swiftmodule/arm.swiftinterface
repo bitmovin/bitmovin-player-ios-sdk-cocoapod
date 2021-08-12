@@ -180,6 +180,14 @@ extension _DefaultBufferService : BitmovinPlayer._AVPlayerItemListener {
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
 }
+@_inheritsConvenienceInitializers @objcMembers @objc(BMPBitmovinCastManagerOptions) final public class BitmovinCastManagerOptions : ObjectiveC.NSObject {
+  @objc final public var applicationId: Swift.String?
+  @objc final public var messageNamespace: Swift.String?
+  @objc final public var castReceiverVersion: BitmovinPlayer.GoogleCastReceiverVersion
+  @objc final public var enableBackgroundSessions: Swift.Bool
+  @objc deinit
+  @objc override dynamic public init()
+}
 extension FileManager {
   @objc(_bmp_findPlaylistsAtContentLocation:) dynamic public func _bmp_findPlaylists(contentLocation: Foundation.URL) -> [Swift.String]
 }
@@ -626,6 +634,9 @@ extension _AVPlayerViewControllerProxy : AVKit.AVPlayerViewControllerDelegate {
   @objc deinit
   @objc override dynamic public init(jsonData: [Swift.AnyHashable : Any]) throws
   @objc override dynamic public init()
+}
+@objc(BMPOfflineManagerDelegate) public protocol OfflineManagerDelegate : ObjectiveC.NSObjectProtocol {
+  @objc optional func offlineManagerDidRestoreSuspendedDownloads(_ offlineManager: BitmovinPlayer.OfflineManager)
 }
 extension SourceItem {
   @objc dynamic public var bmp_uniqueIdentifier: Swift.String? {

@@ -15,6 +15,7 @@
 #import <BitmovinPlayer/BMPDownloadConfiguration.h>
 
 @class BMPOfflineConfiguration;
+@protocol BMPOfflineManagerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -67,6 +68,17 @@ NS_SWIFT_NAME(OfflineManager)
  * Default is `NO`.
  */
 @property (nonatomic, assign) BOOL restrictMediaDownloadsToWiFi;
+
+/**
+ Indicates if the `OfflineManager` has finished restoring suspended downloads.
+ @warning Any `resume` or `cancel` actions triggered before this returns `true` are not guaranteed and might result in unexpected behaviour.
+ */
+@property (nonatomic, readonly) BOOL areSuspendedDownloadsRestored;
+
+/**
+ The delegate for the `OfflineManager`
+ */
+@property (nonatomic, weak) id<BMPOfflineManagerDelegate> delegate;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

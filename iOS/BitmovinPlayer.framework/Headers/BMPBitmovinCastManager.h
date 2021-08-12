@@ -16,6 +16,7 @@
 @class GCKMediaMetadata;
 @class GCKDevice;
 @class GCKCastChannel;
+@class BMPBitmovinCastManagerOptions;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,29 +48,43 @@ __TVOS_PROHIBITED
 + (instancetype)new NS_UNAVAILABLE;
 + (instancetype)sharedInstance;
 + (BOOL)isInitialized;
-/// Uses Bitmovin v2 receiver by default
+/**
+ Uses Bitmovin v2 receiver by default
+ */
 + (void)initializeCasting;
-/// Uses Bitmovin v2 or v3 receiver based on castReceiverVersion
-/// @param castReceiverVersion version of receiver
-+ (void)initializeCasting:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(castReceiverVersion:));
-/// Uses given receiver app and assumes it is v2
-/// @param applicationId ID of receiver application
-/// @param messageNamespace Custom namespace
+/**
+ Uses Bitmovin v2 or v3 receiver based on castReceiverVersion
+ @param castReceiverVersion version of receiver
+ */
++ (void)initializeCasting:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(castReceiverVersion:)) __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(options:) instead.");
+/**
+ Uses given receiver app and assumes it is v2
+ @param applicationId ID of receiver application
+ @param messageNamespace Custom namespace
+ */
 + (void)initializeCasting:(NSString *)applicationId
-         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:messageNamespace:)) __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(applicationId:castReceiverVersion:messageNamespace:) instead.");
-/// Uses given receiver app with given receiver version
-/// @param applicationId ID of receiver application
-/// @param castReceiverVersion version of receiver
+         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:messageNamespace:))  __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(options:) instead.");
+/**
+ Uses given receiver app with given receiver version
+ @param applicationId ID of receiver application
+ @param castReceiverVersion version of receiver
+ */
 + (void)initializeCasting:(NSString *)applicationId
-      castReceiverVersion:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:));
-/// Uses given receiver app with given receiver version and namespace
-/// @param applicationId ID of receiver application
-/// @param castReceiverVersion version of receiver
-/// @param messageNamespace Custom namespace
+      castReceiverVersion:(BMPGoogleCastReceiverVersion)castReceiverVersion NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:)) __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(options:) instead.");
+/**
+ Uses given receiver app with given receiver version and namespace
+ @param applicationId ID of receiver application
+ @param castReceiverVersion version of receiver
+ @param messageNamespace Custom namespace
+ */
 + (void)initializeCasting:(NSString *)applicationId
       castReceiverVersion:(BMPGoogleCastReceiverVersion)castReceiverVersion
-         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:messageNamespace:));
-
+         messageNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(initializeCasting(applicationId:castReceiverVersion:messageNamespace:))  __deprecated_msg("Use BMPBitmovinCastManager#initializeCasting(options:) instead.");
+/**
+ Initialize `BitmovinCastManager` based on the provided `BitmovinCastManagerOptions`.
+ @param options `BMPBitmovinCastManagerOptions` to use for initializing `BMPBitmovinCastManager`
+ */
++ (void)initializeCastingWithOptions:(BMPBitmovinCastManagerOptions *)options NS_SWIFT_NAME(initializeCasting(options:));
 - (void)prepareWithMediaInformation:(GCKMediaInformation *)mediaInformation NS_SWIFT_NAME(prepare(mediaInformation:));
 - (void)loadMedia;
 - (void)loadMedia:(BOOL)autoplay NS_SWIFT_NAME(loadMedia(autoplay:));
@@ -88,7 +103,7 @@ __TVOS_PROHIBITED
 
  @param message The message to send.
  @return true if the message could be sent successfully.
-*/
+ */
 - (BOOL)sendMessage:(NSString *)message NS_SWIFT_NAME(sendMessage(_:));
 /**
  Sends the given message to the cast receiver on the provided namespace.
@@ -97,7 +112,7 @@ __TVOS_PROHIBITED
  @param message The message to send.
  @param messageNamespace The namespace the message should be send on.
  @return true if the message could be sent successfully.
-*/
+ */
 - (BOOL)sendMessage:(NSString *)message withNamespace:(nullable NSString *)messageNamespace NS_SWIFT_NAME(sendMessage(_:withNamespace:));
 /**
  Sends the given metadata wrapped in a metadata message object to the cast receiver on the configured message namespace.
@@ -105,7 +120,7 @@ __TVOS_PROHIBITED
 
  @param metadata The metadata to send. Must be serializable using NSJSONSerialization.
  @return true if the message could be sent successfully.
-*/
+ */
 - (BOOL)sendMetadata:(NSDictionary *)metadata NS_SWIFT_NAME(send(metadata:));
 @end
 

@@ -396,6 +396,28 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+/// The options to be used for initializing <code>BitmovinCastManager</code>
+SWIFT_CLASS_NAMED("BitmovinCastManagerOptions")
+@interface BMPBitmovinCastManagerOptions : NSObject
+/// ID of receiver application
+/// Using <code>nil</code> value will result in using the default application ID
+@property (nonatomic, copy) NSString * _Nullable applicationId;
+/// Custom namespace
+/// Using <code>nil</code> value will result in using the default message namespace
+@property (nonatomic, copy) NSString * _Nullable messageNamespace;
+/// Version of receiver
+/// Default value is v2 receiver
+@property (nonatomic) BMPGoogleCastReceiverVersion _Nonnull castReceiverVersion;
+/// Whether sessions should be suspended when the sender application goes into the background
+/// This flag should be used in case the cast session should stay connected to the application
+/// when the application moves to background.
+/// This enables actions on the active cast session like <code>play</code>, <code>pause</code> when the app is in background.
+/// Default is <code>false</code>
+@property (nonatomic) BOOL enableBackgroundSessions;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Holds different information about the buffer levels.
 SWIFT_CLASS_NAMED("BufferLevel")
 @interface BMPBufferLevel : NSObject
@@ -555,6 +577,22 @@ SWIFT_CLASS_NAMED("OfflineConfiguration")
 @property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class BMPOfflineManager;
+
+/// Protocol for delegate for the OfflineManager.
+SWIFT_PROTOCOL_NAMED("OfflineManagerDelegate")
+@protocol BMPOfflineManagerDelegate <NSObject>
+@optional
+/// Is called when the <code>OfflineManager</code> finishes restoring all suspended downloads.
+/// Restoring is triggered when initializing the <code>OfflineManager</code> in case some downloads are still pending.
+/// warning:
+/// Any <code>resume</code> or <code>cancel</code> actions triggered before this method gets called are not
+/// guaranteed and might result in unexpected behaviour.
+/// \param offlineManager The <code>OfflineManager</code> calling the delegate.
+///
+- (void)offlineManagerDidRestoreSuspendedDownloads:(BMPOfflineManager * _Nonnull)offlineManager;
 @end
 
 
@@ -1432,13 +1470,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -2187,6 +2225,28 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+/// The options to be used for initializing <code>BitmovinCastManager</code>
+SWIFT_CLASS_NAMED("BitmovinCastManagerOptions")
+@interface BMPBitmovinCastManagerOptions : NSObject
+/// ID of receiver application
+/// Using <code>nil</code> value will result in using the default application ID
+@property (nonatomic, copy) NSString * _Nullable applicationId;
+/// Custom namespace
+/// Using <code>nil</code> value will result in using the default message namespace
+@property (nonatomic, copy) NSString * _Nullable messageNamespace;
+/// Version of receiver
+/// Default value is v2 receiver
+@property (nonatomic) BMPGoogleCastReceiverVersion _Nonnull castReceiverVersion;
+/// Whether sessions should be suspended when the sender application goes into the background
+/// This flag should be used in case the cast session should stay connected to the application
+/// when the application moves to background.
+/// This enables actions on the active cast session like <code>play</code>, <code>pause</code> when the app is in background.
+/// Default is <code>false</code>
+@property (nonatomic) BOOL enableBackgroundSessions;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Holds different information about the buffer levels.
 SWIFT_CLASS_NAMED("BufferLevel")
 @interface BMPBufferLevel : NSObject
@@ -2346,6 +2406,22 @@ SWIFT_CLASS_NAMED("OfflineConfiguration")
 @property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class BMPOfflineManager;
+
+/// Protocol for delegate for the OfflineManager.
+SWIFT_PROTOCOL_NAMED("OfflineManagerDelegate")
+@protocol BMPOfflineManagerDelegate <NSObject>
+@optional
+/// Is called when the <code>OfflineManager</code> finishes restoring all suspended downloads.
+/// Restoring is triggered when initializing the <code>OfflineManager</code> in case some downloads are still pending.
+/// warning:
+/// Any <code>resume</code> or <code>cancel</code> actions triggered before this method gets called are not
+/// guaranteed and might result in unexpected behaviour.
+/// \param offlineManager The <code>OfflineManager</code> calling the delegate.
+///
+- (void)offlineManagerDidRestoreSuspendedDownloads:(BMPOfflineManager * _Nonnull)offlineManager;
 @end
 
 
@@ -3223,13 +3299,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -3981,6 +4057,28 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+/// The options to be used for initializing <code>BitmovinCastManager</code>
+SWIFT_CLASS_NAMED("BitmovinCastManagerOptions")
+@interface BMPBitmovinCastManagerOptions : NSObject
+/// ID of receiver application
+/// Using <code>nil</code> value will result in using the default application ID
+@property (nonatomic, copy) NSString * _Nullable applicationId;
+/// Custom namespace
+/// Using <code>nil</code> value will result in using the default message namespace
+@property (nonatomic, copy) NSString * _Nullable messageNamespace;
+/// Version of receiver
+/// Default value is v2 receiver
+@property (nonatomic) BMPGoogleCastReceiverVersion _Nonnull castReceiverVersion;
+/// Whether sessions should be suspended when the sender application goes into the background
+/// This flag should be used in case the cast session should stay connected to the application
+/// when the application moves to background.
+/// This enables actions on the active cast session like <code>play</code>, <code>pause</code> when the app is in background.
+/// Default is <code>false</code>
+@property (nonatomic) BOOL enableBackgroundSessions;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Holds different information about the buffer levels.
 SWIFT_CLASS_NAMED("BufferLevel")
 @interface BMPBufferLevel : NSObject
@@ -4140,6 +4238,22 @@ SWIFT_CLASS_NAMED("OfflineConfiguration")
 @property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class BMPOfflineManager;
+
+/// Protocol for delegate for the OfflineManager.
+SWIFT_PROTOCOL_NAMED("OfflineManagerDelegate")
+@protocol BMPOfflineManagerDelegate <NSObject>
+@optional
+/// Is called when the <code>OfflineManager</code> finishes restoring all suspended downloads.
+/// Restoring is triggered when initializing the <code>OfflineManager</code> in case some downloads are still pending.
+/// warning:
+/// Any <code>resume</code> or <code>cancel</code> actions triggered before this method gets called are not
+/// guaranteed and might result in unexpected behaviour.
+/// \param offlineManager The <code>OfflineManager</code> calling the delegate.
+///
+- (void)offlineManagerDidRestoreSuspendedDownloads:(BMPOfflineManager * _Nonnull)offlineManager;
 @end
 
 
@@ -5017,13 +5131,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
@@ -5772,6 +5886,28 @@ SWIFT_CLASS_NAMED("AudioAddedEvent")
 
 
 
+/// The options to be used for initializing <code>BitmovinCastManager</code>
+SWIFT_CLASS_NAMED("BitmovinCastManagerOptions")
+@interface BMPBitmovinCastManagerOptions : NSObject
+/// ID of receiver application
+/// Using <code>nil</code> value will result in using the default application ID
+@property (nonatomic, copy) NSString * _Nullable applicationId;
+/// Custom namespace
+/// Using <code>nil</code> value will result in using the default message namespace
+@property (nonatomic, copy) NSString * _Nullable messageNamespace;
+/// Version of receiver
+/// Default value is v2 receiver
+@property (nonatomic) BMPGoogleCastReceiverVersion _Nonnull castReceiverVersion;
+/// Whether sessions should be suspended when the sender application goes into the background
+/// This flag should be used in case the cast session should stay connected to the application
+/// when the application moves to background.
+/// This enables actions on the active cast session like <code>play</code>, <code>pause</code> when the app is in background.
+/// Default is <code>false</code>
+@property (nonatomic) BOOL enableBackgroundSessions;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// Holds different information about the buffer levels.
 SWIFT_CLASS_NAMED("BufferLevel")
 @interface BMPBufferLevel : NSObject
@@ -5931,6 +6067,22 @@ SWIFT_CLASS_NAMED("OfflineConfiguration")
 @property (nonatomic, readonly) BOOL restrictMediaDownloadsToWiFi;
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithRestrictMediaDownloadsToWiFi:(BOOL)restrictMediaDownloadsToWiFi OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class BMPOfflineManager;
+
+/// Protocol for delegate for the OfflineManager.
+SWIFT_PROTOCOL_NAMED("OfflineManagerDelegate")
+@protocol BMPOfflineManagerDelegate <NSObject>
+@optional
+/// Is called when the <code>OfflineManager</code> finishes restoring all suspended downloads.
+/// Restoring is triggered when initializing the <code>OfflineManager</code> in case some downloads are still pending.
+/// warning:
+/// Any <code>resume</code> or <code>cancel</code> actions triggered before this method gets called are not
+/// guaranteed and might result in unexpected behaviour.
+/// \param offlineManager The <code>OfflineManager</code> calling the delegate.
+///
+- (void)offlineManagerDidRestoreSuspendedDownloads:(BMPOfflineManager * _Nonnull)offlineManager;
 @end
 
 
@@ -6808,13 +6960,13 @@ SWIFT_CLASS_NAMED("_DefaultVideoService")
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
-- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
+- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
 @end
 
 
-@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerItemListener>
-- (void)playerItemDidReceiveNewAccessLogEntry:(_BMPAVPlayerItem * _Nonnull)playerItem;
+@interface _BMPDefaultVideoService (SWIFT_EXTENSION(BitmovinPlayer)) <_BMPAVPlayerObserver>
+- (void)player:(_BMPAVPlayer * _Nonnull)player didChangeCurrentItem:(_BMPAVPlayerItem * _Nullable)oldItem newItem:(_BMPAVPlayerItem * _Nullable)newItem;
 @end
 
 @class _BMPMasterPlaylistLoadedEvent;
