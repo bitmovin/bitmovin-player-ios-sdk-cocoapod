@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(PlayerView)
 @interface BMPPlayerView : UIView
-@property (nullable, nonatomic, strong) BMPBitmovinPlayer *player;
+@property (nullable, nonatomic, strong) BMPBitmovinPlayer* player;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;

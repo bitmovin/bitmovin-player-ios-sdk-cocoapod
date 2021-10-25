@@ -655,6 +655,10 @@ extension SourceItem {
   @objc var playerView: UIKit.UIView? { get set }
   @objc func handleSubViewOrdering()
 }
+@_hasMissingDesignatedInitializers public class PlayerFactory {
+  public static func create(playerConfiguration: BitmovinPlayer.PlayerConfiguration = PlayerConfiguration()) -> BitmovinPlayer.Player
+  @objc deinit
+}
 @objc @_inheritsConvenienceInitializers final public class PictureInPictureEnteredEvent : BitmovinPlayer.PlayerEvent {
   @objc override final public var name: Swift.String {
     @objc get

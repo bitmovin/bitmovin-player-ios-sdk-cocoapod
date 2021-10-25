@@ -7,10 +7,11 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-#import <BitmovinPlayer/BMPPlayerConfiguration.h>
 #import <BitmovinPlayer/BMPPlayerAPI.h>
 #import <BitmovinPlayer/BMPPlayerEventHandler.h>
 #import <BitmovinPlayer/BMPRemoteControlAPI.h>
+#import <BitmovinPlayer/BMPPlayerConfiguration.h>
+#import <BitmovinPlayer/_BMPIntegrationLanguage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 NS_SWIFT_NAME(Player)
 @interface BMPBitmovinPlayer : NSObject <BMPPlayerAPI, BMPPlayerEventHandler, BMPRemoteControlAPI>
-- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration;
+- (instancetype)init __deprecated_msg("Use BMPPlayerFactory#create() instead. This will be removed in v3.");
++ (instancetype)new __deprecated_msg("Use BMPPlayerFactory#create() instead. This will be removed in v3.");
+- (instancetype)initWithConfiguration:(BMPPlayerConfiguration *)configuration __deprecated_msg("Use BMPPlayerFactory#createWithPlayerConfiguration(playerConfiguration:) instead. This will be removed in v3.");
 @end
 
 NS_ASSUME_NONNULL_END

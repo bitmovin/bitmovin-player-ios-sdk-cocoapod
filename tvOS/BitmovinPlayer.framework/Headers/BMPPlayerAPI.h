@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BitmovinPlayer/BMPPlayerConfiguration.h>
 #import <AVKit/AVKit.h>
+#import <BitmovinPlayer/BMPPlayerConfiguration.h>
 #import <BitmovinPlayer/BMPSubtitleTrack.h>
 #import <BitmovinPlayer/BMPAudioTrack.h>
 #import <BitmovinPlayer/BMPVideoQuality.h>

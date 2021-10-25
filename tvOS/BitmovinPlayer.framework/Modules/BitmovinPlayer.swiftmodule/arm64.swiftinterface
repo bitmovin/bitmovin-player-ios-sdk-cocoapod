@@ -286,6 +286,10 @@ extension _SystemUiScalingModeService : BitmovinPlayer._AVPlayerViewControllerLi
   @objc(bufferAPI_getLevel:) func bufferAPI_getLevel(type: BitmovinPlayer.BufferType) -> BitmovinPlayer.BufferLevel
   @objc(bufferAPI_setTargetLevel:) func bufferAPI_setTargetLevel(value: Foundation.TimeInterval)
 }
+@_hasMissingDesignatedInitializers public class PlayerFactory {
+  public static func create(playerConfiguration: BitmovinPlayer.PlayerConfiguration = PlayerConfiguration()) -> BitmovinPlayer.Player
+  @objc deinit
+}
 @objc(_BMPLogLevel) public enum _LogLevel : Swift.Int {
   case verbose = 0
   case info
